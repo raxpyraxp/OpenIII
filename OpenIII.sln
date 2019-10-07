@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenIII", "OpenIII\OpenIII.csproj", "{B59C96FE-5EBB-49EB-AE64-CC0EC6FFBF61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B59C96FE-5EBB-49EB-AE64-CC0EC6FFBF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59C96FE-5EBB-49EB-AE64-CC0EC6FFBF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59C96FE-5EBB-49EB-AE64-CC0EC6FFBF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59C96FE-5EBB-49EB-AE64-CC0EC6FFBF61}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2119AF94-2EC9-4024-BD62-800C9039A034}
+	EndGlobalSection
+EndGlobal
