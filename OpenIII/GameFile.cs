@@ -8,7 +8,7 @@ namespace OpenIII {
         public string filePath;
     }
 
-    class App {
+    /*class App {
         static void Main() {
             TextFile file = new TextFile();
 
@@ -22,5 +22,5 @@ namespace OpenIII {
                 }
             });
         }
-    }
+    }*/
 }
