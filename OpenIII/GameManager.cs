@@ -28,17 +28,17 @@ namespace OpenIII
 
         public static bool isGta3(string path)
         {
-            return File.Exists(path + @"\gta3.exe");
+            return File.Exists(Path.Combine(path, "gta3.exe"));
         }
 
         public static bool isGtaVC(string path)
         {
-            return File.Exists(path + @"\gta-vc.exe");
+            return File.Exists(Path.Combine(path, "gta-vc.exe"));
         }
 
         public static bool isGtaSA(string path)
         {
-            return File.Exists(path + @"\gta-sa.exe");
+            return File.Exists(Path.Combine(path, "gta-sa.exe"));
         }
     }
 }
