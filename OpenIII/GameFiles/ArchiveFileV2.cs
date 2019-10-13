@@ -52,7 +52,7 @@ namespace OpenIII.GameFiles
 
         private long readTotalFilesFromImg()
         {
-            FileStream fileImg = new FileStream(Path, FileMode.Open, FileAccess.Read);
+            FileStream fileImg = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
             int read = 1;
             int totalFiles = 0;
 
@@ -71,7 +71,7 @@ namespace OpenIII.GameFiles
         {
             long filesCount = readTotalFilesFromImg();
 
-            FileStream imgFile = new FileStream(Path, FileMode.Open, FileAccess.Read);
+            FileStream imgFile = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();
             int read = 1;
 

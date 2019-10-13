@@ -5,12 +5,12 @@ namespace OpenIII.GameFiles
 {
     public class GameFile
     {
-        public string Path { get; }
-        public string Extension { get => getExtension(Path); }
+        public string FilePath { get; }
+        public string Extension { get => getExtension(FilePath); }
 
         public GameFile(string path)
         {
-            this.Path = path;
+            FilePath = path;
         }
 
         public static GameFile createInstance(string path)
