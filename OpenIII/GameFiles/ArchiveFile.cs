@@ -16,6 +16,28 @@ namespace OpenIII.GameFiles
     {
         public static int SECTOR_SIZE = 2048;
         
+        // Both v1 and v2
+        public static int OFFSET_ENTRY_BYTE_SIZE = 4;
+        public static int FILENAME_ENTRY_BYTE_SIZE = 24;
+
+        // v1 only
+        public static int V1_SIZE_ENTRY_BYTE_SIZE = 4;
+
+        // v2 only
+        public static int V2_SIZE_ENTRY_BYTE_SIZE = 2;
+        public static int STREAMING_ENTRY_BYTE_SIZE = 2;
+
+        public static int DIR_ENTRY_SIZE = 
+            OFFSET_ENTRY_BYTE_SIZE + 
+            FILENAME_ENTRY_BYTE_SIZE + 
+            V1_SIZE_ENTRY_BYTE_SIZE;
+
+        // v2 header
+        public static int VERSION_SIZE = 4;
+        public static int NUMBER_OF_ENTRIES_SIZE = 4;
+
+        public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
+
         public ArchiveFileVersion ImgVersion { get; private set; }
 
         public long TotalFiles
@@ -61,7 +83,7 @@ namespace OpenIII.GameFiles
             int read = 1;
             string versionHeader = "";
 
-            byte[] versionBuf = new byte[4];
+            byte[] versionBuf = new byte[VERSION_SIZE];
             read = fileImg.Read(versionBuf, 0, versionBuf.Length);
             versionHeader = Encoding.ASCII.GetString(versionBuf);
 
@@ -75,7 +97,7 @@ namespace OpenIII.GameFiles
         private long calculateTotalFilesFromDir()
         {
             FileInfo info = new FileInfo(getDirFile());
-            return info.Length / 32;
+            return info.Length / DIR_ENTRY_SIZE;
         }
 
         private long readTotalFilesFromImg()
@@ -84,9 +106,9 @@ namespace OpenIII.GameFiles
             int read = 1;
             int totalFiles = 0;
 
-            fileImg.Seek(4, SeekOrigin.Begin);
+            fileImg.Seek(VERSION_SIZE, SeekOrigin.Begin);
 
-            byte[] totalFilesBuf = new byte[4];
+            byte[] totalFilesBuf = new byte[NUMBER_OF_ENTRIES_SIZE];
             read = fileImg.Read(totalFilesBuf, 0, totalFilesBuf.Length);
             totalFiles = BitConverter.ToInt32(totalFilesBuf, 0);
 
@@ -116,15 +138,15 @@ namespace OpenIII.GameFiles
 
             while (read > 0)
             {
-                byte[] offsetBuf = new byte[4];
+                byte[] offsetBuf = new byte[OFFSET_ENTRY_BYTE_SIZE];
                 read = dirFile.Read(offsetBuf, 0, offsetBuf.Length);
                 int offset = BitConverter.ToInt32(offsetBuf, 0) * SECTOR_SIZE;
 
-                byte[] sizeBuf = new byte[4];
+                byte[] sizeBuf = new byte[V1_SIZE_ENTRY_BYTE_SIZE];
                 read = dirFile.Read(sizeBuf, 0, sizeBuf.Length);
                 int size = BitConverter.ToInt32(sizeBuf, 0) * SECTOR_SIZE;
 
-                byte[] nameBuf = new byte[24];
+                byte[] nameBuf = new byte[FILENAME_ENTRY_BYTE_SIZE];
                 read = dirFile.Read(nameBuf, 0, nameBuf.Length);
                 string filename = Encoding.ASCII.GetString(nameBuf);
 
@@ -148,24 +170,24 @@ namespace OpenIII.GameFiles
             int read = 1;
 
             // Skipping header
-            imgFile.Seek(8, SeekOrigin.Begin);
+            imgFile.Seek(HEADER_SIZE, SeekOrigin.Begin);
 
             while (read > 0 && filesCount > fileList.Count)
             {
-                byte[] offsetBuf = new byte[4];
+                byte[] offsetBuf = new byte[OFFSET_ENTRY_BYTE_SIZE];
                 read = imgFile.Read(offsetBuf, 0, offsetBuf.Length);
                 int offset = BitConverter.ToInt32(offsetBuf, 0) * SECTOR_SIZE;
 
-                byte[] streamingSize = new byte[2];
+                byte[] streamingSize = new byte[STREAMING_ENTRY_BYTE_SIZE];
                 read = imgFile.Read(streamingSize, 0, streamingSize.Length);
                 int size = BitConverter.ToInt16(streamingSize, 0) * SECTOR_SIZE;
 
-                byte[] sizeInArchiveBuf = new byte[2];
+                byte[] sizeInArchiveBuf = new byte[V2_SIZE_ENTRY_BYTE_SIZE];
                 read = imgFile.Read(sizeInArchiveBuf, 0, sizeInArchiveBuf.Length);
                 // It was never used in production game release, so we just skip this for now
                 //int size = BitConverter.ToInt16(sizeInArchiveBuf, 0) * SECTOR_SIZE;
 
-                byte[] nameBuf = new byte[24];
+                byte[] nameBuf = new byte[FILENAME_ENTRY_BYTE_SIZE];
                 read = imgFile.Read(nameBuf, 0, nameBuf.Length);
                 string filename = Encoding.ASCII.GetString(nameBuf);
 
