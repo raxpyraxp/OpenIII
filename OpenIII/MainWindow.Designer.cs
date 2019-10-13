@@ -44,6 +44,7 @@
             this.fileListView.TabIndex = 0;
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
+            this.fileListView.DoubleClick += new System.EventHandler(this.fileListView_DoubleClick);
             // 
             // fileTreeView
             // 

@@ -16,5 +16,10 @@ namespace OpenIII.GameFiles
             this.filename = filename;
             this.parentFile = parentFile;
         }
+
+        public void extract(String destinationPath)
+        {
+            parentFile.extractFile(this, destinationPath);
+        }
     }
 }

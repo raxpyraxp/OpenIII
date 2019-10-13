@@ -28,7 +28,18 @@ namespace OpenIII
 
             foreach (ArchiveEntry entry in list)
             {
-                fileListView.Items.Add(entry.filename);
+                ListViewItem item = new ListViewItem(entry.filename);
+                item.Tag = entry;
+                fileListView.Items.Add(item);
+            }
+        }
+
+        private void fileListView_DoubleClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in fileListView.SelectedItems)
+            {
+                ArchiveEntry entry = (ArchiveEntry)item.Tag;
+                entry.extract(@"D:\Documents\" + entry.filename);
             }
         }
     }
