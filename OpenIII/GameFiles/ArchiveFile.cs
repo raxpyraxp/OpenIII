@@ -18,14 +18,14 @@ namespace OpenIII.GameFiles
         
         public ArchiveFileVersion ImgVersion { get; private set; }
 
-        public int TotalFiles
+        public long TotalFiles
         {
             get
             {
                 switch (ImgVersion)
                 {
                     case ArchiveFileVersion.V1:
-                        return -1;
+                        return calculateTotalFilesFromDir();
                     case ArchiveFileVersion.V2:
                         return readTotalFilesFromImg();
                     default:
@@ -72,7 +72,13 @@ namespace OpenIII.GameFiles
                 ArchiveFileVersion.Unknown;
         }
 
-        private int readTotalFilesFromImg()
+        private long calculateTotalFilesFromDir()
+        {
+            FileInfo info = new FileInfo(getDirFile());
+            return info.Length / 32;
+        }
+
+        private long readTotalFilesFromImg()
         {
             FileStream fileImg = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             int read = 1;
@@ -135,7 +141,7 @@ namespace OpenIII.GameFiles
 
         public List<ArchiveEntry> readImgFileListV2()
         {
-            int filesCount = readTotalFilesFromImg();
+            long filesCount = readTotalFilesFromImg();
 
             FileStream imgFile = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();

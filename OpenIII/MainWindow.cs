@@ -20,6 +20,7 @@ namespace OpenIII
 
             archiveFile = file;
             SetListView(archiveFile.readImgFileList());
+            SetTotalFiles(archiveFile.TotalFiles);
         }
 
         public void SetListView(List<ArchiveEntry> list)
@@ -32,6 +33,11 @@ namespace OpenIII
                 item.Tag = entry;
                 fileListView.Items.Add(item);
             }
+        }
+
+        public void SetTotalFiles(long totalFiles)
+        {
+            totalFilesLabel.Text = totalFiles.ToString();
         }
 
         private void fileListView_DoubleClick(object sender, EventArgs e)
