@@ -39,7 +39,7 @@ namespace OpenIII
 
                     listOfRows.ForEach(delegate (String row)
                     {
-                        listOfArrayParams.Add(row.Split(" "));
+                        listOfArrayParams.Add(row.Split(' '));
                     });
 
                     break;
@@ -55,7 +55,7 @@ namespace OpenIII
 
                     listOfRows.ForEach(delegate (String row)
                     {
-                        listOfArrayParams.Add(row.Split(","));
+                        listOfArrayParams.Add(row.Split(','));
                     });
 
                     break;
