@@ -6,7 +6,7 @@ namespace OpenIII
 {
     public class OpenIIIApplicationContext : ApplicationContext
     {
-        public MainWindow mainWindow;
+        public FileBrowserWindow fileBrowserWindow;
         //public SetGamePathWindow setGamePathWindow;
 
         public OpenIIIApplicationContext()
@@ -32,9 +32,9 @@ namespace OpenIII
             ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\Grand Theft Auto Vice City\models\gta3.img");
             //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\SteamLibrary\steamapps\common\Grand Theft Auto San Andreas\models\gta3.img");
 
-            mainWindow = new MainWindow(img);
-            mainWindow.FormClosed += onFileBrowserWindowClosed;
-            mainWindow.Show();
+            fileBrowserWindow = new FileBrowserWindow(img);
+            fileBrowserWindow.FormClosed += onFileBrowserWindowClosed;
+            fileBrowserWindow.Show();
         }
 
         public void showGamePathWindow()

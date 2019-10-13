@@ -1,6 +1,6 @@
 ﻿namespace OpenIII
 {
-    partial class MainWindow
+    partial class FileBrowserWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.fileListView.TabIndex = 0;
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
-            this.fileListView.DoubleClick += new System.EventHandler(this.fileListView_DoubleClick);
+            this.fileListView.DoubleClick += new System.EventHandler(this.fileListViewDoubleClick);
             // 
             // fileTreeView
             // 

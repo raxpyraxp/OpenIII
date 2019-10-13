@@ -5,11 +5,11 @@ using OpenIII.GameFiles;
 
 namespace OpenIII
 {
-    public partial class MainWindow : Form
+    public partial class FileBrowserWindow : Form
     {
         private ArchiveFile archiveFile;
 
-        public MainWindow(ArchiveFile file)
+        public FileBrowserWindow(ArchiveFile file)
         {
             InitializeComponent();
 
@@ -35,7 +35,7 @@ namespace OpenIII
             totalFilesLabel.Text = totalFiles.ToString();
         }
 
-        private void fileListView_DoubleClick(object sender, EventArgs e)
+        private void fileListViewDoubleClick(object sender, EventArgs e)
         {
             foreach (ListViewItem item in fileListView.SelectedItems)
             {
