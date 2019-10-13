@@ -7,6 +7,8 @@ namespace OpenIII.GameFiles
 {
     public class TextFile : GameFile
     {
+        public TextFile(string filePath) : base(filePath) { }
+
         public List<String[]> ParseData(string path)
         {
             string iteratableLine;

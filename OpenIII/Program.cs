@@ -17,7 +17,7 @@ namespace OpenIII
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ArchiveFile img = new ArchiveFile();
+            ArchiveFile img = new ArchiveFile(@"D:\Games\Grand Theft Auto Vice City\models\gta3.img");
 
             Application.Run(new MainWindow(img));
         }

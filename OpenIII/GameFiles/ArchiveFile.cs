@@ -7,12 +7,17 @@ namespace OpenIII.GameFiles
 {
     public class ArchiveFile : GameFile
     {
-        public String pathToFile = @"D:\Games\Grand Theft Auto Vice City\models\gta3.img";
-        public String pathToFileDir = @"D:\Games\Grand Theft Auto Vice City\models\gta3.dir";
+        public ArchiveFile(string filePath) : base(filePath) {}
+
+        private string getDirFile()
+        {
+            // Just replace extension to dir in the original file path
+            return this.filePath.Remove(this.filePath.Length - 3) + "dir";
+        }
 
         public List<ArchiveEntry> parseFileNames()
         {
-            FileStream fileDir = new FileStream(pathToFileDir, FileMode.Open, FileAccess.Read);
+            FileStream fileDir = new FileStream(getDirFile(), FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();
             int read = 1;
 

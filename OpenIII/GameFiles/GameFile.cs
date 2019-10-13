@@ -5,7 +5,12 @@ namespace OpenIII.GameFiles
 {
     public class GameFile
     {
-        public string filePath;
+        public string filePath { get; }
+
+        public GameFile(string filePath)
+        {
+            this.filePath = filePath;
+        }
     }
 
     /*class App {
