@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenIII
+namespace OpenIII.GameFiles
 {
     public class ArchiveEntry
     {

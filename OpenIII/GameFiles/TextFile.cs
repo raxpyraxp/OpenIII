@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace OpenIII
+namespace OpenIII.GameFiles
 {
     public class TextFile : GameFile
     {

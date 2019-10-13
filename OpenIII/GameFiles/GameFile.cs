@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 
-namespace OpenIII {
-    public class GameFile {
+namespace OpenIII.GameFiles
+{
+    public class GameFile
+    {
         public string filePath;
     }
 
