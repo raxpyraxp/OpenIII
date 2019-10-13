@@ -19,7 +19,7 @@ namespace OpenIII
             InitializeComponent();
 
             archiveFile = file;
-            SetListView(archiveFile.parseFileNames());
+            SetListView(archiveFile.readImgFileList());
         }
 
         public void SetListView(List<ArchiveEntry> list)
