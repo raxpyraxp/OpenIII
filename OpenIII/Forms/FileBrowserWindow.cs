@@ -8,6 +8,7 @@ namespace OpenIII
     public partial class FileBrowserWindow : Form
     {
         private ArchiveFile archiveFile;
+        private GameDirectory rootDir;
 
         public FileBrowserWindow(ArchiveFile file)
         {
@@ -18,6 +19,13 @@ namespace OpenIII
             SetTotalFiles(archiveFile.TotalFiles);
         }
 
+        public FileBrowserWindow(GameDirectory rootDir)
+        {
+            InitializeComponent();
+
+            SetListView(rootDir.getFiles());
+        }
+
         public void SetListView(List<ArchiveEntry> list)
         {
             fileListView.Items.Clear();
@@ -26,6 +34,18 @@ namespace OpenIII
             {
                 ListViewItem item = new ListViewItem(entry.filename);
                 item.Tag = entry;
+                fileListView.Items.Add(item);
+            }
+        }
+
+        public void SetListView(List<GameFile> list)
+        {
+            fileListView.Items.Clear();
+
+            foreach (GameFile file in list)
+            {
+                ListViewItem item = new ListViewItem(file.Name);
+                item.Tag = file;
                 fileListView.Items.Add(item);
             }
         }

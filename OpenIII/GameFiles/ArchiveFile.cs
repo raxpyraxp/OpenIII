@@ -49,7 +49,7 @@ namespace OpenIII.GameFiles
 
         public void extractFile(ArchiveEntry entry, string destination)
         {
-            FileStream imgFile = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
+            FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
             byte[] buf = new byte[SECTOR_SIZE];
             int bytesLeft = entry.size;

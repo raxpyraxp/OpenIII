@@ -88,6 +88,7 @@
     <Compile Include="GameFiles\ArchiveFile.cs" />
     <Compile Include="GameFiles\ArchiveFileV1.cs" />
     <Compile Include="GameFiles\ArchiveFileV2.cs" />
+    <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GtaPathEventArgs.cs" />

@@ -19,7 +19,7 @@ namespace OpenIII.GameFiles
 
         public override ArchiveFileVersion ImgVersion { get; }
         public override long TotalFiles { get => calculateTotalFilesFromDir(); }
-        public string DirPath { get => getDirFilePath(FilePath); }
+        public string DirPath { get => getDirFilePath(FullPath); }
 
         public ArchiveFileV1(string filePath) : base(filePath)
         {
