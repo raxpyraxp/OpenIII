@@ -6,7 +6,7 @@ using System.IO;
 
 namespace OpenIII
 {
-    public class ArchiveFile
+    public class ArchiveFile : GameFile
     {
         public String pathToFile = @"D:\Games\Grand Theft Auto Vice City\models\gta3.img";
         public String pathToFileDir = @"D:\Games\Grand Theft Auto Vice City\models\gta3.dir";

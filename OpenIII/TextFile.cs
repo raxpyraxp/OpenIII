@@ -6,7 +6,7 @@ using System.IO;
 
 namespace OpenIII
 {
-    class TextFile : GameFile
+    public class TextFile : GameFile
     {
         public List<String[]> ParseData(string path)
         {
