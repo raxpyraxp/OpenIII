@@ -28,8 +28,7 @@ namespace OpenIII.GameFiles
 
         private long calculateTotalFilesFromDir()
         {
-            FileInfo info = new FileInfo(DirPath);
-            return info.Length / DIR_ENTRY_SIZE;
+            return new FileInfo(DirPath).Length / DIR_ENTRY_SIZE;
         }
 
         public static string getDirFilePath(string path)
@@ -43,20 +42,21 @@ namespace OpenIII.GameFiles
             FileStream dirFile = new FileStream(DirPath, FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();
             int read = 1;
+            byte[] buf;
 
             while (read > 0)
             {
-                byte[] offsetBuf = new byte[OFFSET_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(offsetBuf, 0, offsetBuf.Length);
-                int offset = BitConverter.ToInt32(offsetBuf, 0) * SECTOR_SIZE;
+                buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
+                read = dirFile.Read(buf, 0, buf.Length);
+                int offset = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
 
-                byte[] sizeBuf = new byte[SIZE_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(sizeBuf, 0, sizeBuf.Length);
-                int size = BitConverter.ToInt32(sizeBuf, 0) * SECTOR_SIZE;
+                buf = new byte[SIZE_ENTRY_BYTE_SIZE];
+                read = dirFile.Read(buf, 0, buf.Length);
+                int size = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
 
-                byte[] nameBuf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(nameBuf, 0, nameBuf.Length);
-                string filename = Encoding.ASCII.GetString(nameBuf);
+                buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
+                read = dirFile.Read(buf, 0, buf.Length);
+                string filename = Encoding.ASCII.GetString(buf);
 
                 // Remove null-terminate char
                 filename = filename.Remove(filename.IndexOf("\0"));
