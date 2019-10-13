@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenIII")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenIII is an ultimate tool to mod 3D era of GTA PC games")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OpenIII")]
