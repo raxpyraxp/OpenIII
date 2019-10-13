@@ -23,24 +23,22 @@ namespace OpenIII.GameFiles
 
             while (read > 0)
             {
-                ArchiveEntry entry = new ArchiveEntry();
-
                 byte[] offsetBuf = new byte[4];
                 read = fileDir.Read(offsetBuf, 0, offsetBuf.Length);
-                entry.offset = BitConverter.ToInt32(offsetBuf, 0);
+                int offset = BitConverter.ToInt32(offsetBuf, 0);
 
                 byte[] sizeBuf = new byte[4];
                 read = fileDir.Read(sizeBuf, 0, sizeBuf.Length);
-                entry.size = BitConverter.ToInt32(sizeBuf, 0);
+                int size = BitConverter.ToInt32(sizeBuf, 0);
 
                 byte[] nameBuf = new byte[24];
                 read = fileDir.Read(nameBuf, 0, nameBuf.Length);
-                entry.filename = Encoding.ASCII.GetString(nameBuf);
+                string filename = Encoding.ASCII.GetString(nameBuf);
 
                 // Remove null-terminate char
-                entry.filename = entry.filename.Remove(entry.filename.IndexOf("\0"));
+                filename = filename.Remove(filename.IndexOf("\0"));
                 
-                fileList.Add(entry);
+                fileList.Add(new ArchiveEntry(offset, size, filename, this));
             }
 
             return fileList;
