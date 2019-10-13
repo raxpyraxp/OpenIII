@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace OpenIII.GameFiles
@@ -12,199 +11,45 @@ namespace OpenIII.GameFiles
         V2
     }
 
-    public class ArchiveFile : GameFile
+    public abstract class ArchiveFile : GameFile
     {
         public static int SECTOR_SIZE = 2048;
-        
-        // Both v1 and v2
-        public static int OFFSET_ENTRY_BYTE_SIZE = 4;
-        public static int FILENAME_ENTRY_BYTE_SIZE = 24;
 
-        // v1 only
-        public static int V1_SIZE_ENTRY_BYTE_SIZE = 4;
+        public abstract ArchiveFileVersion ImgVersion { get; }
+        public abstract long TotalFiles { get; }
 
-        // v2 only
-        public static int V2_SIZE_ENTRY_BYTE_SIZE = 2;
-        public static int STREAMING_ENTRY_BYTE_SIZE = 2;
+        public ArchiveFile(string filePath) : base(filePath) { }
 
-        public static int DIR_ENTRY_SIZE = 
-            OFFSET_ENTRY_BYTE_SIZE + 
-            FILENAME_ENTRY_BYTE_SIZE + 
-            V1_SIZE_ENTRY_BYTE_SIZE;
+        public abstract List<ArchiveEntry> readImgFileList();
 
-        // v2 header
-        public static int VERSION_SIZE = 4;
-        public static int NUMBER_OF_ENTRIES_SIZE = 4;
-
-        public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
-
-        public ArchiveFileVersion ImgVersion { get; private set; }
-
-        public long TotalFiles
+        public static new ArchiveFile createInstance(string path)
         {
-            get
-            {
-                switch (ImgVersion)
-                {
-                    case ArchiveFileVersion.V1:
-                        return calculateTotalFilesFromDir();
-                    case ArchiveFileVersion.V2:
-                        return readTotalFilesFromImg();
-                    default:
-                        return -1;
-                }
-            }
-        }
-
-        public ArchiveFile(string filePath) : base(filePath)
-        {
-            ImgVersion = readVersionFromImg();
+            ArchiveFileVersion version = ArchiveFileV2.readVersionFromImg(path);
 
             // We've tried to extract the version from the archive file itself in readVersionFromImg().
             // If we've failed, then we're checking if we have a .dir file nearby.
             // That indicates that we deal with V1 archive.
-            if (ImgVersion == ArchiveFileVersion.Unknown)
+            if (version == ArchiveFileVersion.Unknown)
             {
-                ImgVersion = File.Exists(getDirFile()) ?
+                version = File.Exists(ArchiveFileV1.getDirFilePath(path)) ?
                     ArchiveFileVersion.V1 :
                     ArchiveFileVersion.Unknown;
             }
-        }
 
-        private string getDirFile()
-        {
-            // Just replace extension to dir in the original file path
-            return this.filePath.Remove(this.filePath.Length - 3) + "dir";
-        }
-
-        private ArchiveFileVersion readVersionFromImg()
-        {
-            FileStream fileImg = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            int read = 1;
-            string versionHeader = "";
-
-            byte[] versionBuf = new byte[VERSION_SIZE];
-            read = fileImg.Read(versionBuf, 0, versionBuf.Length);
-            versionHeader = Encoding.ASCII.GetString(versionBuf);
-
-            fileImg.Close();
-
-            return versionHeader.IndexOf("VER2") != -1 ?
-                ArchiveFileVersion.V2 :
-                ArchiveFileVersion.Unknown;
-        }
-
-        private long calculateTotalFilesFromDir()
-        {
-            FileInfo info = new FileInfo(getDirFile());
-            return info.Length / DIR_ENTRY_SIZE;
-        }
-
-        private long readTotalFilesFromImg()
-        {
-            FileStream fileImg = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            int read = 1;
-            int totalFiles = 0;
-
-            fileImg.Seek(VERSION_SIZE, SeekOrigin.Begin);
-
-            byte[] totalFilesBuf = new byte[NUMBER_OF_ENTRIES_SIZE];
-            read = fileImg.Read(totalFilesBuf, 0, totalFilesBuf.Length);
-            totalFiles = BitConverter.ToInt32(totalFilesBuf, 0);
-
-            fileImg.Close();
-
-            return totalFiles;
-        }
-
-        public List<ArchiveEntry> readImgFileList()
-        {
-            switch (ImgVersion)
+            switch (version)
             {
                 case ArchiveFileVersion.V1:
-                    return readImgFileListV1();
+                    return new ArchiveFileV1(path);
                 case ArchiveFileVersion.V2:
-                    return readImgFileListV2();
+                    return new ArchiveFileV2(path);
                 default:
-                    return null;
+                    throw new Exception("Invalid archive version");
             }
-        }
-
-        public List<ArchiveEntry> readImgFileListV1()
-        {
-            FileStream dirFile = new FileStream(getDirFile(), FileMode.Open, FileAccess.Read);
-            List<ArchiveEntry> fileList = new List<ArchiveEntry>();
-            int read = 1;
-
-            while (read > 0)
-            {
-                byte[] offsetBuf = new byte[OFFSET_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(offsetBuf, 0, offsetBuf.Length);
-                int offset = BitConverter.ToInt32(offsetBuf, 0) * SECTOR_SIZE;
-
-                byte[] sizeBuf = new byte[V1_SIZE_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(sizeBuf, 0, sizeBuf.Length);
-                int size = BitConverter.ToInt32(sizeBuf, 0) * SECTOR_SIZE;
-
-                byte[] nameBuf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-                read = dirFile.Read(nameBuf, 0, nameBuf.Length);
-                string filename = Encoding.ASCII.GetString(nameBuf);
-
-                // Remove null-terminate char
-                filename = filename.Remove(filename.IndexOf("\0"));
-
-                fileList.Add(new ArchiveEntry(offset, size, filename, this));
-            }
-
-            dirFile.Close();
-
-            return fileList;
-        }
-
-        public List<ArchiveEntry> readImgFileListV2()
-        {
-            long filesCount = readTotalFilesFromImg();
-
-            FileStream imgFile = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            List<ArchiveEntry> fileList = new List<ArchiveEntry>();
-            int read = 1;
-
-            // Skipping header
-            imgFile.Seek(HEADER_SIZE, SeekOrigin.Begin);
-
-            while (read > 0 && filesCount > fileList.Count)
-            {
-                byte[] offsetBuf = new byte[OFFSET_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(offsetBuf, 0, offsetBuf.Length);
-                int offset = BitConverter.ToInt32(offsetBuf, 0) * SECTOR_SIZE;
-
-                byte[] streamingSize = new byte[STREAMING_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(streamingSize, 0, streamingSize.Length);
-                int size = BitConverter.ToInt16(streamingSize, 0) * SECTOR_SIZE;
-
-                byte[] sizeInArchiveBuf = new byte[V2_SIZE_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(sizeInArchiveBuf, 0, sizeInArchiveBuf.Length);
-                // It was never used in production game release, so we just skip this for now
-                //int size = BitConverter.ToInt16(sizeInArchiveBuf, 0) * SECTOR_SIZE;
-
-                byte[] nameBuf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(nameBuf, 0, nameBuf.Length);
-                string filename = Encoding.ASCII.GetString(nameBuf);
-
-                // Remove null-terminate char
-                filename = filename.Remove(filename.IndexOf("\0"));
-
-                fileList.Add(new ArchiveEntry(offset, size, filename, this));
-            }
-
-            imgFile.Close();
-
-            return fileList;
         }
 
         public void extractFile(ArchiveEntry entry, string destination)
         {
-            FileStream imgFile = new FileStream(this.filePath, FileMode.Open, FileAccess.Read);
+            FileStream imgFile = new FileStream(Path, FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
             byte[] buf = new byte[SECTOR_SIZE];
             int bytesLeft = entry.size;

@@ -5,11 +5,28 @@ namespace OpenIII.GameFiles
 {
     public class GameFile
     {
-        public string filePath { get; }
+        public string Path { get; }
+        public string Extension { get => getExtension(Path); }
 
-        public GameFile(string filePath)
+        public GameFile(string path)
         {
-            this.filePath = filePath;
+            this.Path = path;
+        }
+
+        public static GameFile createInstance(string path)
+        {
+            switch(getExtension(path))
+            {
+                case "img":
+                    return ArchiveFile.createInstance(path);
+                default:
+                    throw new Exception("Invalid file type");
+            }
+        }
+
+        public static string getExtension(string path)
+        {
+            return new FileInfo(path).Extension;
         }
     }
 

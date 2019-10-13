@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="GameFiles\ArchiveEntry.cs" />
     <Compile Include="GameFiles\ArchiveFile.cs" />
+    <Compile Include="GameFiles\ArchiveFileV1.cs" />
+    <Compile Include="GameFiles\ArchiveFileV2.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
