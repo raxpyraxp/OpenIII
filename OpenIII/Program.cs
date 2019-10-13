@@ -15,10 +15,8 @@ namespace OpenIII
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\Grand Theft Auto Vice City\models\gta3.img");
-            //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\SteamLibrary\steamapps\common\Grand Theft Auto San Andreas\models\gta3.img");
-
-            Application.Run(new MainWindow(img));
+            OpenIIIApplicationContext context = new OpenIIIApplicationContext();
+            Application.Run(context);
         }
     }
 }
