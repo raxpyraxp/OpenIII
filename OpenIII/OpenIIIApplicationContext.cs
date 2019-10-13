@@ -7,23 +7,18 @@ namespace OpenIII
     public class OpenIIIApplicationContext : ApplicationContext
     {
         public FileBrowserWindow fileBrowserWindow;
-        //public SetGamePathWindow setGamePathWindow;
+        public SetGamePathWindow setGamePathWindow;
 
         public OpenIIIApplicationContext()
         {
-            // TODO: This is temporary, because form for setting game path is not ready.
-            // When GTAPath changing will be implemented, uncomment this and delete last showFileBrowserWindow call
-
-            /*if (Properties.Settings.Default.GTAPath != "")
+            if (Properties.Settings.Default.GTAPath != "")
             {
                 showFileBrowserWindow();
             }
             else
             {
                 showGamePathWindow();
-            }*/
-
-            showFileBrowserWindow();
+            }
         }
 
         public void showFileBrowserWindow()
@@ -33,27 +28,30 @@ namespace OpenIII
             //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\SteamLibrary\steamapps\common\Grand Theft Auto San Andreas\models\gta3.img");
 
             fileBrowserWindow = new FileBrowserWindow(img);
-            fileBrowserWindow.FormClosed += onFileBrowserWindowClosed;
+            fileBrowserWindow.FormClosed += onClosed;
             fileBrowserWindow.Show();
         }
 
         public void showGamePathWindow()
         {
-            // TODO: Implement game path window setting
-            /*
             setGamePathWindow = new SetGamePathWindow();
-            setGamePathWindow.FormClosed += onGamePathWindowClosed;
+            setGamePathWindow.FormClosed += onClosed;
+            setGamePathWindow.OnCancelled += onClosed;
+            setGamePathWindow.OnGtaPathSet += onGtaPathSet;
             setGamePathWindow.Show();
-            */
         }
 
-        public void onFileBrowserWindowClosed(object s, EventArgs e)
+        public void onClosed(object s, EventArgs e)
         {
             Application.Exit();
         }
 
-        public void onGamePathWindowClosed(object s, EventArgs e)
+        public void onGtaPathSet(object s, GtaPathEventArgs e)
         {
+            Properties.Settings.Default.GTAPath = e.Path;
+            Properties.Settings.Default.Save();
+            setGamePathWindow.FormClosed -= onClosed;
+            setGamePathWindow.Close();
             showFileBrowserWindow();
         }
     }
