@@ -22,8 +22,7 @@ namespace OpenIII.GameFiles
             }
             else
             {
-                Console.WriteLine("Ошибка чтения файла");
-                Environment.Exit(0);
+                throw new Exception("File does not exist!");
             }
 
             // определяем тип обрабатываемого файла
