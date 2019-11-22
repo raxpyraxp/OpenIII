@@ -23,7 +23,8 @@ namespace OpenIII
         {
             InitializeComponent();
 
-            SetListView(rootDir.getFiles());
+            SetFileListView(rootDir.getContent());
+            SetDirListView(rootDir.getDirectories());
         }
 
         public void SetListView(List<ArchiveEntry> list)
@@ -38,17 +39,38 @@ namespace OpenIII
             }
         }
 
-        public void SetListView(List<GameFile> list)
+        public void SetFileListView(List<GameResource> list)
         {
             fileListView.Items.Clear();
 
-            foreach (GameFile file in list)
+            foreach (GameResource resource in list)
             {
-                ListViewItem item = new ListViewItem(file.Name);
-                item.Tag = file;
+                ListViewItem item = new ListViewItem(resource.Name);
+                item.Tag = resource;
                 fileListView.Items.Add(item);
             }
         }
+
+        public void SetDirListView(List<GameDirectory> list)
+        {
+            fileTreeView.Nodes.Clear();
+
+            foreach (GameDirectory dir in list)
+            {
+                TreeNode item = new TreeNode(dir.Name);
+                item.Tag = dir;
+
+                if (dir.getDirectories().Count != 0)
+                {
+                    // To make node expandable we're adding an empty element.
+                    // When user expands it, we're removing this and query the actual child dir list
+                    item.Nodes.Add("");
+                }
+
+                fileTreeView.Nodes.Add(item);
+            }
+        }
+
 
         public void SetTotalFiles(long totalFiles)
         {

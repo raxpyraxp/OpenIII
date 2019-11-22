@@ -6,13 +6,15 @@ using System.IO;
 
 namespace OpenIII.GameFiles
 {
-    public class GameDirectory
+    public class GameDirectory : GameResource
     {
-        public string FullPath { get; }
-
-        public GameDirectory(string path)
+        public GameDirectory(string path) : base(path)
         {
-            FullPath = path;
+        }
+
+        public static new GameDirectory createInstance(string path)
+        {
+            return new GameDirectory(path);
         }
 
         public List<GameFile> getFiles()
@@ -26,6 +28,38 @@ namespace OpenIII.GameFiles
             }
 
             return gameFiles;
+        }
+
+        public List<GameDirectory> getDirectories()
+        {
+            DirectoryInfo rootdir = new DirectoryInfo(FullPath);
+            List<GameDirectory> gameDirectories = new List<GameDirectory>();
+
+            foreach (DirectoryInfo dir in rootdir.GetDirectories())
+            {
+                gameDirectories.Add(GameDirectory.createInstance(dir.FullName));
+            }
+
+            return gameDirectories;
+        }
+
+        public List<GameResource> getContent()
+        {
+            List<GameResource> resources = new List<GameResource>();
+            resources.AddRange(getDirectories());
+            resources.AddRange(getFiles());
+
+            return resources;
+        }
+
+        public override string getName()
+        {
+            return new DirectoryInfo(FullPath).Name;
+        }
+
+        public override string getExtension()
+        {
+            return new DirectoryInfo(FullPath).Extension;
         }
     }
 }

@@ -90,6 +90,7 @@
     <Compile Include="GameFiles\ArchiveFileV2.cs" />
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
+    <Compile Include="GameFiles\GameResource.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GtaPathEventArgs.cs" />
     <Compile Include="OpenIIIApplicationContext.cs" />

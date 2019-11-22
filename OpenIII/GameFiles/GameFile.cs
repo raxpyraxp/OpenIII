@@ -3,18 +3,13 @@ using System.IO;
 
 namespace OpenIII.GameFiles
 {
-    public class GameFile
+    public class GameFile : GameResource
     {
-        public string FullPath { get; }
-        public string Name { get => getName(FullPath); }
-        public string Extension { get => getExtension(FullPath); }
-
-        public GameFile(string path)
+        public GameFile(string path) : base(path)
         {
-            FullPath = path;
         }
 
-        public static GameFile createInstance(string path)
+        public static new GameFile createInstance(string path)
         {
             switch(getExtension(path))
             {
@@ -25,9 +20,14 @@ namespace OpenIII.GameFiles
             }
         }
 
-        public static string getName(string path)
+        public override string getName()
         {
-            return new FileInfo(path).Name;
+            return new FileInfo(FullPath).Name;
+        }
+
+        public override string getExtension()
+        {
+            return new FileInfo(FullPath).Extension;
         }
 
         public static string getExtension(string path)
