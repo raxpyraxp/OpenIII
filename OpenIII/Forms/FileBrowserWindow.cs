@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using OpenIII.GameFiles;
 
@@ -23,6 +24,7 @@ namespace OpenIII
         {
             InitializeComponent();
 
+            this.rootDir = rootDir;
             SetFileListView(rootDir.getContent());
             SetDirListView(rootDir.getDirectories());
         }
@@ -42,11 +44,21 @@ namespace OpenIII
         public void SetFileListView(List<GameResource> list)
         {
             fileListView.Items.Clear();
+            fileListView.SmallImageList = new ImageList();
+            fileListView.LargeImageList = new ImageList();
 
             foreach (GameResource resource in list)
             {
                 ListViewItem item = new ListViewItem(resource.Name);
+                
+                // Determine image key to show icon
+                string imageKey = resource is GameDirectory ? "dir" : "file." + resource.Extension;
+                fileListView.SmallImageList.Images.Add(imageKey, resource.SmallIcon);
+                fileListView.LargeImageList.Images.Add(imageKey, resource.LargeIcon);
+
                 item.Tag = resource;
+                item.ImageKey = imageKey;
+                
                 fileListView.Items.Add(item);
             }
         }
@@ -54,11 +66,15 @@ namespace OpenIII
         public void SetDirListView(List<GameDirectory> list)
         {
             fileTreeView.Nodes.Clear();
+            fileTreeView.ImageList = new ImageList();
+
+            fileTreeView.ImageList.Images.Add("dir", rootDir.SmallIcon);
 
             foreach (GameDirectory dir in list)
             {
                 TreeNode item = new TreeNode(dir.Name);
                 item.Tag = dir;
+                item.ImageKey = "dir";
 
                 if (dir.getDirectories().Count != 0)
                 {
