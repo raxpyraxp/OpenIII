@@ -70,6 +70,13 @@ namespace OpenIII
 
             fileTreeView.ImageList.Images.Add("dir", rootDir.SmallIcon);
 
+            fileTreeView.Nodes.AddRange(GetNodesList(list));
+        }
+
+        public TreeNode[] GetNodesList(List<GameDirectory> list)
+        {
+            List<TreeNode> nodes = new List<TreeNode>();
+
             foreach (GameDirectory dir in list)
             {
                 TreeNode item = new TreeNode(dir.Name);
@@ -83,8 +90,10 @@ namespace OpenIII
                     item.Nodes.Add("");
                 }
 
-                fileTreeView.Nodes.Add(item);
+                nodes.Add(item);
             }
+
+            return nodes.ToArray();
         }
 
 
@@ -100,6 +109,13 @@ namespace OpenIII
                 ArchiveEntry entry = (ArchiveEntry)item.Tag;
                 entry.extract(@"D:\Documents\" + entry.filename);
             }
+        }
+
+        private void fileTreeView_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            GameDirectory dir = (GameDirectory)e.Node.Tag;
+            e.Node.Nodes.Clear();
+            e.Node.Nodes.AddRange(GetNodesList(dir.getDirectories()));
         }
     }
 }

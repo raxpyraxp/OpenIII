@@ -65,6 +65,7 @@
             this.fileTreeView.Name = "fileTreeView";
             this.fileTreeView.Size = new System.Drawing.Size(174, 318);
             this.fileTreeView.TabIndex = 1;
+            this.fileTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.fileTreeView_AfterExpand);
             // 
             // statusStrip1
             // 
