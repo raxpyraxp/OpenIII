@@ -151,8 +151,11 @@ namespace OpenIII
 
                     if (dirNode.FullPath == dir.FullPath)
                     {
+                        // AfterSelect is a temporary solution. We need some other more appropriate solution
                         node.Expand();
+                        fileTreeView.AfterSelect -= onFileTreeViewDirSelect;
                         fileTreeView.SelectedNode = node;
+                        fileTreeView.AfterSelect += onFileTreeViewDirSelect;
                         return node;
                     }
                 }
@@ -163,7 +166,9 @@ namespace OpenIII
             {
                 // If this is root dir, expand and select it
                 fileTreeView.Nodes[0].Expand();
+                fileTreeView.AfterSelect -= onFileTreeViewDirSelect;
                 fileTreeView.SelectedNode = fileTreeView.Nodes[0];
+                fileTreeView.AfterSelect += onFileTreeViewDirSelect;
                 return fileTreeView.Nodes[0];
             }
         }
