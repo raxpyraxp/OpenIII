@@ -99,6 +99,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameFiles\TextFile.cs" />
+    <Compile Include="Utils\WinAPIIconFetcher.cs" />
     <Compile Include="Forms\TextEditorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
