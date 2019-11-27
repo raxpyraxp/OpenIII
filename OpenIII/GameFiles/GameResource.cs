@@ -42,12 +42,26 @@ namespace OpenIII.GameFiles
 
         public static Bitmap getIcon(string path, IconSize size)
         {
-            //return WinAPIIconFetcher.GetIcon(path, size);
-
-            if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
+            // Uncomment this to use predefined png icons
+            /*if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
                 return Properties.Resources.Folder;
             else
-                return Properties.Resources.File;
+                return Properties.Resources.File;*/
+
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT
+                && Environment.OSVersion.Version.Major > 5)
+            {
+                // Obtain system icons from WinAPI on Vista+
+                return WinAPIIconFetcher.GetIcon(path, size);
+            }
+            else
+            {
+                // Use predefined icons from app resources on XP/Mono
+                if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
+                    return Properties.Resources.Folder;
+                else
+                    return Properties.Resources.File;
+            }
         }
     }
 }
