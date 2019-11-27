@@ -32,7 +32,10 @@ namespace OpenIII
 
         public void SetListView(List<ArchiveEntry> list)
         {
+            UseWaitCursor = true;
+            Application.DoEvents();
             fileListView.BeginUpdate();
+
             fileListView.Items.Clear();
 
             foreach (ArchiveEntry entry in list)
@@ -43,11 +46,16 @@ namespace OpenIII
             }
 
             fileListView.EndUpdate();
+            UseWaitCursor = false;
+            Application.DoEvents();
         }
 
         public void SetFileListView(List<GameResource> list)
         {
+            UseWaitCursor = true;
+            Application.DoEvents();
             fileListView.BeginUpdate();
+
             fileListView.Items.Clear();
             fileListView.SmallImageList = new ImageList();
             fileListView.LargeImageList = new ImageList();
@@ -72,19 +80,26 @@ namespace OpenIII
             }
 
             fileListView.EndUpdate();
+            UseWaitCursor = false;
+            Application.DoEvents();
         }
 
         public void SetDirListView(GameDirectory rootdir)
         {
+            UseWaitCursor = true;
+            Application.DoEvents();
             fileTreeView.BeginUpdate();
-            fileTreeView.Nodes.Clear();
 
+            fileTreeView.Nodes.Clear();
             fileTreeView.ImageList = new ImageList();
             fileTreeView.ImageList.Images.Add("dir", rootDir.SmallIcon);
 
             fileTreeView.Nodes.Add(CreateNode(rootDir));
             fileTreeView.Nodes[0].Expand();
+
             fileTreeView.EndUpdate();
+            UseWaitCursor = false;
+            Application.DoEvents();
         }
 
         public TreeNode[] GetNodesList(List<GameDirectory> list)
@@ -189,10 +204,16 @@ namespace OpenIII
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
 
+            UseWaitCursor = true;
+            Application.DoEvents();
             fileTreeView.BeginUpdate();
+
             e.Node.Nodes.Clear();
             e.Node.Nodes.AddRange(GetNodesList(dir.getDirectories()));
+
             fileTreeView.EndUpdate();
+            UseWaitCursor = false;
+            Application.DoEvents();
         }
 
         private void onFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
