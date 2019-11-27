@@ -11,7 +11,7 @@ namespace OpenIII.GameFiles
     public enum IconSize
     {
         Small,
-        Big
+        Large
     }
 
     public abstract class GameResource
@@ -68,8 +68,8 @@ namespace OpenIII.GameFiles
         public string FullPath { get; }
         public string Name { get => getName(); }
         public string Extension { get => getExtension(); }
-        public Icon SmallIcon { get => GetIcon(IconSize.Small); }
-        public Icon LargeIcon { get => GetIcon(IconSize.Big); }
+        public Bitmap SmallIcon { get => GetIcon(IconSize.Small); }
+        public Bitmap LargeIcon { get => GetIcon(IconSize.Large); }
 
         public GameResource(string path)
         {
@@ -105,7 +105,7 @@ namespace OpenIII.GameFiles
         private static extern IntPtr ImageList_GetIcon(IntPtr html, long i, int flags);
 
 
-        public Icon GetIcon(IconSize size)
+        public Bitmap GetIcon(IconSize size)
         {
             SHFILEINFO shfi = new SHFILEINFO();
             SHGFI flags = SHGFI.Icon | SHGFI.SysIconIndex;
@@ -128,9 +128,61 @@ namespace OpenIII.GameFiles
                 PtrIcon = ImageList_GetIcon(PtrIconList, sysIconIndex, ILD_TRANSPARENT);
             }
 
-            Icon icon = (Icon)Icon.FromHandle(PtrIcon).Clone();
+            Bitmap icon = Icon.FromHandle(PtrIcon).ToBitmap();
             DestroyIcon(shfi.hIcon);
             return icon;
+        }
+
+        public static BitmapSource icon_of_path_large(string FileName, bool jumbo, bool checkDisk)
+        {
+            SHFILEINFO shinfo = new SHFILEINFO();
+
+            uint SHGFI_USEFILEATTRIBUTES = 0x000000010;
+            uint SHGFI_SYSICONINDEX = 0x4000;
+
+            int FILE_ATTRIBUTE_NORMAL = 0x80;
+
+            uint flags;
+            flags = SHGFI_SYSICONINDEX;
+
+            if (!checkDisk)  // This does not seem to work. If I try it, a folder icon is always returned.
+                flags |= SHGFI_USEFILEATTRIBUTES;
+
+            var res = SHGetFileInfo(FileName, (uint)FILE_ATTRIBUTE_NORMAL, ref shinfo, (uint)Marshal.SizeOf(shinfo), flags);
+            if (res == 0)
+            {
+                throw (new System.IO.FileNotFoundException());
+            }
+            var iconIndex = shinfo.iIcon;
+
+            // Get the System IImageList object from the Shell:
+            Guid iidImageList = new Guid("46EB5926-582E-4017-9FDF-E8998DAA0950");
+
+            IImageList iml;
+            int size = jumbo ? SHIL_JUMBO : SHIL_EXTRALARGE;
+            var hres = SHGetImageList(size, ref iidImageList, out iml); // writes iml
+            //if (hres == 0)
+            //{
+            //    throw (new System.Exception("Error SHGetImageList"));
+            //}
+
+            IntPtr hIcon = IntPtr.Zero;
+            int ILD_TRANSPARENT = 1;
+            hres = iml.GetIcon(iconIndex, ILD_TRANSPARENT, ref hIcon);
+            //if (hres == 0)
+            //{
+            //    throw (new System.Exception("Error iml.GetIcon"));
+            //}
+
+            var myIcon = System.Drawing.Icon.FromHandle(hIcon);
+            var bs = bitmap_source_of_icon(myIcon);
+            myIcon.Dispose();
+            bs.Freeze(); // very important to avoid memory leak
+            DestroyIcon(hIcon);
+            CloseHandle(hIcon);
+
+            return bs;
+
         }
     }
 }

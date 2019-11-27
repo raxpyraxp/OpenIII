@@ -1,4 +1,4 @@
-﻿namespace OpenIII
+namespace OpenIII
 {
     partial class FileBrowserWindow
     {
@@ -43,8 +43,8 @@
             // 
             // fileListView
             // 
-            this.fileListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.fileListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fileListView.HideSelection = false;
             this.fileListView.Location = new System.Drawing.Point(186, 26);
@@ -58,7 +58,7 @@
             // 
             // fileTreeView
             // 
-            this.fileTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fileTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.fileTreeView.Location = new System.Drawing.Point(9, 26);
             this.fileTreeView.Margin = new System.Windows.Forms.Padding(2);
@@ -159,4 +159,3 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
-

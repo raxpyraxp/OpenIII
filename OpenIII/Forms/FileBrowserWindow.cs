@@ -53,8 +53,12 @@ namespace OpenIII
                 
                 // Determine image key to show icon
                 string imageKey = resource is GameDirectory ? "dir" : "file." + resource.Extension;
-                fileListView.SmallImageList.Images.Add(imageKey, resource.SmallIcon);
-                fileListView.LargeImageList.Images.Add(imageKey, resource.LargeIcon);
+
+                if (!fileListView.SmallImageList.Images.ContainsKey(imageKey))
+                {
+                    fileListView.SmallImageList.Images.Add(imageKey, resource.SmallIcon);
+                    fileListView.LargeImageList.Images.Add(imageKey, resource.LargeIcon);
+                }
 
                 item.Tag = resource;
                 item.ImageKey = imageKey;
