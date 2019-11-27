@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -105,6 +105,7 @@
     <Compile Include="Forms\TextEditorWindow.Designer.cs">
       <DependentUpon>TextEditorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FileAssociations.cs" />
     <Compile Include="Utils\WinAPIIconFetcher.cs" />
     <EmbeddedResource Include="Forms\FileBrowserWindow.resx">
       <DependentUpon>FileBrowserWindow.cs</DependentUpon>
@@ -153,8 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataExchanges\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

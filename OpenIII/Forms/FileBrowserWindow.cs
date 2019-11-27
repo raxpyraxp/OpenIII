@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using OpenIII.GameFiles;
+using OpenIII.Utils;
 
 namespace OpenIII
 {
@@ -190,7 +191,7 @@ namespace OpenIII
                     }
                     else
                     {
-                        // Open file
+                        FileAssociations.OpenFile((GameFile)resource);
                     }
                 }
             }
