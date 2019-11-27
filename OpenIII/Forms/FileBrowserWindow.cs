@@ -32,6 +32,7 @@ namespace OpenIII
 
         public void SetListView(List<ArchiveEntry> list)
         {
+            fileListView.BeginUpdate();
             fileListView.Items.Clear();
 
             foreach (ArchiveEntry entry in list)
@@ -40,10 +41,13 @@ namespace OpenIII
                 item.Tag = entry;
                 fileListView.Items.Add(item);
             }
+
+            fileListView.EndUpdate();
         }
 
         public void SetFileListView(List<GameResource> list)
         {
+            fileListView.BeginUpdate();
             fileListView.Items.Clear();
             fileListView.SmallImageList = new ImageList();
             fileListView.LargeImageList = new ImageList();
@@ -63,13 +67,16 @@ namespace OpenIII
 
                 item.Tag = resource;
                 item.ImageKey = imageKey;
-                
+
                 fileListView.Items.Add(item);
             }
+
+            fileListView.EndUpdate();
         }
 
         public void SetDirListView(GameDirectory rootdir)
         {
+            fileTreeView.BeginUpdate();
             fileTreeView.Nodes.Clear();
 
             fileTreeView.ImageList = new ImageList();
@@ -77,6 +84,7 @@ namespace OpenIII
 
             fileTreeView.Nodes.Add(CreateNode(rootDir));
             fileTreeView.Nodes[0].Expand();
+            fileTreeView.EndUpdate();
         }
 
         public TreeNode[] GetNodesList(List<GameDirectory> list)
