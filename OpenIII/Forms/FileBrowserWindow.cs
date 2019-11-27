@@ -118,7 +118,7 @@ namespace OpenIII
             totalFilesLabel.Text = totalFiles.ToString();
         }
 
-        private void fileListViewDoubleClick(object sender, EventArgs e)
+        private void onFileListViewDoubleClick(object sender, EventArgs e)
         {
             foreach (ListViewItem item in fileListView.SelectedItems)
             {
@@ -127,7 +127,7 @@ namespace OpenIII
             }
         }
 
-        private void fileTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        private void onFileTreeViewExpand(object sender, TreeViewCancelEventArgs e)
         {
             fileTreeView.BeginUpdate();
             GameDirectory dir = (GameDirectory)e.Node.Tag;
@@ -136,7 +136,7 @@ namespace OpenIII
             fileTreeView.EndUpdate();
         }
 
-        private void fileTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        private void onFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
             SetFileListView(dir.getContent());

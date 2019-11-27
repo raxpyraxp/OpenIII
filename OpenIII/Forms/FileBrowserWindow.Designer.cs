@@ -54,7 +54,7 @@ namespace OpenIII
             this.fileListView.TabIndex = 0;
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
-            this.fileListView.DoubleClick += new System.EventHandler(this.fileListViewDoubleClick);
+            this.fileListView.DoubleClick += new System.EventHandler(this.onFileListViewDoubleClick);
             // 
             // fileTreeView
             // 
@@ -65,8 +65,8 @@ namespace OpenIII
             this.fileTreeView.Name = "fileTreeView";
             this.fileTreeView.Size = new System.Drawing.Size(174, 318);
             this.fileTreeView.TabIndex = 1;
-            this.fileTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.fileTreeView_BeforeExpand);
-            this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.fileTreeView_AfterSelect);
+            this.fileTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.onFileTreeViewExpand);
+            this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.onFileTreeViewDirSelect);
             // 
             // statusStrip1
             // 
