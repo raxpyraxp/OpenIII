@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
-using System.Resources;
 using OpenIII.Utils;
-using System.Reflection;
 
 namespace OpenIII.GameFiles
 {
