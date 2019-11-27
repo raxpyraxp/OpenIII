@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 using OpenIII.GameFiles;
 
 namespace OpenIII
@@ -70,23 +71,12 @@ namespace OpenIII
         public void SetDirListView(GameDirectory rootdir)
         {
             fileTreeView.Nodes.Clear();
-            fileTreeView.ImageList = new ImageList();
 
+            fileTreeView.ImageList = new ImageList();
             fileTreeView.ImageList.Images.Add("dir", rootDir.SmallIcon);
 
-            TreeNode item = new TreeNode(rootdir.Name);
-            item.Tag = rootdir;
-            item.ImageKey = "dir";
-
-            if (rootdir.getDirectories().Count != 0)
-            {
-                // To make node expandable we're adding an empty element.
-                // When user expands it, we're removing this and query the actual child dir list
-                item.Nodes.Add("");
-            }
-
-            fileTreeView.Nodes.Add(item);
-            item.Expand();
+            fileTreeView.Nodes.Add(CreateNode(rootDir));
+            fileTreeView.Nodes[0].Expand();
         }
 
         public TreeNode[] GetNodesList(List<GameDirectory> list)
@@ -95,42 +85,103 @@ namespace OpenIII
 
             foreach (GameDirectory dir in list)
             {
-                TreeNode item = new TreeNode(dir.Name);
-                item.Tag = dir;
-                item.ImageKey = "dir";
-
-                if (dir.getDirectories().Count != 0)
-                {
-                    // To make node expandable we're adding an empty element.
-                    // When user expands it, we're removing this and query the actual child dir list
-                    item.Nodes.Add("");
-                }
-
-                nodes.Add(item);
+                nodes.Add(CreateNode(dir));
             }
 
             return nodes.ToArray();
         }
 
+        public TreeNode CreateNode(GameDirectory dir)
+        {
+            TreeNode item = new TreeNode(dir.Name);
+            item.Tag = dir;
+            item.ImageKey = "dir";
+
+            if (dir.getDirectories().Count != 0)
+            {
+                // To make node expandable we're adding an empty element.
+                // When user expands it, we're removing this and query the actual child dir list
+                item.Nodes.Add("");
+            }
+
+            return item;
+        }
 
         public void SetTotalFiles(long totalFiles)
         {
             totalFilesLabel.Text = totalFiles.ToString();
         }
 
+        public TreeNode ExpandDirectoryNode(GameDirectory dir)
+        {
+            DirectoryInfo info = new DirectoryInfo(dir.FullPath);
+
+            if (dir.FullPath != rootDir.FullPath)
+            {
+                // If current dir is not root game dir, expand parent dir first
+                TreeNode openedNode = ExpandDirectoryNode(new GameDirectory(info.Parent.FullName));
+
+                // Find associated tree node and expand it
+                foreach (TreeNode node in openedNode.Nodes)
+                {
+                    GameDirectory dirNode = (GameDirectory)node.Tag;
+
+                    if (dirNode.FullPath == dir.FullPath)
+                    {
+                        node.Expand();
+                        fileTreeView.SelectedNode = node;
+                        return node;
+                    }
+                }
+
+                return null;
+            }
+            else
+            {
+                // If this is root dir, expand and select it
+                fileTreeView.Nodes[0].Expand();
+                fileTreeView.SelectedNode = fileTreeView.Nodes[0];
+                return fileTreeView.Nodes[0];
+            }
+        }
+
         private void onFileListViewDoubleClick(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in fileListView.SelectedItems)
+            if (archiveFile == null)
             {
-                ArchiveEntry entry = (ArchiveEntry)item.Tag;
-                entry.extract(@"D:\Documents\" + entry.filename);
+                // If browsing directory
+                if (fileListView.SelectedItems.Count == 1)
+                {
+                    GameResource resource = (GameResource)fileListView.SelectedItems[0].Tag;
+
+                    if (resource is GameDirectory)
+                    {
+                        GameDirectory dir = (GameDirectory)resource;
+                        ExpandDirectoryNode(dir);
+                        SetFileListView(dir.getContent());
+                    }
+                    else
+                    {
+                        // Open file
+                    }
+                }
+            }
+            else
+            {
+                // If browsing archive
+                foreach (ListViewItem item in fileListView.SelectedItems)
+                {
+                    ArchiveEntry entry = (ArchiveEntry)item.Tag;
+                    entry.extract(@"D:\Documents\" + entry.filename);
+                }
             }
         }
 
         private void onFileTreeViewExpand(object sender, TreeViewCancelEventArgs e)
         {
-            fileTreeView.BeginUpdate();
             GameDirectory dir = (GameDirectory)e.Node.Tag;
+
+            fileTreeView.BeginUpdate();
             e.Node.Nodes.Clear();
             e.Node.Nodes.AddRange(GetNodesList(dir.getDirectories()));
             fileTreeView.EndUpdate();
