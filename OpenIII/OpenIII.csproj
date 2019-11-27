@@ -102,9 +102,6 @@
     <Compile Include="Forms\TextEditorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SetGamePathWindow.Designer.cs">
-      <DependentUpon>SetGamePathWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\TextEditorWindow.Designer.cs">
       <DependentUpon>TextEditorWindow.cs</DependentUpon>
     </Compile>
