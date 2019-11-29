@@ -50,7 +50,7 @@ namespace OpenIII.GameFiles
                 && Environment.OSVersion.Version.Major > 5)
             {
                 // Obtain system icons from WinAPI on Vista+
-                return WinAPIIconFetcher.GetIcon(path, size);
+                return IconsFetcher.GetIcon(path, size);
             }
             else
             {
