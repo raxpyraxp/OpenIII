@@ -11,7 +11,16 @@ namespace OpenIII.Utils
     {
         public static void OpenFile(GameFile file)
         {
-            MessageBox.Show("Unsupported file format", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // TODO: создать объект с расширениями файлов
+            switch (file.Extension)
+            {
+                case ".asi":
+                    MessageBox.Show("This is .asi file", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                break;
+                default:
+                    MessageBox.Show("This file doesn't support yet.");
+                break;
+            }
         }
     }
 }

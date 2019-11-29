@@ -74,6 +74,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AppDefs.cs" />
     <Compile Include="Forms\AboutWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,7 +100,7 @@
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameFiles\GameResource.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="Utils\GameManager.cs" />
     <Compile Include="GtaPathEventArgs.cs" />
     <Compile Include="OpenIIIApplicationContext.cs" />
     <Compile Include="Program.cs" />
@@ -112,7 +113,7 @@
       <DependentUpon>TextEditorWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\FileAssociations.cs" />
-    <Compile Include="Utils\WinAPIIconFetcher.cs" />
+    <Compile Include="Utils\IconsFetcher.cs" />
     <EmbeddedResource Include="Forms\AboutWindow.resx">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </EmbeddedResource>

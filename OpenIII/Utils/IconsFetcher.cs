@@ -14,7 +14,7 @@ namespace OpenIII.Utils
         Large
     }
 
-    class WinAPIIconFetcher
+    class IconsFetcher
     {
         // Constants, structure and enum used for SHGetFileInfo call
         // Example from http://www.pinvoke.net/default.aspx/shell32.SHGetFileInfo

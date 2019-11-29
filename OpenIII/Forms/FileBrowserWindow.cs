@@ -227,5 +227,10 @@ namespace OpenIII
             GameDirectory dir = (GameDirectory)e.Node.Tag;
             SetFileListView(dir.getContent());
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppDefs.ExitFromApp();
+        }
     }
 }
