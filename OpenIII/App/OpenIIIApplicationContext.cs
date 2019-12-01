@@ -48,7 +48,7 @@ namespace OpenIII
             Application.Exit();
         }
 
-        public void onGtaPathSet(object s, GtaPathEventArgs e)
+        public void onGtaPathSet(object s, PathEventArgs e)
         {
             Properties.Settings.Default.GTAPath = e.Path;
             Properties.Settings.Default.Save();

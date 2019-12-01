@@ -12,7 +12,7 @@ namespace OpenIII
 {
     public partial class SetGamePathWindow : Form
     {
-        public event EventHandler<GtaPathEventArgs> OnGtaPathSet;
+        public event EventHandler<PathEventArgs> OnGtaPathSet;
         public event EventHandler OnCancelled;
 
         public SetGamePathWindow()
@@ -67,7 +67,7 @@ namespace OpenIII
 
         private void nextButtonClick(object sender, EventArgs e)
         {
-            OnGtaPathSet(this, new GtaPathEventArgs(gtaPathTextBox.Text));
+            OnGtaPathSet(this, new PathEventArgs(gtaPathTextBox.Text));
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
