@@ -68,5 +68,12 @@ namespace OpenIII.GameFiles
             destinationFile.Close();
             imgFile.Close();
         }
+
+        public void deleteFile(ArchiveEntry entry) { }
+        
+        public void replaceFile(ArchiveEntry oldEntry, ArchiveEntry newEntry) { }
+
+        public void renameFile(ArchiveEntry entry, string newName) { }
+
     }
 }

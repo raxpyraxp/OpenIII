@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using OpenIII.GameFiles;
 using OpenIII.Utils;
+using OpenIII.Forms;
 
 namespace OpenIII
 {
@@ -12,6 +13,7 @@ namespace OpenIII
     {
         private ArchiveFile archiveFile;
         private GameDirectory rootDir;
+        public AboutWindow aboutWindow;
 
         public FileBrowserWindow(ArchiveFile file)
         {
@@ -231,6 +233,12 @@ namespace OpenIII
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppDefs.ExitFromApp();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
         }
     }
 }
