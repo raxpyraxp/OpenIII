@@ -201,7 +201,11 @@ namespace OpenIII
                 dialog.Filter = "All Files|*.*";
                 dialog.Title = "Extract To...";
                 dialog.ShowDialog();
-                entry.Extract(dialog.InitialDirectory + dialog.FileName);
+
+                if (dialog.FileName != "")
+                {
+                    entry.Extract(dialog.InitialDirectory + dialog.FileName);
+                }
             }
         }
 
