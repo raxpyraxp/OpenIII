@@ -11,26 +11,40 @@ namespace OpenIII
 {
     public partial class FileBrowserWindow : Form
     {
+        private static FileBrowserWindow instance;
+
         private ArchiveFile archiveFile;
         private GameDirectory rootDir;
         public AboutWindow aboutWindow;
 
-        public FileBrowserWindow(ArchiveFile file)
+        public FileBrowserWindow()
         {
             InitializeComponent();
-
-            archiveFile = file;
-            SetListView(archiveFile.GetFileList());
-            SetTotalFiles(archiveFile.TotalFiles);
         }
 
-        public FileBrowserWindow(GameDirectory rootDir)
+        public static FileBrowserWindow GetInstance()
         {
-            InitializeComponent();
+            if (instance == null)
+            {
+                instance = new FileBrowserWindow();
+            }
 
+            return instance;
+        }
+
+        public void OpenDir(GameDirectory rootDir)
+        {
             this.rootDir = rootDir;
+            archiveFile = null;
             SetFileListView(rootDir.GetContent());
             SetDirListView(rootDir);
+        }
+
+        public void OpenArchive(ArchiveFile archive)
+        {
+            archiveFile = archive;
+            SetListView(archiveFile.GetFileList());
+            SetTotalFiles(archiveFile.TotalFiles);
         }
 
         public void SetListView(List<ArchiveEntry> list)
@@ -56,6 +70,7 @@ namespace OpenIII
         public void SetFileListView(List<GameResource> list)
         {
             UseWaitCursor = true;
+            archiveFile = null;
             Application.DoEvents();
             fileListView.BeginUpdate();
 

@@ -17,6 +17,9 @@ namespace OpenIII.Utils
                 case ".asi":
                     MessageBox.Show("This is .asi file.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
+                case ".img":
+                    FileBrowserWindow.GetInstance().OpenArchive((ArchiveFile)file);
+                    break;
                 default:
                     MessageBox.Show("Unsupported file type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;

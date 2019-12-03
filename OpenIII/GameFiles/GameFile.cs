@@ -13,7 +13,7 @@ namespace OpenIII.GameFiles
         {
             switch(GetExtension(path))
             {
-                case "img":
+                case ".img":
                     return ArchiveFile.CreateInstance(path);
                 default:
                     return new GameFile(path);
