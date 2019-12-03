@@ -12,7 +12,7 @@ namespace OpenIII.Utils
         public static void OpenFile(GameFile file)
         {
             // TODO: создать объект с расширениями файлов
-            switch (file.Extension)
+            switch (file.Extension.ToLower())
             {
                 case ".asi":
                     MessageBox.Show("This is .asi file.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
