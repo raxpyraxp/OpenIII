@@ -45,6 +45,7 @@ namespace OpenIII
             archiveFile = archive;
             SetFileListView(archiveFile.GetFileList());
             SetTotalFiles(archiveFile.TotalFiles);
+            fileTreeView.SelectedNode = null;
         }
 
         public void SetFileListView(List<GameResource> list)
