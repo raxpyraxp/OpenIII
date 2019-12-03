@@ -54,7 +54,7 @@ namespace OpenIII
             this.fileListView.TabIndex = 0;
             this.fileListView.UseCompatibleStateImageBehavior = false;
             this.fileListView.View = System.Windows.Forms.View.List;
-            this.fileListView.DoubleClick += new System.EventHandler(this.onFileListViewDoubleClick);
+            this.fileListView.DoubleClick += new System.EventHandler(this.OnFileListViewDoubleClick);
             // 
             // fileTreeView
             // 
@@ -65,8 +65,8 @@ namespace OpenIII
             this.fileTreeView.Name = "fileTreeView";
             this.fileTreeView.Size = new System.Drawing.Size(174, 318);
             this.fileTreeView.TabIndex = 1;
-            this.fileTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.onFileTreeViewExpand);
-            this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.onFileTreeViewDirSelect);
+            this.fileTreeView.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.OnFileTreeViewExpand);
+            this.fileTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnFileTreeViewDirSelect);
             // 
             // statusStrip1
             // 
@@ -117,14 +117,14 @@ namespace OpenIII
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutMenuItemClick);
             // 
             // FileBrowserWindow
             // 

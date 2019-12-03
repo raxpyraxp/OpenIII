@@ -12,52 +12,52 @@ namespace OpenIII.GameFiles
         {
         }
 
-        public static new GameDirectory createInstance(string path)
+        public static new GameDirectory CreateInstance(string path)
         {
             return new GameDirectory(path);
         }
 
-        public List<GameFile> getFiles()
+        public List<GameFile> GetFiles()
         {
             DirectoryInfo dir = new DirectoryInfo(FullPath);
             List<GameFile> gameFiles = new List<GameFile>();
 
             foreach (FileInfo file in dir.GetFiles())
             {
-                gameFiles.Add(GameFile.createInstance(Path.Combine(file.DirectoryName, file.Name)));
+                gameFiles.Add(GameFile.CreateInstance(Path.Combine(file.DirectoryName, file.Name)));
             }
 
             return gameFiles;
         }
 
-        public List<GameDirectory> getDirectories()
+        public List<GameDirectory> GetDirectories()
         {
             DirectoryInfo rootdir = new DirectoryInfo(FullPath);
             List<GameDirectory> gameDirectories = new List<GameDirectory>();
 
             foreach (DirectoryInfo dir in rootdir.GetDirectories())
             {
-                gameDirectories.Add(GameDirectory.createInstance(dir.FullName));
+                gameDirectories.Add(GameDirectory.CreateInstance(dir.FullName));
             }
 
             return gameDirectories;
         }
 
-        public List<GameResource> getContent()
+        public List<GameResource> GetContent()
         {
             List<GameResource> resources = new List<GameResource>();
-            resources.AddRange(getDirectories());
-            resources.AddRange(getFiles());
+            resources.AddRange(GetDirectories());
+            resources.AddRange(GetFiles());
 
             return resources;
         }
 
-        public override string getName()
+        public override string GetName()
         {
             return new DirectoryInfo(FullPath).Name;
         }
 
-        public override string getExtension()
+        public override string GetExtension()
         {
             return new DirectoryInfo(FullPath).Extension;
         }

@@ -12,31 +12,31 @@ namespace OpenIII
 
     class GameManager
     {
-        public static Game getGameFromPath(string path)
+        public static Game GetGameFromPath(string path)
         {
-            if (isGta3(path))
+            if (IsGta3(path))
                 return Game.III;
 
-            if (isGtaVC(path))
+            if (IsGtaVC(path))
                 return Game.VC;
 
-            if (isGtaSA(path))
+            if (IsGtaSA(path))
                 return Game.SA;
 
             return Game.Unknown;
         }
 
-        public static bool isGta3(string path)
+        public static bool IsGta3(string path)
         {
             return File.Exists(Path.Combine(path, "gta3.exe"));
         }
 
-        public static bool isGtaVC(string path)
+        public static bool IsGtaVC(string path)
         {
             return File.Exists(Path.Combine(path, "gta-vc.exe"));
         }
 
-        public static bool isGtaSA(string path)
+        public static bool IsGtaSA(string path)
         {
             return File.Exists(Path.Combine(path, "gta-sa.exe"));
         }

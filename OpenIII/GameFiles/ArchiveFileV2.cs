@@ -26,14 +26,14 @@ namespace OpenIII.GameFiles
         public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
 
         public override ArchiveFileVersion ImgVersion { get; }
-        public override long TotalFiles { get => readTotalFilesFromImg(); }
+        public override long TotalFiles { get => ReadTotalFilesFromArchive(); }
 
         public ArchiveFileV2(string filePath) : base(filePath)
         {
             ImgVersion = ArchiveFileVersion.V2;
         }
 
-        public static ArchiveFileVersion readVersionFromImg(string imgPath)
+        public static ArchiveFileVersion ReadVersionFromArchive(string imgPath)
         {
             FileStream imgFile = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
             byte[] buf = new byte[VERSION_SIZE];
@@ -49,7 +49,7 @@ namespace OpenIII.GameFiles
                 ArchiveFileVersion.Unknown;
         }
 
-        private long readTotalFilesFromImg()
+        private long ReadTotalFilesFromArchive()
         {
             FileStream fileImg = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
             byte[] buf = new byte[NUMBER_OF_ENTRIES_SIZE];
@@ -64,9 +64,9 @@ namespace OpenIII.GameFiles
             return totalFiles;
         }
 
-        public override List<ArchiveEntry> readImgFileList()
+        public override List<ArchiveEntry> GetFileList()
         {
-            long filesCount = readTotalFilesFromImg();
+            long filesCount = ReadTotalFilesFromArchive();
 
             FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();

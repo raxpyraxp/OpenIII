@@ -20,18 +20,18 @@ namespace OpenIII.GameFiles
 
         public ArchiveFile(string filePath) : base(filePath) { }
 
-        public abstract List<ArchiveEntry> readImgFileList();
+        public abstract List<ArchiveEntry> GetFileList();
 
-        public static new ArchiveFile createInstance(string path)
+        public static new ArchiveFile CreateInstance(string path)
         {
-            ArchiveFileVersion version = ArchiveFileV2.readVersionFromImg(path);
+            ArchiveFileVersion version = ArchiveFileV2.ReadVersionFromArchive(path);
 
             // We've tried to extract the version from the archive file itself in readVersionFromImg().
             // If we've failed, then we're checking if we have a .dir file nearby.
             // That indicates that we deal with V1 archive.
             if (version == ArchiveFileVersion.Unknown)
             {
-                version = File.Exists(ArchiveFileV1.getDirFilePath(path)) ?
+                version = File.Exists(ArchiveFileV1.GetDirFilePath(path)) ?
                     ArchiveFileVersion.V1 :
                     ArchiveFileVersion.Unknown;
             }
@@ -47,14 +47,14 @@ namespace OpenIII.GameFiles
             }
         }
 
-        public void extractFile(ArchiveEntry entry, string destination)
+        public void ExtractFile(ArchiveEntry entry, string destination)
         {
             FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
             byte[] buf = new byte[SECTOR_SIZE];
-            int bytesLeft = entry.size;
+            int bytesLeft = entry.Size;
 
-            imgFile.Seek(entry.offset, SeekOrigin.Begin);
+            imgFile.Seek(entry.Offset, SeekOrigin.Begin);
             
             while (bytesLeft > 0)
             {
@@ -69,11 +69,11 @@ namespace OpenIII.GameFiles
             imgFile.Close();
         }
 
-        public void deleteFile(ArchiveEntry entry) { }
+        public void DeleteFile(ArchiveEntry entry) { }
         
-        public void replaceFile(ArchiveEntry oldEntry, ArchiveEntry newEntry) { }
+        public void ReplaceFile(ArchiveEntry oldEntry, ArchiveEntry newEntry) { }
 
-        public void renameFile(ArchiveEntry entry, string newName) { }
+        public void RenameFile(ArchiveEntry entry, string newName) { }
 
     }
 }

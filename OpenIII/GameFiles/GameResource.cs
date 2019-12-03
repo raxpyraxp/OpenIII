@@ -11,34 +11,34 @@ namespace OpenIII.GameFiles
     public abstract class GameResource
     {
         public string FullPath { get; }
-        public string Name { get => getName(); }
-        public string Extension { get => getExtension(); }
-        public Bitmap SmallIcon { get => getIcon(FullPath, IconSize.Small); }
-        public Bitmap LargeIcon { get => getIcon(FullPath, IconSize.Large); }
+        public string Name { get => GetName(); }
+        public string Extension { get => GetExtension(); }
+        public Bitmap SmallIcon { get => GetIcon(FullPath, IconSize.Small); }
+        public Bitmap LargeIcon { get => GetIcon(FullPath, IconSize.Large); }
 
         public GameResource(string path)
         {
             FullPath = path;
         }
 
-        public GameResource createInstance(string path)
+        public GameResource CreateInstance(string path)
         {
             if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
             {
-                return GameDirectory.createInstance(path);
+                return GameDirectory.CreateInstance(path);
             }
             else
             {
-                return GameFile.createInstance(path);
+                return GameFile.CreateInstance(path);
             }
 
         }
 
-        public abstract string getName();
+        public abstract string GetName();
 
-        public abstract string getExtension();
+        public abstract string GetExtension();
 
-        public static Bitmap getIcon(string path, IconSize size)
+        public static Bitmap GetIcon(string path, IconSize size)
         {
             // Uncomment this to use predefined png icons
             /*if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)

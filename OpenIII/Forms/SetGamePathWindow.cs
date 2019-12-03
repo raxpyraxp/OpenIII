@@ -20,7 +20,7 @@ namespace OpenIII
             InitializeComponent();
         }
 
-        private void selectPathButtonClick(object sender, EventArgs e)
+        private void SelectPathButtonClick(object sender, EventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
@@ -29,13 +29,13 @@ namespace OpenIII
             if (result == CommonFileDialogResult.Ok)
             {
                 gtaPathTextBox.Text = dialog.FileName;
-                check();
+                Check();
             }
         }
 
-        private void check()
+        private void Check()
         {
-            switch (GameManager.getGameFromPath(gtaPathTextBox.Text))
+            switch (GameManager.GetGameFromPath(gtaPathTextBox.Text))
             {
                 case Game.III:
                     statusLabel.ForeColor = Color.Green;
@@ -60,17 +60,17 @@ namespace OpenIII
             }
         }
 
-        private void gtaPathTextBoxTextChanged(object sender, EventArgs e)
+        private void OnGtaPathTextBoxChanged(object sender, EventArgs e)
         {
-            check();
+            Check();
         }
 
-        private void nextButtonClick(object sender, EventArgs e)
+        private void OnNextButtonClick(object sender, EventArgs e)
         {
             OnGtaPathSet(this, new PathEventArgs(gtaPathTextBox.Text));
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void OnCancelButtonClick(object sender, EventArgs e)
         {
             OnCancelled(this, new EventArgs());
         }

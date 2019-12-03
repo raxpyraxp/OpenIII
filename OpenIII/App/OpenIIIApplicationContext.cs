@@ -13,15 +13,15 @@ namespace OpenIII
         {
             if (Properties.Settings.Default.GTAPath != "")
             {
-                showFileBrowserWindow();
+                ShowFileBrowserWindow();
             }
             else
             {
-                showGamePathWindow();
+                ShowGamePathWindow();
             }
         }
 
-        public void showFileBrowserWindow()
+        public void ShowFileBrowserWindow()
         {
             // TODO: We must obtain a path of the game and pass it to the form instead of archive
             //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\Grand Theft Auto Vice City\models\gta3.img");
@@ -30,31 +30,31 @@ namespace OpenIII
             GameDirectory dir = new GameDirectory(Properties.Settings.Default.GTAPath);
 
             fileBrowserWindow = new FileBrowserWindow(dir);
-            fileBrowserWindow.FormClosed += onClosed;
+            fileBrowserWindow.FormClosed += OnClosed;
             fileBrowserWindow.Show();
         }
 
-        public void showGamePathWindow()
+        public void ShowGamePathWindow()
         {
             setGamePathWindow = new SetGamePathWindow();
-            setGamePathWindow.FormClosed += onClosed;
-            setGamePathWindow.OnCancelled += onClosed;
-            setGamePathWindow.OnGtaPathSet += onGtaPathSet;
+            setGamePathWindow.FormClosed += OnClosed;
+            setGamePathWindow.OnCancelled += OnClosed;
+            setGamePathWindow.OnGtaPathSet += OnGtaPathSet;
             setGamePathWindow.Show();
         }
 
-        public void onClosed(object s, EventArgs e)
+        public void OnClosed(object s, EventArgs e)
         {
             Application.Exit();
         }
 
-        public void onGtaPathSet(object s, PathEventArgs e)
+        public void OnGtaPathSet(object s, PathEventArgs e)
         {
             Properties.Settings.Default.GTAPath = e.Path;
             Properties.Settings.Default.Save();
-            setGamePathWindow.FormClosed -= onClosed;
+            setGamePathWindow.FormClosed -= OnClosed;
             setGamePathWindow.Close();
-            showFileBrowserWindow();
+            ShowFileBrowserWindow();
         }
     }
 }

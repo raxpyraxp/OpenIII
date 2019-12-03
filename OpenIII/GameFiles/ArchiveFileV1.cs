@@ -18,26 +18,26 @@ namespace OpenIII.GameFiles
             SIZE_ENTRY_BYTE_SIZE;
 
         public override ArchiveFileVersion ImgVersion { get; }
-        public override long TotalFiles { get => calculateTotalFilesFromDir(); }
-        public string DirPath { get => getDirFilePath(FullPath); }
+        public override long TotalFiles { get => CalculateTotalFilesFromDir(); }
+        public string DirPath { get => GetDirFilePath(FullPath); }
 
         public ArchiveFileV1(string filePath) : base(filePath)
         {
             ImgVersion = ArchiveFileVersion.V1;
         }
 
-        private long calculateTotalFilesFromDir()
+        private long CalculateTotalFilesFromDir()
         {
             return new FileInfo(DirPath).Length / DIR_ENTRY_SIZE;
         }
 
-        public static string getDirFilePath(string path)
+        public static string GetDirFilePath(string path)
         {
             // Just replace extension to dir in the original file path
             return path.Remove(path.Length - 3) + "dir";
         }
 
-        public override List<ArchiveEntry> readImgFileList()
+        public override List<ArchiveEntry> GetFileList()
         {
             FileStream dirFile = new FileStream(DirPath, FileMode.Open, FileAccess.Read);
             List<ArchiveEntry> fileList = new List<ArchiveEntry>();

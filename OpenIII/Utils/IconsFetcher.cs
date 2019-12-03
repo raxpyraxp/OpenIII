@@ -67,7 +67,7 @@ namespace OpenIII.Utils
 
         [DllImport("shell32.dll")]
         private static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes,
-    ref SHFILEINFO psfi, uint cbFileInfo, SHGFI uFlags);
+            ref SHFILEINFO psfi, uint cbFileInfo, SHGFI uFlags);
 
 
         [DllImport("User32.dll")]

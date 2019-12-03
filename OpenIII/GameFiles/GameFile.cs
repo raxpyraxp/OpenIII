@@ -9,28 +9,28 @@ namespace OpenIII.GameFiles
         {
         }
 
-        public static new GameFile createInstance(string path)
+        public static new GameFile CreateInstance(string path)
         {
-            switch(getExtension(path))
+            switch(GetExtension(path))
             {
                 case "img":
-                    return ArchiveFile.createInstance(path);
+                    return ArchiveFile.CreateInstance(path);
                 default:
                     return new GameFile(path);
             }
         }
 
-        public override string getName()
+        public override string GetName()
         {
             return new FileInfo(FullPath).Name;
         }
 
-        public override string getExtension()
+        public override string GetExtension()
         {
             return new FileInfo(FullPath).Extension;
         }
 
-        public static string getExtension(string path)
+        public static string GetExtension(string path)
         {
             return new FileInfo(path).Extension;
         }

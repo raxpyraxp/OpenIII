@@ -20,7 +20,7 @@ namespace OpenIII
             InitializeComponent();
 
             archiveFile = file;
-            SetListView(archiveFile.readImgFileList());
+            SetListView(archiveFile.GetFileList());
             SetTotalFiles(archiveFile.TotalFiles);
         }
 
@@ -29,7 +29,7 @@ namespace OpenIII
             InitializeComponent();
 
             this.rootDir = rootDir;
-            SetFileListView(rootDir.getContent());
+            SetFileListView(rootDir.GetContent());
             SetDirListView(rootDir);
         }
 
@@ -43,7 +43,7 @@ namespace OpenIII
 
             foreach (ArchiveEntry entry in list)
             {
-                ListViewItem item = new ListViewItem(entry.filename);
+                ListViewItem item = new ListViewItem(entry.Filename);
                 item.Tag = entry;
                 fileListView.Items.Add(item);
             }
@@ -123,7 +123,7 @@ namespace OpenIII
             item.Tag = dir;
             item.ImageKey = "dir";
 
-            if (dir.getDirectories().Count != 0)
+            if (dir.GetDirectories().Count != 0)
             {
                 // To make node expandable we're adding an empty element.
                 // When user expands it, we're removing this and query the actual child dir list
@@ -156,9 +156,9 @@ namespace OpenIII
                     {
                         // AfterSelect is a temporary solution. We need some other more appropriate solution
                         node.Expand();
-                        fileTreeView.AfterSelect -= onFileTreeViewDirSelect;
+                        fileTreeView.AfterSelect -= OnFileTreeViewDirSelect;
                         fileTreeView.SelectedNode = node;
-                        fileTreeView.AfterSelect += onFileTreeViewDirSelect;
+                        fileTreeView.AfterSelect += OnFileTreeViewDirSelect;
                         return node;
                     }
                 }
@@ -169,14 +169,14 @@ namespace OpenIII
             {
                 // If this is root dir, expand and select it
                 fileTreeView.Nodes[0].Expand();
-                fileTreeView.AfterSelect -= onFileTreeViewDirSelect;
+                fileTreeView.AfterSelect -= OnFileTreeViewDirSelect;
                 fileTreeView.SelectedNode = fileTreeView.Nodes[0];
-                fileTreeView.AfterSelect += onFileTreeViewDirSelect;
+                fileTreeView.AfterSelect += OnFileTreeViewDirSelect;
                 return fileTreeView.Nodes[0];
             }
         }
 
-        private void onFileListViewDoubleClick(object sender, EventArgs e)
+        private void OnFileListViewDoubleClick(object sender, EventArgs e)
         {
             if (archiveFile == null)
             {
@@ -189,7 +189,7 @@ namespace OpenIII
                     {
                         GameDirectory dir = (GameDirectory)resource;
                         ExpandDirectoryNode(dir);
-                        SetFileListView(dir.getContent());
+                        SetFileListView(dir.GetContent());
                     }
                     else
                     {
@@ -203,12 +203,12 @@ namespace OpenIII
                 foreach (ListViewItem item in fileListView.SelectedItems)
                 {
                     ArchiveEntry entry = (ArchiveEntry)item.Tag;
-                    entry.extract(@"D:\Documents\" + entry.filename);
+                    entry.extract(@"D:\Documents\" + entry.Filename);
                 }
             }
         }
 
-        private void onFileTreeViewExpand(object sender, TreeViewCancelEventArgs e)
+        private void OnFileTreeViewExpand(object sender, TreeViewCancelEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
 
@@ -217,25 +217,25 @@ namespace OpenIII
             fileTreeView.BeginUpdate();
 
             e.Node.Nodes.Clear();
-            e.Node.Nodes.AddRange(GetNodesList(dir.getDirectories()));
+            e.Node.Nodes.AddRange(GetNodesList(dir.GetDirectories()));
 
             fileTreeView.EndUpdate();
             UseWaitCursor = false;
             Application.DoEvents();
         }
 
-        private void onFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
+        private void OnFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
-            SetFileListView(dir.getContent());
+            SetFileListView(dir.GetContent());
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnExitMenuItemClick(object sender, EventArgs e)
         {
             AppDefs.ExitFromApp();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnAboutMenuItemClick(object sender, EventArgs e)
         {
             aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();

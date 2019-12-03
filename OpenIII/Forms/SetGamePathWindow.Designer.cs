@@ -52,7 +52,7 @@
             this.gtaPathTextBox.Name = "gtaPathTextBox";
             this.gtaPathTextBox.Size = new System.Drawing.Size(572, 22);
             this.gtaPathTextBox.TabIndex = 1;
-            this.gtaPathTextBox.TextChanged += new System.EventHandler(this.gtaPathTextBoxTextChanged);
+            this.gtaPathTextBox.TextChanged += new System.EventHandler(this.OnGtaPathTextBoxChanged);
             // 
             // selectPathButton
             // 
@@ -62,7 +62,7 @@
             this.selectPathButton.TabIndex = 2;
             this.selectPathButton.Text = "...";
             this.selectPathButton.UseVisualStyleBackColor = true;
-            this.selectPathButton.Click += new System.EventHandler(this.selectPathButtonClick);
+            this.selectPathButton.Click += new System.EventHandler(this.SelectPathButtonClick);
             // 
             // nextButton
             // 
@@ -73,7 +73,7 @@
             this.nextButton.TabIndex = 3;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButtonClick);
+            this.nextButton.Click += new System.EventHandler(this.OnNextButtonClick);
             // 
             // cancelButton
             // 
@@ -83,7 +83,7 @@
             this.cancelButton.TabIndex = 4;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.OnCancelButtonClick);
             // 
             // statusLabel
             // 
