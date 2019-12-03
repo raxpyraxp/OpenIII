@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
@@ -54,24 +55,19 @@ namespace OpenIII.GameFiles
 
         public void ExtractFile(GameFile entry, string destination)
         {
-            FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
+            ArchiveStream entryStream = new ArchiveStream(entry, FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
             byte[] buf = new byte[SECTOR_SIZE];
-            int bytesLeft = entry.Size;
 
-            imgFile.Seek(entry.Offset, SeekOrigin.Begin);
-            
-            while (bytesLeft > 0)
+            while (entryStream.Position < entryStream.Length)
             {
-                int bytesToRead = bytesLeft > SECTOR_SIZE ? SECTOR_SIZE : bytesLeft;
-                imgFile.Read(buf, 0, bytesToRead);
-                destinationFile.Write(buf, 0, bytesToRead);
-                bytesLeft -= SECTOR_SIZE;
+                int read = entryStream.Read(buf, 0, SECTOR_SIZE);
+                destinationFile.Write(buf, 0, read);
             }
 
             destinationFile.Flush();
             destinationFile.Close();
-            imgFile.Close();
+            entryStream.Close();
         }
 
         public void DeleteFile(GameFile entry) { }
