@@ -15,11 +15,11 @@ namespace OpenIII.Utils
             switch (file.Extension)
             {
                 case ".asi":
-                    MessageBox.Show("This is .asi file", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                break;
+                    MessageBox.Show("This is .asi file.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
                 default:
-                    MessageBox.Show("This file doesn't support yet.");
-                break;
+                    MessageBox.Show("Unsupported file type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
         }
     }
