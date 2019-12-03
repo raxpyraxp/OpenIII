@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace OpenIII.Utils
 {
@@ -21,6 +22,8 @@ namespace OpenIII.Utils
         private const int MAX_PATH = 260;
         private const int MAX_TYPE = 80;
         private const int ILD_TRANSPARENT = 0x1;
+
+        private const int FILE_ATTRIBUTE_DIRECTORY = 0x10;
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         private struct SHFILEINFO
@@ -79,7 +82,8 @@ namespace OpenIII.Utils
         public static Bitmap GetIcon(string filePath, IconSize size)
         {
             SHFILEINFO shfi = new SHFILEINFO();
-            SHGFI flags = SHGFI.Icon | SHGFI.SysIconIndex;
+            SHGFI flags = SHGFI.Icon | SHGFI.SysIconIndex | SHGFI.UseFileAttributes;
+            uint fileAttributes = 0x0;
 
             if (size == IconSize.Small)
             {
@@ -90,7 +94,13 @@ namespace OpenIII.Utils
                 flags = flags | SHGFI.LargeIcon;
             }
 
-            IntPtr PtrIconList = SHGetFileInfo(filePath, 0, ref shfi, (uint)Marshal.SizeOf(shfi), flags);
+            if (Directory.Exists(filePath) &&
+                (File.GetAttributes(filePath) & FileAttributes.Directory) == FileAttributes.Directory)
+            {
+                fileAttributes = fileAttributes | FILE_ATTRIBUTE_DIRECTORY;
+            }
+
+            IntPtr PtrIconList = SHGetFileInfo(filePath, fileAttributes, ref shfi, (uint)Marshal.SizeOf(shfi), flags);
             IntPtr PtrIcon = shfi.hIcon;
             long sysIconIndex = shfi.iIcon.ToInt64();
 

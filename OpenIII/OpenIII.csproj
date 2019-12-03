@@ -94,7 +94,6 @@
     <Compile Include="Forms\SetGamePathWindow.Designer.cs">
       <DependentUpon>SetGamePathWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameFiles\ArchiveEntry.cs" />
     <Compile Include="GameFiles\ArchiveFile.cs" />
     <Compile Include="GameFiles\ArchiveFileV1.cs" />
     <Compile Include="GameFiles\ArchiveFileV2.cs" />

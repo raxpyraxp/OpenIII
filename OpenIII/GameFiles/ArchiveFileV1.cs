@@ -37,10 +37,10 @@ namespace OpenIII.GameFiles
             return path.Remove(path.Length - 3) + "dir";
         }
 
-        public override List<ArchiveEntry> GetFileList()
+        public override List<GameResource> GetFileList()
         {
             FileStream dirFile = new FileStream(DirPath, FileMode.Open, FileAccess.Read);
-            List<ArchiveEntry> fileList = new List<ArchiveEntry>();
+            List<GameResource> fileList = new List<GameResource>();
             int read = 1;
             byte[] buf;
 
@@ -61,7 +61,7 @@ namespace OpenIII.GameFiles
                 // Remove null-terminate char
                 filename = filename.Remove(filename.IndexOf("\0"));
 
-                fileList.Add(new ArchiveEntry(offset, size, filename, this));
+                fileList.Add(new GameFile(offset, size, filename, this));
             }
 
             dirFile.Close();

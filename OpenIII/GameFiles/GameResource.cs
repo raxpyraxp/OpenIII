@@ -10,11 +10,16 @@ namespace OpenIII.GameFiles
 {
     public abstract class GameResource
     {
-        public string FullPath { get; }
+        public string FullPath { get; protected set; }
         public string Name { get => GetName(); }
         public string Extension { get => GetExtension(); }
         public Bitmap SmallIcon { get => GetIcon(FullPath, IconSize.Small); }
         public Bitmap LargeIcon { get => GetIcon(FullPath, IconSize.Large); }
+
+        public GameResource()
+        {
+
+        }
 
         public GameResource(string path)
         {
@@ -38,13 +43,10 @@ namespace OpenIII.GameFiles
 
         public abstract string GetExtension();
 
-        public static Bitmap GetIcon(string path, IconSize size)
+        public Bitmap GetIcon(string path, IconSize size)
         {
             // Uncomment this to use predefined png icons
-            /*if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
-                return Properties.Resources.Folder;
-            else
-                return Properties.Resources.File;*/
+            //return GetIcon(size);
 
             if (Environment.OSVersion.Platform == PlatformID.Win32NT
                 && Environment.OSVersion.Version.Major > 5)
@@ -55,11 +57,10 @@ namespace OpenIII.GameFiles
             else
             {
                 // Use predefined icons from app resources on XP/Mono
-                if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
-                    return Properties.Resources.Folder;
-                else
-                    return Properties.Resources.File;
+                return GetIcon(size);
             }
         }
+
+        public abstract Bitmap GetIcon(IconSize size);
     }
 }

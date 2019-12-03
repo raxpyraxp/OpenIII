@@ -20,7 +20,7 @@ namespace OpenIII.GameFiles
 
         public ArchiveFile(string filePath) : base(filePath) { }
 
-        public abstract List<ArchiveEntry> GetFileList();
+        public abstract List<GameResource> GetFileList();
 
         public static new ArchiveFile CreateInstance(string path)
         {
@@ -47,7 +47,12 @@ namespace OpenIII.GameFiles
             }
         }
 
-        public void ExtractFile(ArchiveEntry entry, string destination)
+        public static new ArchiveFile CreateInstance(int offset, int size, string filename, ArchiveFile parentFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExtractFile(GameFile entry, string destination)
         {
             FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
@@ -69,11 +74,11 @@ namespace OpenIII.GameFiles
             imgFile.Close();
         }
 
-        public void DeleteFile(ArchiveEntry entry) { }
+        public void DeleteFile(GameFile entry) { }
         
-        public void ReplaceFile(ArchiveEntry oldEntry, ArchiveEntry newEntry) { }
+        public void ReplaceFile(GameFile oldEntry, GameFile newEntry) { }
 
-        public void RenameFile(ArchiveEntry entry, string newName) { }
+        public void RenameFile(GameFile entry, string newName) { }
 
     }
 }

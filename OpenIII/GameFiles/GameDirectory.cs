@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Drawing;
+using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
@@ -15,6 +17,11 @@ namespace OpenIII.GameFiles
         public static new GameDirectory CreateInstance(string path)
         {
             return new GameDirectory(path);
+        }
+
+        public override Bitmap GetIcon(IconSize size)
+        {
+            return Properties.Resources.Folder;
         }
 
         public List<GameFile> GetFiles()

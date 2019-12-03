@@ -43,34 +43,13 @@ namespace OpenIII
         public void OpenArchive(ArchiveFile archive)
         {
             archiveFile = archive;
-            SetListView(archiveFile.GetFileList());
+            SetFileListView(archiveFile.GetFileList());
             SetTotalFiles(archiveFile.TotalFiles);
-        }
-
-        public void SetListView(List<ArchiveEntry> list)
-        {
-            UseWaitCursor = true;
-            Application.DoEvents();
-            fileListView.BeginUpdate();
-
-            fileListView.Items.Clear();
-
-            foreach (ArchiveEntry entry in list)
-            {
-                ListViewItem item = new ListViewItem(entry.Filename);
-                item.Tag = entry;
-                fileListView.Items.Add(item);
-            }
-
-            fileListView.EndUpdate();
-            UseWaitCursor = false;
-            Application.DoEvents();
         }
 
         public void SetFileListView(List<GameResource> list)
         {
             UseWaitCursor = true;
-            archiveFile = null;
             Application.DoEvents();
             fileListView.BeginUpdate();
 
@@ -215,11 +194,13 @@ namespace OpenIII
             else
             {
                 // If browsing archive
-                foreach (ListViewItem item in fileListView.SelectedItems)
-                {
-                    ArchiveEntry entry = (ArchiveEntry)item.Tag;
-                    entry.extract(@"D:\Documents\" + entry.Filename);
-                }
+                GameFile entry = (GameFile)fileListView.SelectedItems[0].Tag;
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.FileName = entry.FullPath;
+                dialog.Filter = "All Files|*.*";
+                dialog.Title = "Extract To...";
+                dialog.ShowDialog();
+                entry.Extract(dialog.InitialDirectory + dialog.FileName);
             }
         }
 
@@ -242,6 +223,7 @@ namespace OpenIII
         private void OnFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
+            archiveFile = null;
             SetFileListView(dir.GetContent());
         }
 

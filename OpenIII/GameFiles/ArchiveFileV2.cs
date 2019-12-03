@@ -64,12 +64,12 @@ namespace OpenIII.GameFiles
             return totalFiles;
         }
 
-        public override List<ArchiveEntry> GetFileList()
+        public override List<GameResource> GetFileList()
         {
             long filesCount = ReadTotalFilesFromArchive();
 
             FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
-            List<ArchiveEntry> fileList = new List<ArchiveEntry>();
+            List<GameResource> fileList = new List<GameResource>();
             int read = 1;
             byte[] buf;
 
@@ -98,7 +98,7 @@ namespace OpenIII.GameFiles
                 // Remove null-terminate char
                 filename = filename.Remove(filename.IndexOf("\0"));
 
-                fileList.Add(new ArchiveEntry(offset, size, filename, this));
+                fileList.Add(new GameFile(offset, size, filename, this));
             }
 
             imgFile.Close();
