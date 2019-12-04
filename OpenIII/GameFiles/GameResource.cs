@@ -11,8 +11,8 @@ namespace OpenIII.GameFiles
     public abstract class GameResource
     {
         public string FullPath { get; protected set; }
-        public string Name { get => GetName(); }
-        public string Extension { get => GetExtension(); }
+        public abstract string Name { get; }
+        public abstract string Extension { get; }
         public Bitmap SmallIcon { get => GetIcon(FullPath, IconSize.Small); }
         public Bitmap LargeIcon { get => GetIcon(FullPath, IconSize.Large); }
 
@@ -38,10 +38,6 @@ namespace OpenIII.GameFiles
             }
 
         }
-
-        public abstract string GetName();
-
-        public abstract string GetExtension();
 
         public Bitmap GetIcon(string path, IconSize size)
         {

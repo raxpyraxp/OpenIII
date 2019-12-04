@@ -17,13 +17,12 @@ namespace OpenIII.GameFiles
             FILENAME_ENTRY_BYTE_SIZE +
             SIZE_ENTRY_BYTE_SIZE;
 
-        public override ArchiveFileVersion ImgVersion { get; }
+        public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V1; }
         public override long TotalFiles { get => CalculateTotalFilesFromDir(); }
         public GameFile DirFile { get; }
 
         public ArchiveFileV1(string filePath) : base(filePath)
         {
-            ImgVersion = ArchiveFileVersion.V1;
             DirFile = new GameFile(GetDirFilePath(filePath));
         }
 

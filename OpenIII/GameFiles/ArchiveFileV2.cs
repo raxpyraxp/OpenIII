@@ -25,12 +25,11 @@ namespace OpenIII.GameFiles
 
         public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
 
-        public override ArchiveFileVersion ImgVersion { get; }
+        public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V2; }
         public override long TotalFiles { get => ReadTotalFilesFromArchive(); }
 
         public ArchiveFileV2(string filePath) : base(filePath)
         {
-            ImgVersion = ArchiveFileVersion.V2;
         }
 
         public static ArchiveFileVersion ReadVersionFromArchive(GameFile imgFile)

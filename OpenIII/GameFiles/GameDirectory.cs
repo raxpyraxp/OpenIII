@@ -10,8 +10,13 @@ namespace OpenIII.GameFiles
 {
     public class GameDirectory : GameResource
     {
+        public override string Name { get => directoryInfo.Name; }
+        public override string Extension { get => directoryInfo.Extension; }
+        private DirectoryInfo directoryInfo;
+
         public GameDirectory(string path) : base(path)
         {
+            this.directoryInfo = new DirectoryInfo(FullPath);
         }
 
         public static new GameDirectory CreateInstance(string path)
@@ -26,10 +31,9 @@ namespace OpenIII.GameFiles
 
         public List<GameFile> GetFiles()
         {
-            DirectoryInfo dir = new DirectoryInfo(FullPath);
             List<GameFile> gameFiles = new List<GameFile>();
 
-            foreach (FileInfo file in dir.GetFiles())
+            foreach (FileInfo file in directoryInfo.GetFiles())
             {
                 gameFiles.Add(GameFile.CreateInstance(Path.Combine(file.DirectoryName, file.Name)));
             }
@@ -39,10 +43,9 @@ namespace OpenIII.GameFiles
 
         public List<GameDirectory> GetDirectories()
         {
-            DirectoryInfo rootdir = new DirectoryInfo(FullPath);
             List<GameDirectory> gameDirectories = new List<GameDirectory>();
 
-            foreach (DirectoryInfo dir in rootdir.GetDirectories())
+            foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
             {
                 gameDirectories.Add(GameDirectory.CreateInstance(dir.FullName));
             }
@@ -57,16 +60,6 @@ namespace OpenIII.GameFiles
             resources.AddRange(GetFiles());
 
             return resources;
-        }
-
-        public override string GetName()
-        {
-            return new DirectoryInfo(FullPath).Name;
-        }
-
-        public override string GetExtension()
-        {
-            return new DirectoryInfo(FullPath).Extension;
         }
     }
 }

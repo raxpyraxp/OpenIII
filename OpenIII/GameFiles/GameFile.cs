@@ -13,14 +13,18 @@ namespace OpenIII.GameFiles
 
     public class GameFile : GameResource
     {
-        public long Length { get => GetLength(); }
+        public override string Name { get => fileInfo.Name; }
+        public override string Extension { get => fileInfo.Extension; }
+        public long Length { get => fileInfo.Length; }
         public int Offset { get; }
         public int Size { get; }
         public ArchiveFile ParentArchive { get; }
         public FileSource Source { get; }
+        private FileInfo fileInfo;
 
         public GameFile(string path) : base(path)
         {
+            this.fileInfo = new FileInfo(FullPath);
             Source = FileSource.FILESYSTEM;
         }
 
@@ -30,6 +34,7 @@ namespace OpenIII.GameFiles
             this.Size = size;
             this.FullPath = filename;
             this.ParentArchive = parentFile;
+            this.fileInfo = new FileInfo(FullPath);
             Source = FileSource.ARCHIVE;
         }
 
@@ -60,24 +65,9 @@ namespace OpenIII.GameFiles
             return Properties.Resources.File;
         }
 
-        public override string GetName()
-        {
-            return new FileInfo(FullPath).Name;
-        }
-
-        public override string GetExtension()
-        {
-            return new FileInfo(FullPath).Extension;
-        }
-
         public static string GetExtension(string path)
         {
             return new FileInfo(path).Extension;
-        }
-
-        public long GetLength()
-        {
-            return new FileInfo(FullPath).Length;
         }
 
         public Stream GetStream(FileMode mode, FileAccess access)
