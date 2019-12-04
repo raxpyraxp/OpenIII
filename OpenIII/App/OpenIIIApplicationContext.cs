@@ -23,10 +23,6 @@ namespace OpenIII
 
         public void ShowFileBrowserWindow()
         {
-            // TODO: We must obtain a path of the game and pass it to the form instead of archive
-            //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\Grand Theft Auto Vice City\models\gta3.img");
-            //ArchiveFile img = ArchiveFile.createInstance(@"D:\Games\SteamLibrary\steamapps\common\Grand Theft Auto San Andreas\models\gta3.img");
-
             GameDirectory dir = new GameDirectory(Properties.Settings.Default.GTAPath);
 
             fileBrowserWindow = FileBrowserWindow.GetInstance();
@@ -54,7 +50,6 @@ namespace OpenIII
             Properties.Settings.Default.GTAPath = e.Path;
             Properties.Settings.Default.Save();
             setGamePathWindow.FormClosed -= OnClosed;
-            //setGamePathWindow.Close();
             ShowFileBrowserWindow();
         }
     }
