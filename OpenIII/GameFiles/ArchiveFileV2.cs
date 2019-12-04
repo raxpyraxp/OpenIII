@@ -33,16 +33,16 @@ namespace OpenIII.GameFiles
             ImgVersion = ArchiveFileVersion.V2;
         }
 
-        public static ArchiveFileVersion ReadVersionFromArchive(string imgPath)
+        public static ArchiveFileVersion ReadVersionFromArchive(GameFile imgFile)
         {
-            FileStream imgFile = new FileStream(imgPath, FileMode.Open, FileAccess.Read);
+            Stream stream = imgFile.GetStream(FileMode.Open, FileAccess.Read);
             byte[] buf = new byte[VERSION_SIZE];
-            
-            imgFile.Read(buf, 0, buf.Length);
+
+            stream.Read(buf, 0, buf.Length);
 
             string versionHeader = Encoding.ASCII.GetString(buf);
 
-            imgFile.Close();
+            stream.Close();
 
             return versionHeader.IndexOf("VER2") != -1 ?
                 ArchiveFileVersion.V2 :
@@ -51,15 +51,15 @@ namespace OpenIII.GameFiles
 
         private long ReadTotalFilesFromArchive()
         {
-            FileStream fileImg = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
+            Stream stream = GetStream(FileMode.Open, FileAccess.Read);
             byte[] buf = new byte[NUMBER_OF_ENTRIES_SIZE];
 
-            fileImg.Seek(VERSION_SIZE, SeekOrigin.Begin);
-            fileImg.Read(buf, 0, buf.Length);
+            stream.Seek(VERSION_SIZE, SeekOrigin.Begin);
+            stream.Read(buf, 0, buf.Length);
 
             int totalFiles = BitConverter.ToInt32(buf, 0);
 
-            fileImg.Close();
+            stream.Close();
 
             return totalFiles;
         }
@@ -68,31 +68,31 @@ namespace OpenIII.GameFiles
         {
             long filesCount = ReadTotalFilesFromArchive();
 
-            FileStream imgFile = new FileStream(FullPath, FileMode.Open, FileAccess.Read);
+            Stream stream = GetStream(FileMode.Open, FileAccess.Read);
             List<GameResource> fileList = new List<GameResource>();
             int read = 1;
             byte[] buf;
 
             // Skipping header
-            imgFile.Seek(HEADER_SIZE, SeekOrigin.Begin);
+            stream.Seek(HEADER_SIZE, SeekOrigin.Begin);
 
             while (read > 0 && filesCount > fileList.Count)
             {
                 buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(buf, 0, buf.Length);
+                read = stream.Read(buf, 0, buf.Length);
                 int offset = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
 
                 buf = new byte[STREAMING_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(buf, 0, buf.Length);
+                read = stream.Read(buf, 0, buf.Length);
                 int size = BitConverter.ToInt16(buf, 0) * SECTOR_SIZE;
 
                 buf = new byte[SIZE_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(buf, 0, buf.Length);
+                read = stream.Read(buf, 0, buf.Length);
                 // It was never used in production game release, so we just skip this for now
                 //int size = BitConverter.ToInt16(buf, 0) * SECTOR_SIZE;
 
                 buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-                read = imgFile.Read(buf, 0, buf.Length);
+                read = stream.Read(buf, 0, buf.Length);
                 string filename = Encoding.ASCII.GetString(buf);
 
                 // Remove null-terminate char
@@ -101,7 +101,7 @@ namespace OpenIII.GameFiles
                 fileList.Add(new GameFile(offset, size, filename, this));
             }
 
-            imgFile.Close();
+            stream.Close();
 
             return fileList;
         }

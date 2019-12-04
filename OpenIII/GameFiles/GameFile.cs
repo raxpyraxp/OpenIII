@@ -13,6 +13,7 @@ namespace OpenIII.GameFiles
 
     public class GameFile : GameResource
     {
+        public long Length { get => GetLength(); }
         public int Offset { get; }
         public int Size { get; }
         public ArchiveFile ParentArchive { get; }
@@ -72,6 +73,18 @@ namespace OpenIII.GameFiles
         public static string GetExtension(string path)
         {
             return new FileInfo(path).Extension;
+        }
+
+        public long GetLength()
+        {
+            return new FileInfo(FullPath).Length;
+        }
+
+        public Stream GetStream(FileMode mode, FileAccess access)
+        {
+            return Source == FileSource.FILESYSTEM ?
+                new FileStream(FullPath, mode, access) :
+                new ArchiveStream(this, mode, access);
         }
 
         public void Extract(String destinationPath)

@@ -25,7 +25,7 @@ namespace OpenIII.GameFiles
 
         public static new ArchiveFile CreateInstance(string path)
         {
-            ArchiveFileVersion version = ArchiveFileV2.ReadVersionFromArchive(path);
+            ArchiveFileVersion version = ArchiveFileV2.ReadVersionFromArchive(new GameFile(path));
 
             // We've tried to extract the version from the archive file itself in readVersionFromImg().
             // If we've failed, then we're checking if we have a .dir file nearby.
@@ -55,19 +55,19 @@ namespace OpenIII.GameFiles
 
         public void ExtractFile(GameFile entry, string destination)
         {
-            ArchiveStream entryStream = new ArchiveStream(entry, FileMode.Open, FileAccess.Read);
+            Stream stream = entry.GetStream(FileMode.Open, FileAccess.Read);
             FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
             byte[] buf = new byte[SECTOR_SIZE];
 
-            while (entryStream.Position < entryStream.Length)
+            while (stream.Position < stream.Length)
             {
-                int read = entryStream.Read(buf, 0, SECTOR_SIZE);
+                int read = stream.Read(buf, 0, SECTOR_SIZE);
                 destinationFile.Write(buf, 0, read);
             }
 
             destinationFile.Flush();
             destinationFile.Close();
-            entryStream.Close();
+            stream.Close();
         }
 
         public void DeleteFile(GameFile entry) { }
