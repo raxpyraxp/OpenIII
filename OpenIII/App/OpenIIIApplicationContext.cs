@@ -54,7 +54,7 @@ namespace OpenIII
             Properties.Settings.Default.GTAPath = e.Path;
             Properties.Settings.Default.Save();
             setGamePathWindow.FormClosed -= OnClosed;
-            setGamePathWindow.Close();
+            //setGamePathWindow.Close();
             ShowFileBrowserWindow();
         }
     }

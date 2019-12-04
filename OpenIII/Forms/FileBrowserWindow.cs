@@ -16,6 +16,7 @@ namespace OpenIII
         private ArchiveFile archiveFile;
         private GameDirectory rootDir;
         public AboutWindow aboutWindow;
+        private SetGamePathWindow setGamePathWindow;
 
         public FileBrowserWindow()
         {
@@ -241,6 +242,18 @@ namespace OpenIII
         {
             aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
+        }
+
+        private void SetGamePathMenuItemClick(object sender, EventArgs e)
+        {
+            SetGamePathWindow window = new SetGamePathWindow();
+            window.OnGtaPathSet += OnGtaPathChanged;
+            window.ShowDialog();
+        }
+
+        private void OnGtaPathChanged(object sender, PathEventArgs e)
+        {
+            OpenDir(new GameDirectory(e.Path));
         }
     }
 }

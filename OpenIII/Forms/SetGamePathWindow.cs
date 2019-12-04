@@ -18,6 +18,10 @@ namespace OpenIII
         public SetGamePathWindow()
         {
             InitializeComponent();
+
+            // Dummy events to prevent NullPointerException
+            OnGtaPathSet += (s, e) => { };
+            OnCancelled += (s, e) => { };
         }
 
         private void SelectPathButtonClick(object sender, EventArgs e)
@@ -68,11 +72,13 @@ namespace OpenIII
         private void OnNextButtonClick(object sender, EventArgs e)
         {
             OnGtaPathSet(this, new PathEventArgs(gtaPathTextBox.Text));
+            Close();
         }
 
         private void OnCancelButtonClick(object sender, EventArgs e)
         {
             OnCancelled(this, new EventArgs());
+            Close();
         }
     }
 }
