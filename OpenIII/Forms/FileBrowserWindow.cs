@@ -15,8 +15,6 @@ namespace OpenIII
 
         private ArchiveFile archiveFile;
         private GameDirectory rootDir;
-        public AboutWindow aboutWindow;
-        private SetGamePathWindow setGamePathWindow;
 
         public FileBrowserWindow()
         {
@@ -240,7 +238,7 @@ namespace OpenIII
 
         private void OnAboutMenuItemClick(object sender, EventArgs e)
         {
-            aboutWindow = new AboutWindow();
+            AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
 
