@@ -14,7 +14,7 @@ namespace OpenIII.GameFiles
 
     public abstract class ArchiveFile : GameFile
     {
-        public static int SECTOR_SIZE = 2048;
+        public const int SECTOR_SIZE = 2048;
 
         public abstract ArchiveFileVersion ImgVersion { get; }
         public abstract long TotalFiles { get; }

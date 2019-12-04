@@ -8,12 +8,12 @@ namespace OpenIII.GameFiles
     class ArchiveFileV2 : ArchiveFile
     {
         // Directory entry constants
-        public static int OFFSET_ENTRY_BYTE_SIZE = 4;
-        public static int STREAMING_ENTRY_BYTE_SIZE = 2;
-        public static int SIZE_ENTRY_BYTE_SIZE = 2;
-        public static int FILENAME_ENTRY_BYTE_SIZE = 24;
+        public const int OFFSET_ENTRY_BYTE_SIZE = 4;
+        public const int STREAMING_ENTRY_BYTE_SIZE = 2;
+        public const int SIZE_ENTRY_BYTE_SIZE = 2;
+        public const int FILENAME_ENTRY_BYTE_SIZE = 24;
 
-        public static int DIR_ENTRY_SIZE =
+        public const int DIR_ENTRY_SIZE =
             OFFSET_ENTRY_BYTE_SIZE +
             FILENAME_ENTRY_BYTE_SIZE +
             SIZE_ENTRY_BYTE_SIZE +
