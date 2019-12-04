@@ -101,6 +101,7 @@
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameFiles\GameResource.cs" />
     <Compile Include="Utils\ArchiveStream.cs" />
+    <Compile Include="Utils\FileNameSortComparer.cs" />
     <Compile Include="Utils\PathEventArgs.cs" />
     <Compile Include="Utils\GameManager.cs" />
     <Compile Include="Program.cs" />

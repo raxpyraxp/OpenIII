@@ -57,6 +57,8 @@ namespace OpenIII
             fileListView.SmallImageList = new ImageList();
             fileListView.LargeImageList = new ImageList();
 
+            list.Sort(new FileNameSortComparer());
+
             foreach (GameResource resource in list)
             {
                 ListViewItem item = new ListViewItem(resource.Name);
@@ -101,6 +103,7 @@ namespace OpenIII
 
         public TreeNode[] GetNodesList(List<GameDirectory> list)
         {
+            list.Sort(new FileNameSortComparer());
             List<TreeNode> nodes = new List<TreeNode>();
 
             foreach (GameDirectory dir in list)
