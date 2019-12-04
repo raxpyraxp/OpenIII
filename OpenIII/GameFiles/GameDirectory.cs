@@ -24,7 +24,7 @@ namespace OpenIII.GameFiles
             return new GameDirectory(path);
         }
 
-        public override Bitmap GetIcon(IconSize size)
+        public override Bitmap GetPredefinedIcon(IconSize size)
         {
             return Properties.Resources.Folder;
         }

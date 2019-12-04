@@ -60,7 +60,7 @@ namespace OpenIII.GameFiles
             }
         }
 
-        public override Bitmap GetIcon(IconSize size)
+        public override Bitmap GetPredefinedIcon(IconSize size)
         {
             return Properties.Resources.File;
         }
