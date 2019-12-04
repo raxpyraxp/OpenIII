@@ -39,12 +39,14 @@ namespace OpenIII.GameFiles
 
         public override List<GameResource> GetFileList()
         {
+            long filesCount = CalculateTotalFilesFromDir();
+
             FileStream dirFile = new FileStream(DirPath, FileMode.Open, FileAccess.Read);
             List<GameResource> fileList = new List<GameResource>();
             int read = 1;
             byte[] buf;
 
-            while (read > 0)
+            while (read > 0 && filesCount > fileList.Count)
             {
                 buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
                 read = dirFile.Read(buf, 0, buf.Length);
