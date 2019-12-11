@@ -28,23 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.FileContent = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // FileContent
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(776, 426);
-            this.textBox1.TabIndex = 0;
+            this.FileContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileContent.Location = new System.Drawing.Point(12, 12);
+            this.FileContent.Multiline = true;
+            this.FileContent.Name = "FileContent";
+            this.FileContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.FileContent.Size = new System.Drawing.Size(600, 418);
+            this.FileContent.TabIndex = 0;
             // 
             // TextEditorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(624, 442);
+            this.Controls.Add(this.FileContent);
             this.Name = "TextEditorWindow";
             this.Text = "TextEditorWindow";
             this.ResumeLayout(false);
@@ -54,6 +58,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox FileContent;
     }
 }

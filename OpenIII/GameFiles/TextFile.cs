@@ -9,6 +9,16 @@ namespace OpenIII.GameFiles
     {
         public TextFile(string filePath) : base(filePath) { }
 
+        public static new GameFile CreateInstance(string path)
+        {
+            return new GameFile(path);
+        }
+
+        public static string GetContent(string filePath)
+        {
+            return File.ReadAllText(filePath);
+        }
+
         public List<String[]> ParseData(string path)
         {
             string iteratableLine;

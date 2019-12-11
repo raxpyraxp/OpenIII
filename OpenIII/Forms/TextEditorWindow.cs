@@ -11,9 +11,25 @@ namespace OpenIII
 {
     public partial class TextEditorWindow : Form
     {
+        private static TextEditorWindow instance;
         public TextEditorWindow()
         {
             InitializeComponent();
+        }
+
+        public void SetTextArea(string text)
+        {
+            FileContent.Text = text;
+        }
+
+        public static TextEditorWindow GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new TextEditorWindow();
+            }
+
+            return instance;
         }
     }
 }

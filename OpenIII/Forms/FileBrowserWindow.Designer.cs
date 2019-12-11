@@ -36,9 +36,10 @@ namespace OpenIII
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setGamePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@ namespace OpenIII
             // totalFilesTitleLabel
             // 
             this.totalFilesTitleLabel.Name = "totalFilesTitleLabel";
-            this.totalFilesTitleLabel.Size = new System.Drawing.Size(113, 17);
+            this.totalFilesTitleLabel.Size = new System.Drawing.Size(115, 17);
             this.totalFilesTitleLabel.Text = "Total files in archive:";
             // 
             // totalFilesLabel
@@ -99,6 +100,7 @@ namespace OpenIII
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -118,16 +120,9 @@ namespace OpenIII
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutMenuItemClick);
             // 
             // optionsToolStripMenuItem
             // 
@@ -140,9 +135,22 @@ namespace OpenIII
             // setGamePathToolStripMenuItem
             // 
             this.setGamePathToolStripMenuItem.Name = "setGamePathToolStripMenuItem";
-            this.setGamePathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setGamePathToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.setGamePathToolStripMenuItem.Text = "Set game path...";
             this.setGamePathToolStripMenuItem.Click += new System.EventHandler(this.SetGamePathMenuItemClick);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutMenuItemClick);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
             // 
             // FileBrowserWindow
             // 
@@ -179,5 +187,6 @@ namespace OpenIII
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setGamePathToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }
