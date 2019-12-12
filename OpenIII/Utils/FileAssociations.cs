@@ -15,6 +15,10 @@ namespace OpenIII.Utils
             // TODO: создать объект с расширениями файлов
             switch (file.Extension.ToLower())
             {
+                case ".gxt":
+                case ".fxt":
+                    new GXTEditorWindow().ShowDialog();
+                    break;
                 case ".ide":
                 case ".ipl":
                 case ".dat":
