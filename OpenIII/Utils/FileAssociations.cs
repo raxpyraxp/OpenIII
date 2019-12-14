@@ -17,7 +17,7 @@ namespace OpenIII.Utils
             {
                 case ".gxt":
                 case ".fxt":
-                    new GXTEditorWindow().ShowDialog();
+                    new GXTEditorWindow().Show();
                     break;
                 case ".ide":
                 case ".ipl":
@@ -27,8 +27,20 @@ namespace OpenIII.Utils
                 case ".cfg":
                 case ".ini":
                 case ".zon":
-                    TextEditorWindow.GetInstance().SetTextArea(TextFile.GetContent(file.FullPath));
-                    TextEditorWindow.GetInstance().ShowDialog();
+                    //TextEditorWindow.GetInstance().SetTextArea(TextFile.GetContent(file.FullPath));
+                    //TextEditorWindow.GetInstance().ShowDialog();
+                    var window = new DataEditorWindow();
+                    var textFile = new TextFile(file.FullPath);
+                    var result = textFile.ParseData(file.FullPath);
+                    
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        var arr = result[i].ToArray();
+                        window.songsDataGridView.Rows.Add(arr);
+                    }
+
+                    window.Show();
+
                     break;
                 case ".img":
                     FileBrowserWindow.GetInstance().OpenArchive((ArchiveFile)file);

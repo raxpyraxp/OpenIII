@@ -241,8 +241,7 @@ namespace OpenIII
 
         private void OnAboutMenuItemClick(object sender, EventArgs e)
         {
-            AboutWindow aboutWindow = new AboutWindow();
-            aboutWindow.ShowDialog();
+            
         }
 
         private void SetGamePathMenuItemClick(object sender, EventArgs e)
@@ -255,6 +254,11 @@ namespace OpenIII
         private void OnGtaPathChanged(object sender, PathEventArgs e)
         {
             OpenDir(new GameDirectory(e.Path));
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new AboutWindow().ShowDialog();
         }
     }
 }

@@ -114,6 +114,12 @@
     <Compile Include="GameFiles\GameResource.cs" />
     <Compile Include="Utils\ArchiveStream.cs" />
     <Compile Include="Utils\FileNameSortComparer.cs" />
+    <Compile Include="Forms\DataEditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DataEditorWindow.Designer.cs">
+      <DependentUpon>DataEditorWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\PathEventArgs.cs" />
     <Compile Include="Utils\GameManager.cs" />
     <Compile Include="Program.cs" />
@@ -155,6 +161,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Forms\DataEditorWindow.resx">
+      <DependentUpon>DataEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\app.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\packages.config" />
