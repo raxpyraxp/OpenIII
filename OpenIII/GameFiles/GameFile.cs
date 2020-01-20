@@ -11,15 +11,39 @@ namespace OpenIII.GameFiles
         ARCHIVE
     }
 
-    public class GameFile : GameResource
+    public class GameFile : FileSystemElement
     {
+        /// <summary>
+        /// Имя файла
+        /// </summary>
         public override string Name { get => fileInfo.Name; }
+
+        /// <summary>
+        /// Расширение файла
+        /// </summary>
         public override string Extension { get => fileInfo.Extension; }
+
+        /// <summary>
+        /// Размер файла в байтах
+        /// </summary>
         public long Length { get => fileInfo.Length; }
+
+        /// <summary>
+        /// Отступ от нулевого байта в родительском файле в байтах
+        /// </summary>
         public int Offset { get; }
         public int Size { get; }
+
+        /// <summary>
+        /// Родительский архив
+        /// </summary>
         public ArchiveFile ParentArchive { get; }
+
         public FileSource Source { get; }
+
+        /// <summary>
+        /// Информация о файле
+        /// </summary>
         private FileInfo fileInfo;
 
         public GameFile(string path) : base(path)
@@ -77,6 +101,10 @@ namespace OpenIII.GameFiles
                 new ArchiveStream(this, mode, access);
         }
 
+        /// <summary>
+        /// Экспортирует файл из родительского архива
+        /// </summary>
+        /// <param name="destinationPath"></param>
         public void Extract(String destinationPath)
         {
             ParentArchive.ExtractFile(this, destinationPath);

@@ -21,7 +21,7 @@ namespace OpenIII.GameFiles
 
         public ArchiveFile(string filePath) : base(filePath) { }
 
-        public abstract List<GameResource> GetFileList();
+        public abstract List<FileSystemElement> GetFileList();
 
         public static new ArchiveFile CreateInstance(string path)
         {

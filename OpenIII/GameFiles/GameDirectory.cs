@@ -8,12 +8,27 @@ using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
-    public class GameDirectory : GameResource
+    public class GameDirectory : FileSystemElement
     {
+        /// <summary>
+        /// Имя директории
+        /// </summary>
         public override string Name { get => directoryInfo.Name; }
+
+        /// <summary>
+        /// Расширение директории
+        /// </summary>
         public override string Extension { get => directoryInfo.Extension; }
+
+        /// <summary>
+        /// Информация о директории
+        /// </summary>
         private DirectoryInfo directoryInfo;
 
+        /// <summary>
+        /// Создаёт новую директорию
+        /// </summary>
+        /// <param name="path"></param>
         public GameDirectory(string path) : base(path)
         {
             this.directoryInfo = new DirectoryInfo(FullPath);
@@ -29,6 +44,10 @@ namespace OpenIII.GameFiles
             return Properties.Resources.Folder;
         }
 
+        /// <summary>
+        /// Возвращает все файлы из директории
+        /// </summary>
+        /// <returns></returns>
         public List<GameFile> GetFiles()
         {
             List<GameFile> gameFiles = new List<GameFile>();
@@ -41,6 +60,10 @@ namespace OpenIII.GameFiles
             return gameFiles;
         }
 
+        /// <summary>
+        /// Возвращает все директории из директории
+        /// </summary>
+        /// <returns></returns>
         public List<GameDirectory> GetDirectories()
         {
             List<GameDirectory> gameDirectories = new List<GameDirectory>();
@@ -53,9 +76,13 @@ namespace OpenIII.GameFiles
             return gameDirectories;
         }
 
-        public List<GameResource> GetContent()
+        /// <summary>
+        /// Возвращает все элементы, находящиеся в директории
+        /// </summary>
+        /// <returns></returns>
+        public List<FileSystemElement> GetContent()
         {
-            List<GameResource> resources = new List<GameResource>();
+            List<FileSystemElement> resources = new List<FileSystemElement>();
             resources.AddRange(GetDirectories());
             resources.AddRange(GetFiles());
 

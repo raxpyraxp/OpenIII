@@ -63,12 +63,12 @@ namespace OpenIII.GameFiles
             return totalFiles;
         }
 
-        public override List<GameResource> GetFileList()
+        public override List<FileSystemElement> GetFileList()
         {
             long filesCount = ReadTotalFilesFromArchive();
 
             Stream stream = GetStream(FileMode.Open, FileAccess.Read);
-            List<GameResource> fileList = new List<GameResource>();
+            List<FileSystemElement> fileList = new List<FileSystemElement>();
             int read = 1;
             byte[] buf;
 

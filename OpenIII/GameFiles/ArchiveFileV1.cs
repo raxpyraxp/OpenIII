@@ -7,18 +7,33 @@ namespace OpenIII.GameFiles
 {
     class ArchiveFileV1 : ArchiveFile
     {
-        // Directory entry constants
+        public const string DirSuffix = "dir";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int OFFSET_ENTRY_BYTE_SIZE = 4;
         public const int SIZE_ENTRY_BYTE_SIZE = 4;
         public const int FILENAME_ENTRY_BYTE_SIZE = 24;
 
+        /// <summary>
+        /// Размер элемента .dir-файла в байтах
+        /// </summary>
         public const int DIR_ENTRY_SIZE = 
             OFFSET_ENTRY_BYTE_SIZE +
             FILENAME_ENTRY_BYTE_SIZE +
             SIZE_ENTRY_BYTE_SIZE;
 
+        /// <summary>
+        /// Версия архива
+        /// </summary>
         public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V1; }
+
+        /// <summary>
+        /// Количество файлов в архиве
+        /// </summary>
         public override long TotalFiles { get => CalculateTotalFilesFromDir(); }
+        
         public GameFile DirFile { get; }
 
         public ArchiveFileV1(string filePath) : base(filePath)
@@ -26,23 +41,36 @@ namespace OpenIII.GameFiles
             DirFile = new GameFile(GetDirFilePath(filePath));
         }
 
+        /// <summary>
+        /// Получить количество файлов из .dir-файла
+        /// </summary>
+        /// <returns></returns>
         private long CalculateTotalFilesFromDir()
         {
             return DirFile.Length / DIR_ENTRY_SIZE;
         }
 
+        /// <summary>
+        /// Получить путь до .dir-файла
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string GetDirFilePath(string path)
         {
             // Just replace extension to dir in the original file path
-            return path.Remove(path.Length - 3) + "dir";
+            return path.Remove(path.Length - DirSuffix.Length) + DirSuffix;
         }
 
-        public override List<GameResource> GetFileList()
+        /// <summary>
+        /// Получить список файлов из архива
+        /// </summary>
+        /// <returns></returns>
+        public override List<FileSystemElement> GetFileList()
         {
             long filesCount = CalculateTotalFilesFromDir();
 
             Stream stream = DirFile.GetStream(FileMode.Open, FileAccess.Read);
-            List<GameResource> fileList = new List<GameResource>();
+            List<FileSystemElement> fileList = new List<FileSystemElement>();
             int read = 1;
             byte[] buf;
 

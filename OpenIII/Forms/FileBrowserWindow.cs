@@ -47,7 +47,7 @@ namespace OpenIII
             fileTreeView.SelectedNode = null;
         }
 
-        public void SetFileListView(List<GameResource> list)
+        public void SetFileListView(List<FileSystemElement> list)
         {
             UseWaitCursor = true;
             Application.DoEvents();
@@ -59,7 +59,7 @@ namespace OpenIII
 
             list.Sort(new FileNameSortComparer());
 
-            foreach (GameResource resource in list)
+            foreach (FileSystemElement resource in list)
             {
                 ListViewItem item = new ListViewItem(resource.Name);
                 
@@ -180,7 +180,7 @@ namespace OpenIII
                 // If browsing directory
                 if (fileListView.SelectedItems.Count == 1)
                 {
-                    GameResource resource = (GameResource)fileListView.SelectedItems[0].Tag;
+                    FileSystemElement resource = (FileSystemElement)fileListView.SelectedItems[0].Tag;
 
                     if (resource is GameDirectory)
                     {

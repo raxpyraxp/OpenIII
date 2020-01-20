@@ -6,9 +6,9 @@ using OpenIII.GameFiles;
 
 namespace OpenIII.Utils
 {
-    class FileNameSortComparer : IComparer<GameResource>
+    class FileNameSortComparer : IComparer<FileSystemElement>
     {
-        public int Compare(GameResource left, GameResource right)
+        public int Compare(FileSystemElement left, FileSystemElement right)
         {
             int comparison = 0;
             

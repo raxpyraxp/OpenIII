@@ -27,20 +27,7 @@ namespace OpenIII.Utils
                 case ".cfg":
                 case ".ini":
                 case ".zon":
-                    //TextEditorWindow.GetInstance().SetTextArea(TextFile.GetContent(file.FullPath));
-                    //TextEditorWindow.GetInstance().ShowDialog();
-                    var window = new DataEditorWindow();
-                    var textFile = new TextFile(file.FullPath);
-                    var result = textFile.ParseData(file.FullPath);
-                    
-                    for (int i = 0; i < result.Count; i++)
-                    {
-                        var arr = result[i].ToArray();
-                        window.songsDataGridView.Rows.Add(arr);
-                    }
-
-                    window.Show();
-
+                    DataEditorWindow.GetInstance().OpenFile(new TextFile(file.FullPath));
                     break;
                 case ".img":
                     FileBrowserWindow.GetInstance().OpenArchive((ArchiveFile)file);
