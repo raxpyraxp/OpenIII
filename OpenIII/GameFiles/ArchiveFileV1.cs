@@ -9,9 +9,6 @@ namespace OpenIII.GameFiles
     {
         public const string DirSuffix = "dir";
 
-        /// <summary>
-        /// 
-        /// </summary>
         public const int OFFSET_ENTRY_BYTE_SIZE = 4;
         public const int SIZE_ENTRY_BYTE_SIZE = 4;
         public const int FILENAME_ENTRY_BYTE_SIZE = 24;
@@ -19,10 +16,9 @@ namespace OpenIII.GameFiles
         /// <summary>
         /// Размер элемента .dir-файла в байтах
         /// </summary>
-        public const int DIR_ENTRY_SIZE = 
-            OFFSET_ENTRY_BYTE_SIZE +
-            FILENAME_ENTRY_BYTE_SIZE +
-            SIZE_ENTRY_BYTE_SIZE;
+        public const int DIR_ENTRY_SIZE = OFFSET_ENTRY_BYTE_SIZE +
+                                          FILENAME_ENTRY_BYTE_SIZE +
+                                          SIZE_ENTRY_BYTE_SIZE;
 
         /// <summary>
         /// Версия архива
@@ -32,22 +28,13 @@ namespace OpenIII.GameFiles
         /// <summary>
         /// Количество файлов в архиве
         /// </summary>
-        public override long TotalFiles { get => CalculateTotalFilesFromDir(); }
+        public override long TotalFiles { get => DirFile.Length / DIR_ENTRY_SIZE; }
         
         public GameFile DirFile { get; }
 
         public ArchiveFileV1(string filePath) : base(filePath)
         {
             DirFile = new GameFile(GetDirFilePath(filePath));
-        }
-
-        /// <summary>
-        /// Получить количество файлов из .dir-файла
-        /// </summary>
-        /// <returns></returns>
-        private long CalculateTotalFilesFromDir()
-        {
-            return DirFile.Length / DIR_ENTRY_SIZE;
         }
 
         /// <summary>
@@ -67,26 +54,30 @@ namespace OpenIII.GameFiles
         /// <returns></returns>
         public override List<FileSystemElement> GetFileList()
         {
-            long filesCount = CalculateTotalFilesFromDir();
+            long filesCount = TotalFiles;
 
             Stream stream = DirFile.GetStream(FileMode.Open, FileAccess.Read);
             List<FileSystemElement> fileList = new List<FileSystemElement>();
-            int read = 1;
+            
+            int size, offset, read = 1;
+            
             byte[] buf;
+            
+            string filename;
 
             while (read > 0 && filesCount > fileList.Count)
             {
                 buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
                 read = stream.Read(buf, 0, buf.Length);
-                int offset = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
+                offset = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
 
                 buf = new byte[SIZE_ENTRY_BYTE_SIZE];
                 read = stream.Read(buf, 0, buf.Length);
-                int size = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
+                size = BitConverter.ToInt32(buf, 0) * SECTOR_SIZE;
 
                 buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
                 read = stream.Read(buf, 0, buf.Length);
-                string filename = Encoding.ASCII.GetString(buf);
+                filename = Encoding.ASCII.GetString(buf);
 
                 // Remove null-terminate char
                 filename = filename.Remove(filename.IndexOf("\0"));

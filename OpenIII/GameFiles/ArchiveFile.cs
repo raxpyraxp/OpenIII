@@ -5,6 +5,9 @@ using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
+    /// <summary>
+    /// Версия архива
+    /// </summary>
     public enum ArchiveFileVersion
     {
         Unknown,
@@ -16,13 +19,25 @@ namespace OpenIII.GameFiles
     {
         public const int SECTOR_SIZE = 2048;
 
+        /// <summary>
+        /// Версия архива
+        /// </summary>
         public abstract ArchiveFileVersion ImgVersion { get; }
+
+        /// <summary>
+        /// Количество файлов в архиве
+        /// </summary>
         public abstract long TotalFiles { get; }
 
         public ArchiveFile(string filePath) : base(filePath) { }
 
         public abstract List<FileSystemElement> GetFileList();
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static new ArchiveFile CreateInstance(string path)
         {
             ArchiveFileVersion version = ArchiveFileV2.ReadVersionFromArchive(new GameFile(path));
@@ -48,11 +63,24 @@ namespace OpenIII.GameFiles
             }
         }
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="size"></param>
+        /// <param name="filename"></param>
+        /// <param name="parentFile"></param>
+        /// <returns></returns>
         public static new ArchiveFile CreateInstance(int offset, int size, string filename, ArchiveFile parentFile)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Экспортирует файл из архива
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="destination"></param>
         public void ExtractFile(GameFile entry, string destination)
         {
             Stream stream = entry.GetStream(FileMode.Open, FileAccess.Read);

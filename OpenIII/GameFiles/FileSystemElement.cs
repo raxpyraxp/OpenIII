@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Drawing;
 using OpenIII.Utils;
@@ -42,7 +39,11 @@ namespace OpenIII.GameFiles
             FullPath = path;
         }
 
-
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public FileSystemElement CreateInstance(string path)
         {
             if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)

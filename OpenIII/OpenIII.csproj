@@ -94,6 +94,12 @@
     <Compile Include="Forms\BaseWindow.Designer.cs">
       <DependentUpon>BaseWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FXTEditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FXTEditorWindow.Designer.cs">
+      <DependentUpon>FXTEditorWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SetGamePathWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,7 @@
     <Compile Include="Forms\GXTEditorWindow.Designer.cs">
       <DependentUpon>GXTEditorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameFiles\FXTFile.cs" />
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameFiles\FileSystemElement.cs" />
@@ -142,6 +149,9 @@
     <EmbeddedResource Include="Forms\BaseWindow.resx">
       <DependentUpon>BaseWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FXTEditorWindow.resx">
+      <DependentUpon>FXTEditorWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SetGamePathWindow.resx">
       <DependentUpon>SetGamePathWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +176,7 @@
     </EmbeddedResource>
     <None Include="Properties\app.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\OpenIII.GameFiles.GXTEditorWindow.datasource" />
     <None Include="Properties\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

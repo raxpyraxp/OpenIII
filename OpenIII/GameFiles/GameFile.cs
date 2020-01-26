@@ -14,41 +14,45 @@ namespace OpenIII.GameFiles
     public class GameFile : FileSystemElement
     {
         /// <summary>
-        /// Имя файла
+        /// Размер
         /// </summary>
-        public override string Name { get => fileInfo.Name; }
-
-        /// <summary>
-        /// Расширение файла
-        /// </summary>
-        public override string Extension { get => fileInfo.Extension; }
-
-        /// <summary>
-        /// Размер файла в байтах
-        /// </summary>
-        public long Length { get => fileInfo.Length; }
+        public int Size { get; }
 
         /// <summary>
         /// Отступ от нулевого байта в родительском файле в байтах
         /// </summary>
         public int Offset { get; }
-        public int Size { get; }
+
+        /// <summary>
+        /// Информация о файле
+        /// </summary>
+        private FileInfo FileInfo;
+
+        public FileSource Source { get; }
 
         /// <summary>
         /// Родительский архив
         /// </summary>
         public ArchiveFile ParentArchive { get; }
 
-        public FileSource Source { get; }
+        /// <summary>
+        /// Размер файла в байтах
+        /// </summary>
+        public long Length { get => FileInfo.Length; }
 
         /// <summary>
-        /// Информация о файле
+        /// Имя файла
         /// </summary>
-        private FileInfo fileInfo;
+        public override string Name { get => FileInfo.Name; }
+
+        /// <summary>
+        /// Расширение файла
+        /// </summary>
+        public override string Extension { get => FileInfo.Extension; }
 
         public GameFile(string path) : base(path)
         {
-            this.fileInfo = new FileInfo(FullPath);
+            this.FileInfo = new FileInfo(FullPath);
             Source = FileSource.FILESYSTEM;
         }
 
@@ -58,10 +62,15 @@ namespace OpenIII.GameFiles
             this.Size = size;
             this.FullPath = filename;
             this.ParentArchive = parentFile;
-            this.fileInfo = new FileInfo(FullPath);
+            this.FileInfo = new FileInfo(FullPath);
             Source = FileSource.ARCHIVE;
         }
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static new GameFile CreateInstance(string path)
         {
             switch (GetExtension(path))
@@ -73,6 +82,14 @@ namespace OpenIII.GameFiles
             }
         }
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="size"></param>
+        /// <param name="filename"></param>
+        /// <param name="parentFile"></param>
+        /// <returns></returns>
         public static GameFile CreateInstance(int offset, int size, string filename, ArchiveFile parentFile)
         {
             switch (GetExtension(filename))
@@ -89,6 +106,11 @@ namespace OpenIII.GameFiles
             return Properties.Resources.File;
         }
 
+        /// <summary>
+        /// Возвращает расширение файла
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string GetExtension(string path)
         {
             return new FileInfo(path).Extension;

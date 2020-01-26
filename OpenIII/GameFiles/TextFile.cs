@@ -93,7 +93,7 @@ namespace OpenIII.GameFiles
         jump,
 
         /// <summary>
-        /// Секция НЕ РАБОТАЕТ
+        /// Секция НЕ ИСПОЛЬЗУЕТСЯ
         /// </summary>
         enex,
 
@@ -103,7 +103,7 @@ namespace OpenIII.GameFiles
         grge,
 
         /// <summary>
-        /// Секция НЕ РАБОТАЕТ
+        /// Секция НЕ ИСПОЛЬЗУЕТСЯ
         /// </summary>
         mult,
 
@@ -163,11 +163,21 @@ namespace OpenIII.GameFiles
 
         public TextFile(string filePath) : base(filePath) { }
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static new TextFile CreateInstance(string path)
         {
             return new TextFile(path);
         }
 
+        /// <summary>
+        /// Возвращает содержимое текстового файла
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static string GetContent(string filePath)
         {
             return File.ReadAllText(filePath);

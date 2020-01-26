@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
 using OpenIII.Utils;
@@ -11,19 +8,19 @@ namespace OpenIII.GameFiles
     public class GameDirectory : FileSystemElement
     {
         /// <summary>
+        /// Информация о директории
+        /// </summary>
+        private DirectoryInfo DirectoryInfo;
+
+        /// <summary>
         /// Имя директории
         /// </summary>
-        public override string Name { get => directoryInfo.Name; }
+        public override string Name { get => DirectoryInfo.Name; }
 
         /// <summary>
         /// Расширение директории
         /// </summary>
-        public override string Extension { get => directoryInfo.Extension; }
-
-        /// <summary>
-        /// Информация о директории
-        /// </summary>
-        private DirectoryInfo directoryInfo;
+        public override string Extension { get => DirectoryInfo.Extension; }
 
         /// <summary>
         /// Создаёт новую директорию
@@ -31,9 +28,14 @@ namespace OpenIII.GameFiles
         /// <param name="path"></param>
         public GameDirectory(string path) : base(path)
         {
-            this.directoryInfo = new DirectoryInfo(FullPath);
+            this.DirectoryInfo = new DirectoryInfo(FullPath);
         }
 
+        /// <summary>
+        /// Создаёт экземпляр
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static new GameDirectory CreateInstance(string path)
         {
             return new GameDirectory(path);
@@ -52,7 +54,7 @@ namespace OpenIII.GameFiles
         {
             List<GameFile> gameFiles = new List<GameFile>();
 
-            foreach (FileInfo file in directoryInfo.GetFiles())
+            foreach (FileInfo file in DirectoryInfo.GetFiles())
             {
                 gameFiles.Add(GameFile.CreateInstance(Path.Combine(file.DirectoryName, file.Name)));
             }
@@ -68,7 +70,7 @@ namespace OpenIII.GameFiles
         {
             List<GameDirectory> gameDirectories = new List<GameDirectory>();
 
-            foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
+            foreach (DirectoryInfo dir in DirectoryInfo.GetDirectories())
             {
                 gameDirectories.Add(GameDirectory.CreateInstance(dir.FullName));
             }

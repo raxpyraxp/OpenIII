@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using OpenIII.Forms;
 using OpenIII.GameFiles;
 
 namespace OpenIII.Utils
@@ -16,8 +17,13 @@ namespace OpenIII.Utils
             switch (file.Extension.ToLower())
             {
                 case ".gxt":
+                    GXTEditorWindow gxtEditorWindow = new GXTEditorWindow();
+                    gxtEditorWindow.Show();
+                    break;
                 case ".fxt":
-                    new GXTEditorWindow().Show();
+                    FXTEditorWindow fxtEditorWindow = new FXTEditorWindow();
+                    fxtEditorWindow.OpenFile(new FXTFile(file.FullPath));
+                    fxtEditorWindow.Show();
                     break;
                 case ".ide":
                 case ".ipl":
@@ -27,7 +33,9 @@ namespace OpenIII.Utils
                 case ".cfg":
                 case ".ini":
                 case ".zon":
-                    DataEditorWindow.GetInstance().OpenFile(new TextFile(file.FullPath));
+                    DataEditorWindow dataEditorWindow = new DataEditorWindow();
+                    dataEditorWindow.OpenFile(new TextFile(file.FullPath));
+                    dataEditorWindow.Show();
                     break;
                 case ".img":
                     FileBrowserWindow.GetInstance().OpenArchive((ArchiveFile)file);

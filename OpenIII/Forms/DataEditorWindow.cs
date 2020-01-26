@@ -28,8 +28,6 @@ namespace OpenIII
                 var arr = result[i].ToArray();
                 DataGridView.Rows.Add(arr);
             }
-
-            ShowDialog();
         }
 
         public DataEditorWindow()
