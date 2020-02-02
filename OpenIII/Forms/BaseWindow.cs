@@ -8,5 +8,10 @@ namespace OpenIII.Forms
         {
             InitializeComponent();
         }
+
+        public void CloseWindow()
+        {
+            Close();
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace OpenIII.GameFiles
 
             foreach (FXTFileItem item in this.Items)
             {
-                buf += item.GetKey() + " " + item.GetValue() + "\n";
+                buf += item.Key + " " + item.Value + '\n';
             }
 
             return buf;
@@ -56,22 +56,12 @@ namespace OpenIII.GameFiles
     {
         private const int maxKeyLength = 8;
 
-        private string key;
-        private string value;
-
-        public string GetKey()
-        {
-            return key;
-        }
-
-        public string GetValue()
-        {
-            return value;
-        }
+        public string Key { get; set; }
+        public string Value { get; set; }
 
         public FXTFileItem(string key, string value) {
-            this.key = key;
-            this.value = value;
+            this.Key = key;
+            this.Value = value;
         }
     }
 }
