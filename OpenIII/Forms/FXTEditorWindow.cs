@@ -7,11 +7,10 @@ using System.Windows.Forms;
 
 namespace OpenIII.Forms
 {
-    public partial class FXTEditorWindow : OpenIII.Forms.BaseWindow
+    public partial class FXTEditorWindow : BaseWindow
     {
-        private bool FileIsEdited = false;
+        private bool isFileEdited = false;
         private const string Headers = "# Hello!";
-        private BindingSource bindingSource = new BindingSource();
         private FXTFile CurrentFile;
         private static FXTEditorWindow instance;
 
@@ -28,6 +27,21 @@ namespace OpenIII.Forms
             }
 
             return instance;
+        }
+
+        private void AddRow(string key, string value)
+        {
+            CurrentFile.Items.Add(new FXTFileItem(key, value));
+        }
+
+        private void DeleteRow()
+        {
+            CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
+        }
+
+        private void DeleteRow(uint index)
+        {
+            CurrentFile.Items.RemoveAt((int)index);
         }
 
         public void OpenFile(FXTFile file)
@@ -52,7 +66,7 @@ namespace OpenIII.Forms
 
             try
             {
-                if (FileIsEdited == true)
+                if (isFileEdited == true)
                 {
                     StreamWriter streamWriter = new StreamWriter(CurrentFile.GetStream(FileMode.Create, FileAccess.Write));
                     streamWriter.WriteLine(Headers);
@@ -70,7 +84,7 @@ namespace OpenIII.Forms
 
             MessageBox.Show("File saved successsfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            FileIsEdited = false;
+            isFileEdited = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -90,28 +104,19 @@ namespace OpenIII.Forms
 
         private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            FileIsEdited = true;
+            isFileEdited = true;
         }
 
-        /*
-        public FXTFile GetData()
+        private void addRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FXTFile data = new FXTFile();
-            List<string> parameters = new List<string>();
-
-            foreach (DataGridViewRow row in DataGridView.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    parameters.Add(cell.Value == null ? "" : cell.Value.ToString());
-                }
-
-                data.AddItem(parameters[0], parameters[1]);
-                parameters.Clear();
-            }
-
-            return data;
+            AddRow(null, null);
+            isFileEdited = true;
         }
-        */
+
+        private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteRow();
+            isFileEdited = true;
+        }
     }
 }

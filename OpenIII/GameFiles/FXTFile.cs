@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace OpenIII.GameFiles
 {
     public class FXTFile : GameFile
     {
-        public List<FXTFileItem> Items = new List<FXTFileItem>();
+        public BindingList<FXTFileItem> Items = new BindingList<FXTFileItem>();
 
         public FXTFile(string filePath) : base(filePath) { }
 
-        public List<FXTFileItem> ParseData()
+        public BindingList<FXTFileItem> ParseData()
         {
             string lineIterator = null;
             StreamReader Reader = new StreamReader(this.FullPath);
-            List<FXTFileItem> data = new List<FXTFileItem>();
+            BindingList<FXTFileItem> data = new BindingList<FXTFileItem>();
 
             while ((lineIterator = Reader.ReadLine()) != null)
             {
