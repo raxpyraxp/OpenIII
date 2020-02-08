@@ -18,6 +18,7 @@ namespace OpenIII.Utils
             {
                 case ".gxt":
                     GXTEditorWindow gxtEditorWindow = new GXTEditorWindow();
+                    gxtEditorWindow.OpenFile(new GXTFile(file.FullPath));
                     gxtEditorWindow.Show();
                     break;
                 case ".fxt":
