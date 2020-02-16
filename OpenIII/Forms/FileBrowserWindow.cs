@@ -197,16 +197,46 @@ namespace OpenIII
             else
             {
                 // If browsing archive
-                GameFile entry = (GameFile)fileListView.SelectedItems[0].Tag;
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = entry.FullPath;
-                dialog.Filter = "All Files|*.*";
-                dialog.Title = "Extract To...";
-                DialogResult result = dialog.ShowDialog();
-                
-                if (result == DialogResult.OK)
+                if (fileListView.SelectedItems.Count == 1)
                 {
-                    entry.Extract(dialog.InitialDirectory + dialog.FileName);
+                    GameFile entry = (GameFile)fileListView.SelectedItems[0].Tag;
+                    SaveFileDialog dialog = new SaveFileDialog();
+                    dialog.FileName = entry.FullPath;
+                    dialog.Filter = "All Files|*.*";
+                    dialog.Title = "Extract To...";
+                    DialogResult result = dialog.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        entry.Extract(dialog.InitialDirectory + dialog.FileName);
+                    }
+                }
+                else if (fileListView.SelectedItems.Count > 1)
+                {
+                    List<GameFile> entries = new List<GameFile>();
+                    FolderBrowserDialog dialog = new FolderBrowserDialog();
+                    DialogResult result = dialog.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        foreach (ListViewItem entry in fileListView.SelectedItems)
+                        {
+                            entries.Add((GameFile)entry.Tag);
+                        }
+
+                        foreach (GameFile entry in entries)
+                        {
+                            entry.Extract(dialog.SelectedPath + '\\' + entry.Name);
+                        }
+
+                        MessageBox.Show("Done!");
+                    }
+
+                    return;
+                }
+                else
+                {
+                    return;
                 }
             }
         }
