@@ -10,7 +10,7 @@ namespace OpenIII.Utils
     class ArchiveStream : FileStream
     {
         public GameFile File { get; }
-        public override long Length { get => File.Size; }
+        public override long Length { get => File.Length; }
 
         public override long Position {
             get => base.Position - File.Offset;

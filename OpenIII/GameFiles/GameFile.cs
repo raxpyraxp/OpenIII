@@ -14,9 +14,11 @@ namespace OpenIII.GameFiles
     public class GameFile : FileSystemElement
     {
         /// <summary>
-        /// Размер
+        /// Размер файла в IMG архиве.
+        /// Для определения размера настоятельно рекомендуется использовать Length так как
+        /// Size используется только для архивированных файлов
         /// </summary>
-        public int Size { get; }
+        private int Size { get; }
 
         /// <summary>
         /// Отступ от нулевого байта в родительском файле в байтах
@@ -38,7 +40,7 @@ namespace OpenIII.GameFiles
         /// <summary>
         /// Размер файла в байтах
         /// </summary>
-        public long Length { get => FileInfo.Length; }
+        public long Length { get => Source == FileSource.FILESYSTEM ? FileInfo.Length : Size; }
 
         /// <summary>
         /// Имя файла

@@ -19,6 +19,8 @@ namespace OpenIII.GameFiles
     {
         public const int SECTOR_SIZE = 2048;
 
+        public abstract int FILE_SECTION_START { get; }
+
         /// <summary>
         /// Версия архива
         /// </summary>
@@ -32,6 +34,37 @@ namespace OpenIII.GameFiles
         public ArchiveFile(string filePath) : base(filePath) { }
 
         public abstract List<FileSystemElement> GetFileList();
+
+        public int CalculateOffsetForNewEntry()
+        {
+            GameFile lastFile = null;
+
+            foreach (GameFile file in GetFileList())
+            {
+                if (lastFile == null || file.Offset > lastFile.Offset)
+                {
+                    lastFile = file;
+                }
+            }
+
+            if (lastFile != null)
+            {
+                // TODO: There might be an exception if file is too long.
+                // In regular filesystem the GameFile can be very large,
+                // so Length is long in OpenIII.
+                // But the game itself can't handle long files because
+                // it's by design of IMG file (length is 4 bytes).
+                // The only way is to give user an error message
+                // if file too long.
+                // Moreover, game has it's own limits and all files are
+                // usually less than 25-30MB anyway.
+                return lastFile.Offset + (int)lastFile.Length;
+            }
+            else
+            {
+                return FILE_SECTION_START;
+            }
+        }
 
         /// <summary>
         /// Создаёт экземпляр
@@ -98,11 +131,35 @@ namespace OpenIII.GameFiles
             stream.Close();
         }
 
+        public void InsertFile(GameFile sourceFile)
+        {
+            int offset = CalculateOffsetForNewEntry();
+            AddNewFileEntry(offset, sourceFile);
+            
+            Stream sourceStream = sourceFile.GetStream(FileMode.Open, FileAccess.Read);
+            Stream destinationStream = GetStream(FileMode.Open, FileAccess.Write);
+            byte[] buf;
+
+            destinationStream.Seek(offset, SeekOrigin.Begin);
+
+            while (sourceStream.Position < sourceStream.Length)
+            {
+                buf = new byte[SECTOR_SIZE];
+                int read = sourceStream.Read(buf, 0, SECTOR_SIZE);
+                destinationStream.Write(buf, 0, SECTOR_SIZE);
+            }
+
+            destinationStream.Flush();
+            destinationStream.Close();
+            sourceStream.Close();
+        }
+
         public void DeleteFile(GameFile entry) { }
         
         public void ReplaceFile(GameFile oldEntry, GameFile newEntry) { }
 
         public void RenameFile(GameFile entry, string newName) { }
 
+        public abstract void AddNewFileEntry(int offset, GameFile file);
     }
 }

@@ -290,5 +290,21 @@ namespace OpenIII
         {
             new AboutWindow().ShowDialog();
         }
+
+        private void insertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "All Files|*.*";
+            dialog.Title = "Insert File...";
+            DialogResult result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                if (archiveFile != null)
+                {
+                    archiveFile.InsertFile(new GameFile(dialog.FileName));
+                }
+            }
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace OpenIII.GameFiles
 
         public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
 
+        public override int FILE_SECTION_START { get => HEADER_SIZE + 1; }
+
         public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V2; }
         public override long TotalFiles { get => ReadTotalFilesFromArchive(); }
 
@@ -103,6 +105,11 @@ namespace OpenIII.GameFiles
             stream.Close();
 
             return fileList;
+        }
+
+        public override void AddNewFileEntry(int offset, GameFile file)
+        {
+            throw new NotImplementedException();
         }
     }
 }
