@@ -119,6 +119,7 @@
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameFiles\FileSystemElement.cs" />
+    <Compile Include="GameFiles\GXTFile.cs" />
     <Compile Include="Utils\ArchiveStream.cs" />
     <Compile Include="Utils\FileNameSortComparer.cs" />
     <Compile Include="Forms\DataEditorWindow.cs">
