@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using OpenIII.Utils;
+using System.Collections.Generic;
 
 namespace OpenIII.GameFiles
 {
@@ -159,6 +160,18 @@ namespace OpenIII.GameFiles
                     file.Length == this.Length &&
                     file.ParentArchive.Equals(this.ParentArchive);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1062659230;
+            hashCode = hashCode * -1521134295 + Size.GetHashCode();
+            hashCode = hashCode * -1521134295 + Offset.GetHashCode();
+            hashCode = hashCode * -1521134295 + Source.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<ArchiveFile>.Default.GetHashCode(ParentArchive);
+            hashCode = hashCode * -1521134295 + Length.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }
