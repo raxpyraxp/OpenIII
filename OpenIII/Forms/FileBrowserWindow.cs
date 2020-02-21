@@ -9,18 +9,63 @@ using OpenIII.Forms;
 
 namespace OpenIII
 {
+    /// <summary>
+    /// File browser window, the main form of this app
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Файловый менеджер, главная форма приложения
+    /// </summary>
     public partial class FileBrowserWindow : Form
     {
+        /// <summary>
+        /// File browser window singleton
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Синглтон для формы файлового менеджера
+        /// </summary>
         private static FileBrowserWindow instance;
 
+        /// <summary>
+        /// Current file archive that the user is working with
+        /// If no archive opened, <see cref="archiveFile"/> contains null.
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Содержит указатель на текущий открытый архив с которым работает пользователь
+        /// Если пользователь работает с файлами, то <see cref="archiveFile"/> содержит null.
+        /// </summary>
         private ArchiveFile archiveFile;
+
+        /// <summary>
+        /// Current directory that the user is working with
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Содержит указатель на текущий каталог в котором работает пользователь
+        /// </summary>
         private GameDirectory rootDir;
 
+        /// <summary>
+        /// Form constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор формы
+        /// </summary>
         public FileBrowserWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Create the instance of this form if no other instances created and return it
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Создать инстанс формы если он ещё не создан и вернуть его
+        /// </summary>
+        /// <returns>
+        /// Current form instance
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Текущий инстанс формы
+        /// </returns>
         public static FileBrowserWindow GetInstance()
         {
             if (instance == null)
@@ -31,6 +76,14 @@ namespace OpenIII
             return instance;
         }
 
+        /// <summary>
+        /// Open directory in the file browser window
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Открыть каталог в файловом менеджере
+        /// </summary>
+        /// <param name="rootDir">Directory to be opened</param>
+        /// <param name="rootDir" xml:lang="ru">Каталог который необходимо открыть</param> 
         public void OpenDir(GameDirectory rootDir)
         {
             this.rootDir = rootDir;
@@ -39,6 +92,14 @@ namespace OpenIII
             SetDirListView(rootDir);
         }
 
+        /// <summary>
+        /// Open archive in the file browser window
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Открыть архив в файловом менеджере
+        /// </summary>
+        /// <param name="archive">Archive to be opened</param>
+        /// <param name="archive" xml:lang="ru">Архив который необходимо открыть</param> 
         public void OpenArchive(ArchiveFile archive)
         {
             archiveFile = archive;
@@ -47,6 +108,14 @@ namespace OpenIII
             fileTreeView.SelectedNode = null;
         }
 
+        /// <summary>
+        /// Sets the new file list on the form
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Показать новый список файлов на форме
+        /// </summary>
+        /// <param name="list">File list</param>
+        /// <param name="list" xml:lang="ru">Список файлов</param> 
         public void SetFileListView(List<FileSystemElement> list)
         {
             UseWaitCursor = true;
@@ -83,6 +152,14 @@ namespace OpenIII
             Application.DoEvents();
         }
 
+        /// <summary>
+        /// Sets the new directory tree on the form
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Показать новое дерево каталогов на форме
+        /// </summary>
+        /// <param name="rootdir">Root directory</param>
+        /// <param name="rootdir" xml:lang="ru">Корневой каталог</param> 
         public void SetDirListView(GameDirectory rootdir)
         {
             UseWaitCursor = true;
@@ -101,6 +178,18 @@ namespace OpenIII
             Application.DoEvents();
         }
 
+        /// <summary>
+        /// Gets <see cref="TreeNode"/> array from the <see cref="GameDirectory"/> list to apply
+        /// it to the child hives of the directory tree
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение массива <see cref="TreeNode"/> из списка <see cref="GameDirectory"/> для
+        /// последующего использования в дочерних ветках дерева каталогов
+        /// </summary>
+        /// <param name="list">Directory list</param>
+        /// <param name="list" xml:lang="ru">Список каталогов</param> 
+        /// <returns>Tree node list</returns>
+        /// <returns xml:lang="ru">Список элементов дерева</returns>
         public TreeNode[] GetNodesList(List<GameDirectory> list)
         {
             list.Sort(new FileNameSortComparer());
@@ -114,6 +203,18 @@ namespace OpenIII
             return nodes.ToArray();
         }
 
+        /// <summary>
+        /// Gets <see cref="TreeNode"/> from the <see cref="GameDirectory"/> object to apply
+        /// it to the child hives of the directory tree
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение <see cref="TreeNode"/> из <see cref="GameDirectory"/> для
+        /// последующего использования в дочерних ветках дерева каталогов
+        /// </summary>
+        /// <param name="dir">Directory</param>
+        /// <param name="dir" xml:lang="ru">Каталог</param> 
+        /// <returns>Tree node</returns>
+        /// <returns xml:lang="ru">Элемент дерева</returns>
         public TreeNode CreateNode(GameDirectory dir)
         {
             TreeNode item = new TreeNode(dir.Name);
@@ -130,11 +231,39 @@ namespace OpenIII
             return item;
         }
 
+        /// <summary>
+        /// Sets total file count in the toolbar
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Показать общее количество файлов в тулбаре
+        /// </summary>
+        /// <param name="totalFiles">Files count</param>
+        /// <param name="totalFiles" xml:lang="ru">Количество файлов</param> 
         public void SetTotalFiles(long totalFiles)
         {
             totalFilesLabel.Text = totalFiles.ToString();
         }
 
+        /// <summary>
+        /// Expand the <see cref="TreeNode"/> that is attached to the specified <see cref="GameDirectory"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Раскрыть <see cref="TreeNode"/>, которая закреплена за указанным каталогом <see cref="GameDirectory"/>
+        /// </summary>
+        /// <remarks>
+        /// <see cref="ExpandDirectoryNode"/> calls itself to expand parent directory too, so it returns the <see cref="TreeNode"/>
+        /// that was expanded. Then it searches for the <see cref="TreeNode"/> attached to the <see cref="GameDirectory"/>
+        /// in children of the returned <see cref="TreeNode"/>, expands and selects it.
+        /// </remarks>
+        /// <remarks>
+        /// <see cref="ExpandDirectoryNode"/> вызывает саму себя для того, чтобы также раскрыть родительский каталог. После раскрытия
+        /// функция возвращает раскрытую <see cref="TreeNode"/>. После получения раскрытой ветки функция ищет в ней дочернюю ветку
+        /// <see cref="TreeNode"/>, которая закреплена за <see cref="GameDirectory"/>, после чего раскрывает и выделяет её.
+        /// </remarks>
+        /// <param name="dir">Directory</param>
+        /// <param name="dir" xml:lang="ru">Каталог</param> 
+        /// <returns>Opened tree node</returns>
+        /// <returns xml:lang="ru">Раскрытая ветвь дерева</returns>
         public TreeNode ExpandDirectoryNode(GameDirectory dir)
         {
             DirectoryInfo info = new DirectoryInfo(dir.FullPath);
@@ -173,6 +302,16 @@ namespace OpenIII
             }
         }
 
+        /// <summary>
+        /// File list view dobule click event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события двойного нажатия на файл
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnFileListViewDoubleClick(object sender, EventArgs e)
         {
             if (archiveFile == null)
@@ -241,6 +380,16 @@ namespace OpenIII
             }
         }
 
+        /// <summary>
+        /// File tree view expand event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события раскрытия ветки в дереве каталогов
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnFileTreeViewExpand(object sender, TreeViewCancelEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
@@ -257,6 +406,16 @@ namespace OpenIII
             Application.DoEvents();
         }
 
+        /// <summary>
+        /// File tree view select event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события выбора каталога в дереве каталогов
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
@@ -264,16 +423,46 @@ namespace OpenIII
             SetFileListView(dir.GetContent());
         }
 
+        /// <summary>
+        /// Exit menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "Выход"
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnExitMenuItemClick(object sender, EventArgs e)
         {
             AppDefs.ExitFromApp();
         }
 
+        /// <summary>
+        /// About menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "О программе"
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnAboutMenuItemClick(object sender, EventArgs e)
         {
             
         }
 
+        /// <summary>
+        /// Set game path menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "Выбрать путь к игре"
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void SetGamePathMenuItemClick(object sender, EventArgs e)
         {
             SetGamePathWindow window = new SetGamePathWindow();
@@ -281,11 +470,27 @@ namespace OpenIII
             window.ShowDialog();
         }
 
+        /// <summary>
+        /// Game path changed event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события выбора нового пути игры
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnGtaPathChanged(object sender, PathEventArgs e)
         {
             OpenDir(new GameDirectory(e.Path));
         }
 
+        /// <summary>
+        /// Refresh file list to catch all changes
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обновить окно файлов
+        /// </summary>
         private void RefreshFileList()
         {
             if (archiveFile == null)
@@ -298,11 +503,31 @@ namespace OpenIII
             }
         }
 
+        /// <summary>
+        /// About menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "О программе"
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new AboutWindow().ShowDialog();
         }
 
+        /// <summary>
+        /// Insert new file to archive menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "Добавить файл в архив..."
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void insertToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -321,6 +546,16 @@ namespace OpenIII
             RefreshFileList();
         }
 
+        /// <summary>
+        /// Delete file menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "Удалить файл..."
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GameFile resource = (GameFile)fileListView.SelectedItems[0].Tag;
