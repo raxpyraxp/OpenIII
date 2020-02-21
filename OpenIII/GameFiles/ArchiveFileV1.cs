@@ -92,23 +92,36 @@ namespace OpenIII.GameFiles
             return fileList;
         }
 
-        public override void AddNewFileEntry(int offset, GameFile file)
+        public byte[] CreateNewEntry(int offset, long length, string filename)
         {
-            Stream stream = DirFile.GetStream(FileMode.Append, FileAccess.Write);
+            MemoryStream stream = new MemoryStream();
             byte[] buf;
+            byte[] entry = new byte[DIR_ENTRY_SIZE];
 
             buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
             buf = BitConverter.GetBytes((int)Math.Ceiling((double)offset / SECTOR_SIZE));
             stream.Write(buf, 0, buf.Length);
 
             buf = new byte[SIZE_ENTRY_BYTE_SIZE];
-            buf = BitConverter.GetBytes((int)Math.Ceiling((double)file.Length / SECTOR_SIZE));
+            buf = BitConverter.GetBytes((int)Math.Ceiling((double)length / SECTOR_SIZE));
             stream.Write(buf, 0, buf.Length);
 
             buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-            Encoding.ASCII.GetBytes(file.Name + "\0").CopyTo(buf, 0);
+            Encoding.ASCII.GetBytes(filename + "\0").CopyTo(buf, 0);
             stream.Write(buf, 0, FILENAME_ENTRY_BYTE_SIZE);
 
+            stream.Flush();
+            stream.ToArray().CopyTo(entry, 0);
+            stream.Close();
+            return entry;
+        }
+
+        public override void AddNewFileEntry(int offset, GameFile file)
+        {
+            Stream stream = DirFile.GetStream(FileMode.Append, FileAccess.Write);
+            byte[] newEntry = CreateNewEntry(offset, file.Length, file.Name);
+
+            stream.Write(newEntry, 0, newEntry.Length);
             stream.Flush();
             stream.Close();
         }
@@ -124,17 +137,8 @@ namespace OpenIII.GameFiles
             {
                 if (!dirEntry.Equals(entry))
                 {
-                    buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
-                    buf = BitConverter.GetBytes((int)Math.Ceiling((double)dirEntry.Offset / SECTOR_SIZE));
-                    stream.Write(buf, 0, buf.Length);
-
-                    buf = new byte[SIZE_ENTRY_BYTE_SIZE];
-                    buf = BitConverter.GetBytes((int)Math.Ceiling((double)dirEntry.Length / SECTOR_SIZE));
-                    stream.Write(buf, 0, buf.Length);
-
-                    buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
-                    Encoding.ASCII.GetBytes(dirEntry.Name + "\0").CopyTo(buf, 0);
-                    stream.Write(buf, 0, FILENAME_ENTRY_BYTE_SIZE);
+                    byte[] newEntry = CreateNewEntry(dirEntry.Offset, dirEntry.Length, dirEntry.Name);
+                    stream.Write(newEntry, 0, newEntry.Length);
                 }
             }
 
