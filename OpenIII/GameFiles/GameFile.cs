@@ -133,5 +133,32 @@ namespace OpenIII.GameFiles
         {
             ParentArchive.ExtractFile(this, destinationPath);
         }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null && !(obj is GameFile))
+            {
+                return false;
+            }
+
+            GameFile file = (GameFile)obj;
+
+            if (file.Source != this.Source)
+            {
+                return false;
+            }
+
+            if (file.Source == FileSource.FILESYSTEM)
+            {
+                return file.FullPath == this.FullPath;
+            }
+            else
+            {
+                return file.Name == this.Name &&
+                    file.Offset == this.Offset &&
+                    file.Length == this.Length &&
+                    file.ParentArchive.Equals(this.ParentArchive);
+            }
+        }
     }
 }
