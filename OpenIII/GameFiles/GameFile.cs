@@ -135,6 +135,18 @@ namespace OpenIII.GameFiles
             ParentArchive.ExtractFile(this, destinationPath);
         }
 
+        public void Delete()
+        {
+            if (Source == FileSource.FILESYSTEM)
+            {
+                File.Delete(FullPath);
+            }
+            else
+            {
+                ParentArchive.DeleteFile(this);
+            }
+        }
+
         public override bool Equals(Object obj)
         {
             if (obj == null && !(obj is GameFile))

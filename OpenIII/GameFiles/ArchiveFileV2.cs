@@ -25,7 +25,8 @@ namespace OpenIII.GameFiles
 
         public static int HEADER_SIZE = VERSION_SIZE + NUMBER_OF_ENTRIES_SIZE;
 
-        public override int FILE_SECTION_START { get => HEADER_SIZE + 1; }
+        // This is the starting point of the first file in the default IMG file
+        public override int FILE_SECTION_START { get => 0x7F800; }
 
         public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V2; }
         public override long TotalFiles { get => ReadTotalFilesFromArchive(); }
@@ -107,7 +108,27 @@ namespace OpenIII.GameFiles
             return fileList;
         }
 
+        public int GetFirstFileOffset()
+        {
+            GameFile firstFile = null;
+
+            foreach (GameFile file in GetFileList())
+            {
+                if (firstFile == null || file.Offset < firstFile.Offset)
+                {
+                    firstFile = file;
+                }
+            }
+
+            return firstFile.Offset;
+        }
+
         public override void AddNewFileEntry(int offset, GameFile file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteFileEntry(GameFile file)
         {
             throw new NotImplementedException();
         }

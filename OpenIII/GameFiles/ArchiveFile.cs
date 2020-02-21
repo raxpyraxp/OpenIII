@@ -154,12 +154,34 @@ namespace OpenIII.GameFiles
             sourceStream.Close();
         }
 
-        public void DeleteFile(GameFile entry) { }
+        public void DeleteFile(GameFile entry)
+        {
+            // We don't really know if we need to actually remove the file itself.
+            // Maybe it is not needed here and we can just remove entry
+            // just like in regular file system.
+            // I'll leave this code commented here. Maybe we'll do this as a feature
+            // with a flag. Who knows.
+            /*Stream destinationStream = GetStream(FileMode.Open, FileAccess.Write);
+
+            destinationStream.Seek(entry.Offset, SeekOrigin.Begin);
+
+            while (destinationStream.Position < entry.Offset + entry.Length)
+            {
+                byte[] buf = new byte[SECTOR_SIZE];
+                destinationStream.Write(buf, 0, SECTOR_SIZE);
+            }
+
+            destinationStream.Close();*/
+
+            DeleteFileEntry(entry);
+        }
         
         public void ReplaceFile(GameFile oldEntry, GameFile newEntry) { }
 
         public void RenameFile(GameFile entry, string newName) { }
 
         public abstract void AddNewFileEntry(int offset, GameFile file);
+
+        public abstract void DeleteFileEntry(GameFile file);
     }
 }

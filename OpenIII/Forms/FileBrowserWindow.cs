@@ -286,6 +286,18 @@ namespace OpenIII
             OpenDir(new GameDirectory(e.Path));
         }
 
+        private void RefreshFileList()
+        {
+            if (archiveFile == null)
+            {
+                OpenDir(rootDir);
+            }
+            else
+            {
+                OpenArchive(archiveFile);
+            }
+        }
+
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new AboutWindow().ShowDialog();
@@ -305,6 +317,16 @@ namespace OpenIII
                     archiveFile.InsertFile(new GameFile(dialog.FileName));
                 }
             }
+
+            RefreshFileList();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameFile resource = (GameFile)fileListView.SelectedItems[0].Tag;
+            resource.Delete();
+
+            RefreshFileList();
         }
     }
 }

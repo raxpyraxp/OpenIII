@@ -32,11 +32,11 @@ namespace OpenIII.GameFiles
         /// </summary>
         public override long TotalFiles { get => DirFile.Length / DIR_ENTRY_SIZE; }
         
-        public GameFile DirFile { get; }
+        public GameFile DirFile { get => new GameFile(GetDirFilePath(FullPath)); }
 
         public ArchiveFileV1(string filePath) : base(filePath)
         {
-            DirFile = new GameFile(GetDirFilePath(filePath));
+
         }
 
         /// <summary>
@@ -97,15 +97,46 @@ namespace OpenIII.GameFiles
             Stream stream = DirFile.GetStream(FileMode.Append, FileAccess.Write);
             byte[] buf;
 
+            buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
             buf = BitConverter.GetBytes((int)Math.Ceiling((double)offset / SECTOR_SIZE));
             stream.Write(buf, 0, buf.Length);
 
+            buf = new byte[SIZE_ENTRY_BYTE_SIZE];
             buf = BitConverter.GetBytes((int)Math.Ceiling((double)file.Length / SECTOR_SIZE));
             stream.Write(buf, 0, buf.Length);
 
             buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
             Encoding.ASCII.GetBytes(file.Name + "\0").CopyTo(buf, 0);
             stream.Write(buf, 0, FILENAME_ENTRY_BYTE_SIZE);
+
+            stream.Flush();
+            stream.Close();
+        }
+
+        public override void DeleteFileEntry(GameFile entry)
+        {
+            List<FileSystemElement> entries = GetFileList();
+
+            Stream stream = DirFile.GetStream(FileMode.Create, FileAccess.Write);
+            byte[] buf = new byte[4];
+
+            foreach (GameFile dirEntry in entries)
+            {
+                if (!dirEntry.Equals(entry))
+                {
+                    buf = new byte[OFFSET_ENTRY_BYTE_SIZE];
+                    buf = BitConverter.GetBytes((int)Math.Ceiling((double)dirEntry.Offset / SECTOR_SIZE));
+                    stream.Write(buf, 0, buf.Length);
+
+                    buf = new byte[SIZE_ENTRY_BYTE_SIZE];
+                    buf = BitConverter.GetBytes((int)Math.Ceiling((double)dirEntry.Length / SECTOR_SIZE));
+                    stream.Write(buf, 0, buf.Length);
+
+                    buf = new byte[FILENAME_ENTRY_BYTE_SIZE];
+                    Encoding.ASCII.GetBytes(dirEntry.Name + "\0").CopyTo(buf, 0);
+                    stream.Write(buf, 0, FILENAME_ENTRY_BYTE_SIZE);
+                }
+            }
 
             stream.Flush();
             stream.Close();
