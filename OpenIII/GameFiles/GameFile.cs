@@ -24,7 +24,7 @@ namespace OpenIII.GameFiles
         /// <summary>
         /// Отступ от нулевого байта в родительском файле в байтах
         /// </summary>
-        public int Offset { get; }
+        public int Offset { get; private set; }
 
         /// <summary>
         /// Информация о файле
@@ -145,6 +145,12 @@ namespace OpenIII.GameFiles
             {
                 ParentArchive.DeleteFile(this);
             }
+        }
+
+        public void PrepareForArchiving(int offset)
+        {
+            // We probably will do something there to prevent file editing
+            Offset = offset;
         }
 
         public override bool Equals(Object obj)
