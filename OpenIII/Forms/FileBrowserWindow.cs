@@ -559,9 +559,17 @@ namespace OpenIII
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GameFile resource = (GameFile)fileListView.SelectedItems[0].Tag;
-            resource.Delete();
+            DialogResult dialogResult = MessageBox.Show("Do you really want to delete selected file?", "Some Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            RefreshFileList();
+            if (dialogResult == DialogResult.Yes)
+            {
+                resource.Delete();
+                RefreshFileList();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
     }
 }
