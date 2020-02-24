@@ -51,11 +51,11 @@ namespace OpenIII.GameFiles
                 listBox1.Items.Add(item.Name);
             }
 
-            dataGridView1.ColumnCount = 1;
+            dataGridView1.ColumnCount = 2;
 
-            foreach (GXTFileBlockEntry item in CurrentFile.Blocks[1].Entries)
+            for (int i = 0; i < CurrentFile.Blocks[1].Entries.Count; i++)
             {
-                dataGridView1.Rows.Add(item.Name);
+                dataGridView1.Rows.Add(CurrentFile.Blocks[1].Entries[i].Name, CurrentFile.Blocks[2].Entries[i].Name);
             }
         }
     }

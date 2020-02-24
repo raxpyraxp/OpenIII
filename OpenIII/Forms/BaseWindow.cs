@@ -21,6 +21,11 @@ namespace OpenIII.Forms
             InitializeComponent();
         }
 
+        public void SetWindowTitle(string title)
+        {
+            Text = title;
+        }
+
         /// <summary>
         /// Closes this window
         /// </summary>

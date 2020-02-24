@@ -23,8 +23,8 @@ namespace OpenIII.GameFiles
             Stream stream = this.GetStream(FileMode.Open, FileAccess.Read);
 
             byte[] buf;
-            string tablBlockName, tkeyBlockName;
-            int tablBlockSize, tkeyBlockSize;
+            string tablBlockName, tkeyBlockName, tdatBlockName;
+            int tablBlockSize, tkeyBlockSize, tdatBlockSize;
 
             // Создаём блок TABL
             buf = new byte[4];
@@ -49,6 +49,8 @@ namespace OpenIII.GameFiles
             stream.Read(buf, 0, buf.Length);
             tkeyBlockName = Encoding.ASCII.GetString(buf);
 
+
+            // Создаём блок TKEY
             buf = new byte[4];
             stream.Read(buf, 0, buf.Length);
             tkeyBlockSize = BitConverter.ToInt32(buf, 0);
@@ -64,6 +66,41 @@ namespace OpenIII.GameFiles
             }
 
             Blocks.Add(tkeyBlock);
+
+
+            // Создаём блок TDAT
+            //buf = new byte[4];
+            //stream.Read(buf, 0, buf.Length);
+            //tdatBlockName = Encoding.ASCII.GetString(buf);
+
+            buf = new byte[4];
+            stream.Read(buf, 0, buf.Length);
+            tdatBlockSize = BitConverter.ToInt32(buf, 0);
+
+            GXTFileBlock tdatBlock = new GXTFileBlock("", tdatBlockSize, new List<GXTFileBlockEntry>());
+
+            string tmp = "";
+
+            for (int i = 0; i < tkeyBlock.Entries.Count; i++)
+            {
+                while (Encoding.ASCII.GetString(buf) != "\0\0")
+                {
+                    buf = new byte[2];
+                    stream.Read(buf, 0, buf.Length);
+                    tmp += Encoding.ASCII.GetString(buf);
+                }
+
+                tmp = tmp.Replace("\0", "");
+
+                tdatBlock.Entries.Add(new GXTFileBlockEntry(tmp, 0));
+
+                tmp = "";
+
+                buf = new byte[0];
+                stream.Read(buf, 0, buf.Length);
+            }
+
+            Blocks.Add(tdatBlock);
         }
     }
 

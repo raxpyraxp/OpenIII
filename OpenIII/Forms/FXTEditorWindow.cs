@@ -111,7 +111,10 @@ namespace OpenIII.Forms
         /// </summary>
         private void DeleteRow()
         {
-            CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
+            if (DataGridView.SelectedCells.Count > 0)
+            {
+                CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
+            }
         }
 
         /// <summary>
@@ -140,17 +143,9 @@ namespace OpenIII.Forms
         public void OpenFile(FXTFile file)
         {
             file.ParseData();
-
             CurrentFile = file;
-
+            SetWindowTitle($"{(CurrentFile.Name != null ? CurrentFile.Name : "")} — {Text}");
             DataGridView.DataSource = CurrentFile.Items;
-
-            /*
-            foreach (FXTFileItem item in file.Items)
-            {
-                DataGridView.Rows.Add(item.GetKey(), item.GetValue());
-            }
-            */
         }
 
         /// <summary>
@@ -202,7 +197,25 @@ namespace OpenIII.Forms
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            CloseWindow();
+            if (isFileEdited == true)
+            {
+                DialogResult dialogResult = MessageBox.Show("Some changes wasn't saved. Do you really want to close window?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                switch (dialogResult)
+                {
+                    case DialogResult.Yes:
+                        CloseWindow();
+                    break;
+                    
+                    case DialogResult.No:
+                        return;
+                    break;
+                }
+            }
+            else
+            {
+                CloseWindow();
+            }
         }
 
         /// <summary>
