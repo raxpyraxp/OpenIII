@@ -101,20 +101,8 @@ namespace OpenIII.Forms
         private void AddRow(string key, string value)
         {
             CurrentFile.Items.Add(new FXTFileItem(key, value));
-        }
 
-        /// <summary>
-        /// Removes selected string line
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Удаление выделенной строки
-        /// </summary>
-        private void DeleteRow()
-        {
-            if (DataGridView.SelectedCells.Count > 0)
-            {
-                CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
-            }
+            isFileEdited = true;
         }
 
         /// <summary>
@@ -125,9 +113,17 @@ namespace OpenIII.Forms
         /// </summary>
         /// <param name="index">Index of the line that needs to be deleted</param>
         /// <param name="index" xml:lang="ru">Индекс строки, которую необходимо удалить</param>
-        private void DeleteRow(uint index)
+        private void DeleteRow(int[] index)
         {
-            CurrentFile.Items.RemoveAt((int)index);
+            if (DataGridView.SelectedCells.Count > 0)
+            {
+                for (var i = 0; i < index.Length; i++)
+                {
+                    CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[i].RowIndex);
+                }
+            }
+
+            isFileEdited = true;
         }
 
         /// <summary>
@@ -170,52 +166,21 @@ namespace OpenIII.Forms
                     streamWriter.WriteLine(Headers);
                     streamWriter.Write(data);
                     streamWriter.Close();
-                } else
+                }
+                else
                 {
                     MessageBox.Show("File wasn't changed!");
                     return;
                 }
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
-                MessageBox.Show("Can't save the file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Can't save the file!\n{exception}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             MessageBox.Show("File saved successsfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             isFileEdited = false;
-        }
-
-        /// <summary>
-        /// Exit menu item event handler
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Обработчик события нажатия пункта меню "Выйти"
-        /// </summary>
-        /// <param name="sender">Component that emitted the event</param>
-        /// <param name="e">Event arguments</param>
-        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
-        /// <param name="e" xml:lang="ru">Аргументы события</param>
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            if (isFileEdited == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("Some changes wasn't saved. Do you really want to close window?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                switch (dialogResult)
-                {
-                    case DialogResult.Yes:
-                        CloseWindow();
-                    break;
-                    
-                    case DialogResult.No:
-                        return;
-                    break;
-                }
-            }
-            else
-            {
-                CloseWindow();
-            }
         }
 
         /// <summary>
@@ -266,7 +231,6 @@ namespace OpenIII.Forms
         private void addRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddRow(null, null);
-            isFileEdited = true;
         }
 
         /// <summary>
@@ -281,8 +245,14 @@ namespace OpenIII.Forms
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DeleteRow();
-            isFileEdited = true;
+            int[] indexes = { };
+
+            for (var i = 0; i < DataGridView.SelectedCells.Count; i++)
+            {
+                indexes[i] = DataGridView.SelectedCells[i].RowIndex;
+            }
+
+            DeleteRow(indexes);
         }
     }
 }

@@ -49,6 +49,8 @@ namespace OpenIII
             this.setGamePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,6 +125,8 @@ namespace OpenIII
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.ShortcutKeyDisplayString = "";
@@ -238,6 +242,18 @@ namespace OpenIII
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
             // FileBrowserWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,7 +266,7 @@ namespace OpenIII
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FileBrowserWindow";
-            this.Text = "Form1";
+            this.Text = "FileBrowserWindow";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -283,5 +299,7 @@ namespace OpenIII
         private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
