@@ -1,4 +1,4 @@
-![OpenIII](https://i.ibb.co/BTPnmvK/Open-III-Logo.png)
+![OpenIII](https://github.com/worm202/OpenIII/blob/master/OpenIII/Resources/cover.png)
 
 # OpenIII
 An ultimate OpenIV-style modding tool for 3D era of GTA
