@@ -16,14 +16,6 @@ namespace OpenIII.Forms
     public partial class FXTEditorWindow : BaseWindow
     {
         /// <summary>
-        /// File edited flag
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Флаг, указывающий на то, что файл был изменён после сохранения
-        /// </summary>
-        private bool isFileEdited = false;
-
-        /// <summary>
         /// Standard header for each FXT file
         /// </summary>
         /// <summary xml:lang="ru">
@@ -113,13 +105,14 @@ namespace OpenIII.Forms
         /// </summary>
         /// <param name="index">Index of the line that needs to be deleted</param>
         /// <param name="index" xml:lang="ru">Индекс строки, которую необходимо удалить</param>
-        private void DeleteRow(int[] index)
+        private void DeleteRow(List<int> indexes)
         {
             if (DataGridView.SelectedCells.Count > 0)
             {
-                for (var i = 0; i < index.Length; i++)
+                // TODO: Program crashes in selecting multiple rows. Need to fix that later.
+                foreach (int indexItem in indexes)
                 {
-                    CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[i].RowIndex);
+                    CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[indexItem].RowIndex);
                 }
             }
 
@@ -245,14 +238,24 @@ namespace OpenIII.Forms
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int[] indexes = { };
+            List<int> indexes = new List<int>();
 
             for (var i = 0; i < DataGridView.SelectedCells.Count; i++)
             {
-                indexes[i] = DataGridView.SelectedCells[i].RowIndex;
+                indexes.Add(DataGridView.SelectedCells[i].RowIndex);
             }
 
             DeleteRow(indexes);
+        }
+
+        private void FXTEditorWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseWindow(e);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseWindow();
         }
     }
 }
