@@ -22,3 +22,8 @@ Requirements is under construction
 + [PrographerMan](https://github.com/PrographerMan)
 
 ## License
+This program is licensed under GNU General Public License version 3 or later.
+
+This program comes with ABSOLUTELY NO WARRANTY. [See details](https://www.gnu.org/licenses/gpl-3.0.html#section15).
+
+This is free software, and you are welcome to redistribute it under certain conditions. [See details](https://www.gnu.org/licenses/gpl-3.0.html).
