@@ -106,7 +106,7 @@ namespace OpenIII
         /// Открыть каталог в файловом менеджере
         /// </summary>
         /// <param name="rootDir">Directory to be opened</param>
-        /// <param name="rootDir" xml:lang="ru">Каталог который необходимо открыть</param> 
+        /// <param name="rootDir" xml:lang="ru">Каталог который необходимо открыть</param>
         public void OpenDir(GameDirectory rootDir)
         {
             this.rootDir = rootDir;

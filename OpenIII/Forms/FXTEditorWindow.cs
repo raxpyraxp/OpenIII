@@ -54,6 +54,13 @@ namespace OpenIII.Forms
         /// </summary>
         private FXTFile CurrentFile;
 
+        /// File edited flag
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Флаг, указывающий на то, что файл был изменён после сохранения
+        /// </summary>
+        private bool isFileEdited = false;
+
         /// <summary>
         /// FXT Editor window singleton
         /// </summary>
@@ -121,13 +128,13 @@ namespace OpenIII.Forms
         }
 
         /// <summary>
-        /// Removes the line under the <paramref name="index"/>
+        /// Removes lines with the list of <paramref name="indexes"/>
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Удаление строки с индексом <paramref name="index"/>
+        /// Удаление строк с индексами из списка <paramref name="indexes"/>
         /// </summary>
-        /// <param name="index">Index of the line that needs to be deleted</param>
-        /// <param name="index" xml:lang="ru">Индекс строки, которую необходимо удалить</param>
+        /// <param name="indexes">List of indexes of the lines that needs to be deleted</param>
+        /// <param name="indexes" xml:lang="ru">Список индексов строк, которые необходимо удалить</param>
         private void DeleteRow(List<int> indexes)
         {
             if (DataGridView.SelectedCells.Count > 0)
@@ -276,6 +283,16 @@ namespace OpenIII.Forms
             CloseWindow(e);
         }
 
+        /// <summary>
+        /// Exit menu item event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия пункта меню "Выйти"
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CloseWindow();

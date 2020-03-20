@@ -32,19 +32,58 @@ using System.Windows.Forms;
 
 namespace OpenIII
 {
+    /// <summary>
+    /// Text editor window for editing text files
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Форма для редактирования текстовых файлов
+    /// </summary>
     public partial class TextEditorWindow : Form
     {
+        /// <summary>
+        /// Text editor window singleton
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Синглтон для формы текстового редактора
+        /// </summary>
         private static TextEditorWindow instance;
+
+        /// <summary>
+        /// Form constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор формы
+        /// </summary>
         public TextEditorWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets <see cref="FileContent"/> text area to the specified <paramref name="text"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Установить текст <paramref name="text"/> в текстовое поле <see cref="FileContent"/>
+        /// </summary>
+        /// <param name="text">Text that needs to be set</param>
+        /// <param name="text" xml:lang="ru">Текст, который будет установлен</param>
         public void SetTextArea(string text)
         {
             FileContent.Text = text;
         }
 
+        /// <summary>
+        /// Create the instance of this form if no other instances created and return it
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Создать инстанс формы если он ещё не создан и вернуть его
+        /// </summary>
+        /// <returns>
+        /// Current form instance
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Текущий инстанс формы
+        /// </returns>
         public static TextEditorWindow GetInstance()
         {
             if (instance == null)
