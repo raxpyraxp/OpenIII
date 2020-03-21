@@ -33,6 +33,12 @@ namespace OpenIII
     /// </summary>
     public static class AppDefs
     {
+        /// <summary>
+        /// Terminates the program
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Закрывает приложение
+        /// </summary>
         public static void ExitFromApp()
         {
             // TODO: Do we really need that? We're reimplementing the

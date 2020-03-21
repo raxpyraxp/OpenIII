@@ -28,12 +28,44 @@ using System.IO;
 
 namespace OpenIII.GameFiles
 {
+    /// <summary>
+    /// An implementation for viewing or ediding CLEO text dictionaries (.FXT)
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс для работы со словарями текстовых строк используемых CLEO-скриптами (.FXT)
+    /// </summary>
     public class FXTFile : GameFile
     {
+        /// <summary>
+        /// List of the <see cref="FXTFileItem"/> text lines from the current <see cref="FXTFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Список текстовых строк <see cref="FXTFileItem"/> из текущего файла <see cref="FXTFile"/>
+        /// </summary>
         public BindingList<FXTFileItem> Items = new BindingList<FXTFileItem>();
 
+        /// <summary>
+        /// Default <see cref="FXTFile"/> constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор по умолчанию для <see cref="FXTFile"/>
+        /// </summary>
+        /// <param name="filePath">A path to the <see cref="FXTFile"/></param>
+        /// <param name="filePath" xml:lang="ru">Путь к файлу <see cref="FXTFile"/></param>
         public FXTFile(string filePath) : base(filePath) { }
 
+        /// <summary>
+        /// Parses all existing lines from the current <see cref="FXTFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение всех существующих в текущем файле <see cref="FXTFile"/> строк
+        /// </summary>
+        /// <returns>
+        /// List of all existing <see cref="FXTFileItem"/> lines
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список всех существующих строк <see cref="FXTFileItem"/>
+        /// </returns>
         public BindingList<FXTFileItem> ParseData()
         {
             string lineIterator = null;
@@ -58,6 +90,18 @@ namespace OpenIII.GameFiles
             return data;
         }
 
+        /// <summary>
+        /// Gets all parsed lines from the current <see cref="FXTFile"/> in <see cref="String"/> format
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение всех прочитанных из файла <see cref="FXTFile"/> строк в текстовом формате <see cref="String"/>
+        /// </summary>
+        /// <returns>
+        /// All key-value lines in <see cref="String"/>
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список всех существующих строк в формате имя-значение строкой
+        /// </returns>
         public string DataToString()
         {
             string buf = null;
@@ -70,19 +114,64 @@ namespace OpenIII.GameFiles
             return buf;
         }
 
+        /// <summary>
+        /// Creates new <see cref="FXTFileItem"/> and adds it to the list
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Создание нового элемента <see cref="FXTFileItem"/> и добавление его в спиок строк
+        /// </summary>
+        /// <param name="key">A key for the new line. Allowed characters are capitalized latin letters, numbers and underscore</param>
+        /// <param name="value">A value for the new line</param>
+        /// <param name="key" xml:lang="ru">Ключ для новой строки. Допускаются заглавные латинские символы, цифры и нижнее подчёркивание</param>
+        /// <param name="value" xml:lang="ru">Значение для новой строки</param>
         public void AddItem(string key, string value)
         {
             Items.Add(new FXTFileItem(key, value));
         }
     }
 
+    /// <summary>
+    /// An implementation for working with the CLEO text line
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс для работы с текстовой строкой для скриптов CLEO
+    /// </summary>
     public class FXTFileItem
     {
+        /// <summary>
+        /// Maximum allowed length for the key
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Максимально допустимая длина ключа
+        /// </summary>
         private const int maxKeyLength = 8;
 
+        /// <summary>
+        /// A key that is used in the script to request line output in the game
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Ключ, который используется скриптом для запроса вывода строки в игре
+        /// </summary>
         public string Key { get; set; }
+
+        /// <summary>
+        /// A value that is shown in the game
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Значение, которое будет видеть игрок
+        /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Default <see cref="FXTFileItem"/> constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор <see cref="FXTFileItem"/> по умолчанию
+        /// </summary>
+        /// <param name="key">A key for the new line. Allowed characters are capitalized latin letters, numbers and underscore</param>
+        /// <param name="value">A value for the new line</param>
+        /// <param name="key" xml:lang="ru">Ключ для новой строки. Допускаются заглавные латинские символы, цифры и нижнее подчёркивание</param>
+        /// <param name="value" xml:lang="ru">Значение для новой строки</param>
         public FXTFileItem(string key, string value) {
             this.Key = key;
             this.Value = value;

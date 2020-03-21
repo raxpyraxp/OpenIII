@@ -72,37 +72,43 @@ namespace OpenIII.GameFiles
         public abstract int FILE_SECTION_START { get; }
 
         /// <summary>
-        /// Archive version
+        /// <see cref="ArchiveFile"/> version
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Версия архива
+        /// Версия архива <see cref="ArchiveFile"/>
         /// </summary>
         public abstract ArchiveFileVersion ImgVersion { get; }
 
         /// <summary>
-        /// Total files count in the archive
+        /// Total files count in the <see cref="ArchiveFile"/>
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Количество файлов в архиве
+        /// Количество файлов в архиве <see cref="ArchiveFile"/>
         /// </summary>
         public abstract long TotalFiles { get; }
 
         /// <summary>
-        /// Archive constructor
+        /// <see cref="ArchiveFile"/> constructor
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Конструктор архива
+        /// Конструктор архива <see cref="ArchiveFile"/>
         /// </summary>
-        /// <param name="filePath">Archive file path</param>
-        /// <param name="filePath" xml:lang="ru">Путь к архиву</param>
+        /// <param name="filePath"><see cref="ArchiveFile"/> path</param>
+        /// <param name="filePath" xml:lang="ru">Путь к архиву <see cref="ArchiveFile"/></param>
         public ArchiveFile(string filePath) : base(filePath) { }
 
         /// <summary>
-        /// Gets file handles list to access all archived files
+        /// Gets file handles list to access all archived <see cref="GameFile"/> files
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Получение списка указателей на все архивированные файлы
+        /// Получение списка указателей на все архивированные файлы <see cref="GameFile"/>
         /// </summary>
+        /// <returns>
+        /// List of handles to all archived <see cref="GameFile"/> files
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список указателей на все архивированные файлы <see cref="GameFile"/>
+        /// </returns>
         public abstract List<FileSystemElement> GetFileList();
 
         /// <summary>
@@ -111,6 +117,12 @@ namespace OpenIII.GameFiles
         /// <summary xml:lang="ru">
         /// Получение нового смещения в архиве для записи нового файла
         /// </summary>
+        /// <returns>
+        /// Offset for the new <see cref="GameFile"/>
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Смещение для нового файла <see cref="GameFile"/>
+        /// </returns>
         public int CalculateOffsetForNewEntry()
         {
             GameFile lastFile = null;
@@ -150,6 +162,12 @@ namespace OpenIII.GameFiles
         /// </summary>
         /// <param name="path">Archive file path</param>
         /// <param name="path" xml:lang="ru">Путь к архиву</param>
+        /// <returns>
+        /// New <see cref="ArchiveFile"/> instance
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Новый инстанс <see cref="ArchiveFile"/>
+        /// </returns>
         public static new ArchiveFile CreateInstance(string path)
         {
             ArchiveFileVersion version = ArchiveFileV2.ReadVersionFromArchive(new GameFile(path));
@@ -189,6 +207,12 @@ namespace OpenIII.GameFiles
         /// <param name="filename" xml:lang="ru">Имя файла</param>
         /// <param name="parentFile"><see cref="ArchiveFile"/> where this file belongs to</param>
         /// <param name="parentFile" xml:lang="ru"><see cref="ArchiveFile"/>, в котором данный файл находится</param>
+        /// <returns>
+        /// New <see cref="ArchiveFile"/> instance
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Новый инстанс <see cref="ArchiveFile"/>
+        /// </returns>
         /// <exception cref="NotImplementedException">Thrown on function call</exception>
         /// <exception cref="NotImplementedException" xml:lang="ru">Вызывается при вызове функции</exception>
         /// <remarks>
@@ -228,6 +252,14 @@ namespace OpenIII.GameFiles
             stream.Close();
         }
 
+        /// <summary>
+        /// Inserts new <see cref="GameFile"/> into current <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Добавляет новый файл <see cref="GameFile"/> в текущий архив <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="sourceFile"><see cref="GameFile"/> to be inserted into the <see cref="ArchiveFile"/></param>
+        /// <param name="sourceFile" xml:lang="ru">Файл <see cref="GameFile"/>, который необходимо добавить в архив <see cref="ArchiveFile"/></param>
         public void InsertFile(GameFile sourceFile)
         {
             int offset = CalculateOffsetForNewEntry();
@@ -251,6 +283,14 @@ namespace OpenIII.GameFiles
             sourceStream.Close();
         }
 
+        /// <summary>
+        /// Deletes <see cref="GameFile"/> from the current <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Удаляет файл <see cref="GameFile"/> из текущего архива <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="entry"><see cref="GameFile"/> to be deleted</param>
+        /// <param name="entry" xml:lang="ru">Файл <see cref="GameFile"/>, который необходимо удалить</param>
         public void DeleteFile(GameFile entry)
         {
             // We don't really know if we need to actually remove the file itself.
@@ -272,13 +312,63 @@ namespace OpenIII.GameFiles
 
             DeleteFileEntry(entry);
         }
-        
+
+        /// <summary>
+        /// Replaces <paramref name="oldEntry"/> in the <see cref="ArchiveFile"/> with new file <paramref name="newEntry"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Заменяет файл <paramref name="oldEntry"/> в архиве <see cref="ArchiveFile"/> на новый файл <paramref name="newEntry"/>
+        /// </summary>
+        /// <param name="oldEntry">Old <see cref="GameFile"/> in the <see cref="ArchiveFile"/> that needs to be replaced</param>
+        /// <param name="oldEntry" xml:lang="ru">Старый файл <see cref="GameFile"/> в архиве <see cref="ArchiveFile"/>, который нужно заменить</param>
+        /// <param name="newEntry">A replacement <see cref="GameFile"/> for the <paramref name="oldEntry"/></param>
+        /// <param name="newEntry" xml:lang="ru">Новый файл <see cref="GameFile"/>, которым необходимо заменить <paramref name="oldEntry"/></param>
+        /// <remarks>
+        /// This function is not implemented yet.
+        /// </remarks>
+        /// <remarks xml:lang="ru">
+        /// Эта функция ещё не реализована.
+        /// </remarks>
         public void ReplaceFile(GameFile oldEntry, GameFile newEntry) { }
 
+        /// <summary>
+        /// Renames <paramref name="entry"/> to <paramref name="newName"/> in the current <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Переименовывает файл <paramref name="entry"/> в <paramref name="newName"/> в текущем архиве <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="entry"><see cref="GameFile"/> to be renamed</param>
+        /// <param name="entry" xml:lang="ru">Файл <see cref="GameFile"/>, который необходимо переименовать</param>
+        /// <param name="newName">New file name</param>
+        /// <param name="newName" xml:lang="ru">Новое имя файла</param>
+        /// <remarks>
+        /// This function is not implemented yet.
+        /// </remarks>
+        /// <remarks xml:lang="ru">
+        /// Эта функция ещё не реализована.
+        /// </remarks>
         public void RenameFile(GameFile entry, string newName) { }
 
+        /// <summary>
+        /// Adds new table of contents entry for the new <paramref name="file"/> in defined <paramref name="offset"/> to the <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Добавляет новую запись о файле <paramref name="file"/> в таблицу размещения файлов в архиве <see cref="ArchiveFile"/> с заданным смещением <paramref name="offset"/>
+        /// </summary>
+        /// <param name="offset">Starting offset of a <paramref name="file"/></param>
+        /// <param name="offset" xml:lang="ru">Смещение начала файла <paramref name="file"/></param>
+        /// <param name="file"><see cref="GameFile"/> that needs new entry to be defined</param>
+        /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись о котором необходимо добавить в таблицу</param>
         public abstract void AddNewFileEntry(int offset, GameFile file);
 
+        /// <summary>
+        /// Deletes the table of contents entry for the <see cref="GameFile"/> from the current <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Удаляет запись о файле <see cref="GameFile"/> из текущего архива <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="file"><see cref="GameFile"/> which entry needs to be deleted</param>
+        /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись которого необходимо удалить</param>
         public abstract void DeleteFileEntry(GameFile file);
     }
 }

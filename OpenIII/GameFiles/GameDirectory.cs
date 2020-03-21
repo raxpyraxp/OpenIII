@@ -28,51 +28,101 @@ using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
+    /// <summary>
+    /// An implementation for working with game directories
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс для работы с каталогами игры
+    /// </summary>
     public class GameDirectory : FileSystemElement
     {
         /// <summary>
-        /// Информация о директории
+        /// A <see cref="DirectoryInfo"/> element associated with current directory
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Информация о текущей директории <see cref="DirectoryInfo"/>
         /// </summary>
         private DirectoryInfo DirectoryInfo;
 
         /// <summary>
-        /// Имя директории
+        /// The name of the <see cref="GameDirectory"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Имя директории <see cref="GameDirectory"/>
         /// </summary>
         public override string Name { get => DirectoryInfo.Name; }
 
         /// <summary>
-        /// Расширение директории
+        /// The extension of the <see cref="GameDirectory"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Расширение директории <see cref="GameDirectory"/>
         /// </summary>
         public override string Extension { get => DirectoryInfo.Extension; }
 
         /// <summary>
-        /// Создаёт новую директорию
+        /// Default <see cref="GameDirectory"/> constructor
         /// </summary>
-        /// <param name="path"></param>
+        /// <summary xml:lang="ru">
+        /// Конструктор <see cref="GameDirectory"/> по умолчанию
+        /// </summary>
+        /// <param name="path">Directory path</param>
+        /// <param name="path" xml:lang="ru">Путь к директории</param>
         public GameDirectory(string path) : base(path)
         {
             this.DirectoryInfo = new DirectoryInfo(FullPath);
         }
 
         /// <summary>
-        /// Создаёт экземпляр
+        /// Creates the handle <see cref="GameDirectory"/> to the direcory under <paramref name="path"/>
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Создание указателя на директорию <see cref="GameDirectory"/> по пути <paramref name="path"/>
+        /// </summary>
+        /// <param name="path">Directory path</param>
+        /// <param name="path" xml:lang="ru">Путь к директории</param>
+        /// <returns>
+        /// <see cref="GameDirectory"/> handle
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Указатель на директорию <see cref="GameDirectory"/>
+        /// </returns>
         public static new GameDirectory CreateInstance(string path)
         {
             return new GameDirectory(path);
         }
 
+        /// <summary>
+        /// Fetches the icon of the <see cref="GameDirectory"/> that is predefined for the file type in it's class
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение предопределённой в классе иконки директории <see cref="GameDirectory"/>
+        /// </summary>
+        /// <param name="size">Icon size</param>
+        /// <param name="size" xml:lang="ru">Размер иконки</param>
+        /// <returns>
+        /// <see cref="Bitmap"/> icon
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Иконка <see cref="Bitmap"/>
+        /// </returns>
         public override Bitmap GetPredefinedIcon(IconSize size)
         {
             return Properties.Resources.Folder;
         }
 
         /// <summary>
-        /// Возвращает все файлы из директории
+        /// Fetches all file handles for all child <see cref="GameFile"/> files in the current <see cref="GameDirectory"/>
         /// </summary>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение указателей на все дочерние файлы <see cref="GameFile"/> находящиеся в текущей директории <see cref="GameDirectory"/>
+        /// </summary>
+        /// <returns>
+        /// List of <see cref="GameFile"/> handles
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список указателей <see cref="GameFile"/>
+        /// </returns>
         public List<GameFile> GetFiles()
         {
             List<GameFile> gameFiles = new List<GameFile>();
@@ -86,9 +136,17 @@ namespace OpenIII.GameFiles
         }
 
         /// <summary>
-        /// Возвращает все директории из директории
+        /// Fetches all directory handles for all child <see cref="GameDirectory"/> directories in the current <see cref="GameDirectory"/>
         /// </summary>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение указателей на все дочерние директории <see cref="GameDirectory"/> находящиеся в текущей директории <see cref="GameDirectory"/>
+        /// </summary>
+        /// <returns>
+        /// List of <see cref="GameDirectory"/> handles
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список указателей <see cref="GameDirectory"/>
+        /// </returns>
         public List<GameDirectory> GetDirectories()
         {
             List<GameDirectory> gameDirectories = new List<GameDirectory>();
@@ -102,9 +160,17 @@ namespace OpenIII.GameFiles
         }
 
         /// <summary>
-        /// Возвращает все элементы, находящиеся в директории
+        /// Fetches all handles for all child <see cref="FileSystemElement"/> elements in the current <see cref="GameDirectory"/>
         /// </summary>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение указателей на все дочерние элементы <see cref="FileSystemElement"/> находящиеся в текущей директории <see cref="GameDirectory"/>
+        /// </summary>
+        /// <returns>
+        /// List of <see cref="FileSystemElement"/> handles
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список указателей <see cref="FileSystemElement"/>
+        /// </returns>
         public List<FileSystemElement> GetContent()
         {
             List<FileSystemElement> resources = new List<FileSystemElement>();

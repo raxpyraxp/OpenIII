@@ -28,45 +28,89 @@ using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
+    /// <summary>
+    /// A basic class for all file system elements including files and directories
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Базовый класс элемента файловой системы, который является базой для файлов и каталогов
+    /// </summary>
     public abstract class FileSystemElement
     {
         /// <summary>
-        /// Полный путь к файлу
+        /// Full absolute path to the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Полный абсолютный путь к элементу файловой системы <see cref="FileSystemElement"/>
         /// </summary>
         public string FullPath { get; protected set; }
 
         /// <summary>
-        /// Имя файла
+        /// Name of the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Имя элемента файловой системы <see cref="FileSystemElement"/>
         /// </summary>
         public abstract string Name { get; }
 
         /// <summary>
-        /// Расширение файла
+        /// Extension of the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Расширение элемента файловой системы <see cref="FileSystemElement"/>
         /// </summary>
         public abstract string Extension { get; }
 
         /// <summary>
-        /// Маленькая иконка
+        /// Small icon for the type of the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Маленькая иконка типа элемента файловой системы <see cref="FileSystemElement"/>
         /// </summary>
         public Bitmap SmallIcon { get => GetIcon(IconSize.Small); }
 
         /// <summary>
-        /// Большая иконка
+        /// Large icon for the type of the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Большая иконка типа элемента файловой системы <see cref="FileSystemElement"/>
         /// </summary>
         public Bitmap LargeIcon { get => GetIcon(IconSize.Large); }
 
+        /// <summary>
+        /// Default <see cref="FileSystemElement"/> constructor for the new element
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор <see cref="FileSystemElement"/> для создания нового элемента файловой системы
+        /// </summary>
         public FileSystemElement() { }
 
+        /// <summary>
+        /// Default <see cref="FileSystemElement"/> constructor for the existing element
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор <see cref="FileSystemElement"/> для создания существующего элемента файловой системы
+        /// </summary>
+        /// <param name="path"><see cref="FileSystemElement"/> path</param>
+        /// <param name="path" xml:lang="ru">Путь к <see cref="FileSystemElement"/></param>
         public FileSystemElement(string path)
         {
             FullPath = path;
         }
 
         /// <summary>
-        /// Создаёт экземпляр
+        /// Creates new <see cref="FileSystemElement"/> of it's type
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Создание указателя на <see cref="FileSystemElement"/> того типа, к которому он отностся
+        /// </summary>
+        /// <param name="path"><see cref="FileSystemElement"/> path</param>
+        /// <param name="path" xml:lang="ru">Путь к <see cref="FileSystemElement"/></param>
+        /// <returns>
+        /// Handle for the <see cref="FileSystemElement"/>
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Указатель на элемент файловой системы <see cref="FileSystemElement"/>
+        /// </returns>
         public FileSystemElement CreateInstance(string path)
         {
             if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
@@ -81,10 +125,19 @@ namespace OpenIII.GameFiles
         }
 
         /// <summary>
-        /// Получить иконку
+        /// Fetches the icon of the <see cref="FileSystemElement"/>
         /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение иконки элемента файловой системы <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <param name="size">Icon size</param>
+        /// <param name="size" xml:lang="ru">Размер иконки</param>
+        /// <returns>
+        /// <see cref="Bitmap"/> icon
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Иконка <see cref="Bitmap"/>
+        /// </returns>
         public Bitmap GetIcon(IconSize size)
         {
             // Uncomment this to use predefined png icons
@@ -103,6 +156,20 @@ namespace OpenIII.GameFiles
             }
         }
 
+        /// <summary>
+        /// Fetches the icon of the <see cref="FileSystemElement"/> that is predefined for the file type in it's class
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Получение предопределённой в классе иконки элемента файловой системы <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <param name="size">Icon size</param>
+        /// <param name="size" xml:lang="ru">Размер иконки</param>
+        /// <returns>
+        /// <see cref="Bitmap"/> icon
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Иконка <see cref="Bitmap"/>
+        /// </returns>
         public abstract Bitmap GetPredefinedIcon(IconSize size);
     }
 }

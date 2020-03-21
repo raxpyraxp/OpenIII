@@ -44,17 +44,47 @@ namespace OpenIII.Forms
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Email link click event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия на ссылку электронной почты
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void emailLinkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string link = "mailto:" + ((LinkLabel)sender).Text;
             System.Diagnostics.Process.Start(link);
         }
 
+        /// <summary>
+        /// Warranty "See details" link click event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия на ссылку "Подробнее" рядом с условиями гарантии
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void warrantyLinkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-3.0.html#section15");
         }
 
+        /// <summary>
+        /// Copyright "See details" link click event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события нажатия на ссылку "Подробнее" рядом с условиями использования
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void licenseLinkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-3.0.html");

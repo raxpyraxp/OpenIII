@@ -54,17 +54,27 @@ namespace OpenIII.Forms
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the window title
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Устанавливает новый текст заголовка окна
+        /// </summary>
+        /// <param name="title">New title text</param>
+        /// <param name="title" xml:lang="ru">Новый текст заголовка окна</param>
         public void SetWindowTitle(string title)
         {
             Text = title;
         }
 
         /// <summary>
-        /// Closes this window
+        /// Closes current window with save notification prompt if file is edited
         /// </summary>
         /// <summary xml:lang="ru">
-        /// Закрывает текущее окно
+        /// Закрывает текущее окно выводя перед закрытием предложение сохранить файл если он был изменён
         /// </summary>
+        /// <param name="e">Cancel event arguments</param>
+        /// <param name="e" xml:lang="ru">Аргументы отмены закрытия окна</param>
         public void CloseWindow(CancelEventArgs e)
         {
             if (isFileEdited == true)
@@ -85,6 +95,12 @@ namespace OpenIII.Forms
             }
         }
 
+        /// <summary>
+        /// Closes current window with save notification prompt if file is edited
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Закрывает текущее окно выводя перед закрытием предложение сохранить файл если он был изменён
+        /// </summary>
         public void CloseWindow()
         {
             if (isFileEdited == true)

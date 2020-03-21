@@ -278,6 +278,16 @@ namespace OpenIII.Forms
             DeleteRow(indexes);
         }
 
+        /// <summary>
+        /// Form closing event handler
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Обработчик события закрытия окна
+        /// </summary>
+        /// <param name="sender">Component that emitted the event</param>
+        /// <param name="e">Form closing event arguments</param>
+        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
+        /// <param name="e" xml:lang="ru">Аргументы события закрытия окна</param>
         private void FXTEditorWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseWindow(e);

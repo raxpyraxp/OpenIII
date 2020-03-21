@@ -28,45 +28,117 @@ using System.IO;
 
 namespace OpenIII.GameFiles
 {
+    /// <summary>
+    /// IMG/CDIMAGE version 1 archive files for RenderWare-based GTA games implementation that is used in GTA III and GTA: Vice City
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс для работы с IMG/CDIMAGE архивами версии 1 для игр GTA на движке RenderWare которые используются в GTA III и GTA: Vice City
+    /// </summary>
     class ArchiveFileV1 : ArchiveFile
     {
+        /// <summary>
+        /// Table of contents file extension
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Расширение файла оглавления архива
+        /// </summary>
         public const string DirSuffix = "dir";
 
+        /// <summary>
+        /// Size of the <see cref="GameFile"/> offset section in bytes
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Размер секции смещения файла <see cref="GameFile"/> в байтах
+        /// </summary>
         public const int OFFSET_ENTRY_BYTE_SIZE = 4;
+
+        /// <summary>
+        /// Size of the <see cref="GameFile"/> size section in bytes
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Размер секции размера файла <see cref="GameFile"/> в байтах
+        /// </summary>
         public const int SIZE_ENTRY_BYTE_SIZE = 4;
+
+        /// <summary>
+        /// Size of the <see cref="GameFile"/> name section in bytes
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Размер секции имени файла <see cref="GameFile"/> в байтах
+        /// </summary>
         public const int FILENAME_ENTRY_BYTE_SIZE = 24;
 
         /// <summary>
-        /// Размер элемента .dir-файла в байтах
+        /// Size of the whole <see cref="GameFile"/> entry in the file allocation table in bytes
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Суммарный размер секции файла <see cref="GameFile"/> в таблице размещения файлов в байтах
         /// </summary>
         public const int DIR_ENTRY_SIZE = OFFSET_ENTRY_BYTE_SIZE +
                                           FILENAME_ENTRY_BYTE_SIZE +
                                           SIZE_ENTRY_BYTE_SIZE;
 
+        /// <summary>
+        /// Default begining of data section offset
+        /// In the V1 it defaults to 0 because whole file is used for data only
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Смещение начала блока данных по умолчанию
+        /// В архиве первой версии начало блока данных эквивалентно началу файла так как весь файл используется для хранения данных
+        /// </summary>
         public override int FILE_SECTION_START { get => 0; }
 
         /// <summary>
-        /// Версия архива
+        /// <see cref="ArchiveFile"/> version
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Версия архива <see cref="ArchiveFile"/>
         /// </summary>
         public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V1; }
 
         /// <summary>
-        /// Количество файлов в архиве
+        /// Total files count in the <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Количество файлов в архиве <see cref="ArchiveFile"/>
         /// </summary>
         public override long TotalFiles { get => DirFile.Length / DIR_ENTRY_SIZE; }
-        
+
+        /// <summary>
+        /// Table of contents .dir file handle
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Указатель на .dir файл, содержащий таблицу размещения файлов
+        /// </summary>
         public GameFile DirFile { get => new GameFile(GetDirFilePath(FullPath)); }
 
+        /// <summary>
+        /// <see cref="ArchiveFile"/> constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор архива <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="filePath"><see cref="ArchiveFile"/> path</param>
+        /// <param name="filePath" xml:lang="ru">Путь к архиву <see cref="ArchiveFile"/></param>
         public ArchiveFileV1(string filePath) : base(filePath)
         {
 
         }
 
         /// <summary>
-        /// Получить путь до .dir-файла
+        /// Gets .dir file path based on <see cref="ArchiveFile"/> path
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение пути к .dir-файлу по пути архива <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="path"><see cref="ArchiveFile"/> path</param>
+        /// <param name="path" xml:lang="ru">Путь к архиву <see cref="ArchiveFile"/></param>
+        /// <returns>
+        /// .dir file path
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Путь к .dir файлу
+        /// </returns>
         public static string GetDirFilePath(string path)
         {
             // Just replace extension to dir in the original file path
@@ -74,9 +146,17 @@ namespace OpenIII.GameFiles
         }
 
         /// <summary>
-        /// Получить список файлов из архива
+        /// Gets file handles list to access all archived <see cref="GameFile"/> files
         /// </summary>
-        /// <returns></returns>
+        /// <summary xml:lang="ru">
+        /// Получение списка указателей на все архивированные файлы <see cref="GameFile"/>
+        /// </summary>
+        /// <returns>
+        /// List of handles to all archived <see cref="GameFile"/> files
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Список указателей на все архивированные файлы <see cref="GameFile"/>
+        /// </returns>
         public override List<FileSystemElement> GetFileList()
         {
             long filesCount = TotalFiles;
@@ -115,6 +195,24 @@ namespace OpenIII.GameFiles
             return fileList;
         }
 
+        /// <summary>
+        /// Creates new <see cref="GameFile"/> entry
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Создаёт запись о файле <see cref="GameFile"/>
+        /// </summary>
+        /// <param name="offset">Offset for the new <see cref="GameFile"/></param>
+        /// <param name="offset" xml:lang="ru">Смещение для нового <see cref="GameFile"/></param>
+        /// <param name="length">Size of the <see cref="GameFile"/></param>
+        /// <param name="length" xml:lang="ru">Размер файла <see cref="GameFile"/></param>
+        /// <param name="filename">Name of the <see cref="GameFile"/></param>
+        /// <param name="filename" xml:lang="ru">Имя файла <see cref="GameFile"/></param>
+        /// <returns>
+        /// Entry in bytes block
+        /// </returns>
+        /// <returns xml:lang="ru">
+        /// Блок данных с записью о файле
+        /// </returns>
         public byte[] CreateNewEntry(int offset, long length, string filename)
         {
             MemoryStream stream = new MemoryStream();
@@ -139,6 +237,16 @@ namespace OpenIII.GameFiles
             return entry;
         }
 
+        /// <summary>
+        /// Adds new table of contents entry for the new <paramref name="file"/> in defined <paramref name="offset"/> to the <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Добавляет новую запись о файле <paramref name="file"/> в таблицу размещения файлов в архиве <see cref="ArchiveFile"/> с заданным смещением <paramref name="offset"/>
+        /// </summary>
+        /// <param name="offset">Starting offset of a <paramref name="file"/></param>
+        /// <param name="offset" xml:lang="ru">Смещение начала файла <paramref name="file"/></param>
+        /// <param name="file"><see cref="GameFile"/> that needs new entry to be defined</param>
+        /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись о котором необходимо добавить в таблицу</param>
         public override void AddNewFileEntry(int offset, GameFile file)
         {
             Stream stream = DirFile.GetStream(FileMode.Append, FileAccess.Write);
@@ -149,6 +257,14 @@ namespace OpenIII.GameFiles
             stream.Close();
         }
 
+        /// <summary>
+        /// Deletes the table of contents entry for the <see cref="GameFile"/> from the current <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Удаляет запись о файле <see cref="GameFile"/> из текущего архива <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <param name="file"><see cref="GameFile"/> which entry needs to be deleted</param>
+        /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись которого необходимо удалить</param>
         public override void DeleteFileEntry(GameFile entry)
         {
             List<FileSystemElement> entries = GetFileList();
