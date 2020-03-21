@@ -27,10 +27,19 @@ using OpenIII.GameFiles;
 
 namespace OpenIII
 {
+    /// <summary>
+    /// Application entry point
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Входная точка приложения
+    /// </summary>
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Main function of the application
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Стартовая функция приложения
         /// </summary>
         [STAThread]
         static void Main()

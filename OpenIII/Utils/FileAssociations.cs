@@ -32,8 +32,22 @@ using OpenIII.GameFiles;
 
 namespace OpenIII.Utils
 {
+    /// <summary>
+    /// A class that defines file associations for game files with it's editors
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс, определяющий ассоциации игровых файлов с редакторами
+    /// </summary>
     class FileAssociations
     {
+        /// <summary>
+        /// Opens the <paramref name="file"/> in it's associated editor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Открывает файл <paramref name="file"/> в ассоциированным с его типом редакторе
+        /// </summary>
+        /// <param name="file">File to be opened</param>
+        /// <param name="file" xml:lang="ru">Файл который необходимо открыть</param>
         public static void OpenFile(GameFile file)
         {
             // TODO: создать объект с расширениями файлов

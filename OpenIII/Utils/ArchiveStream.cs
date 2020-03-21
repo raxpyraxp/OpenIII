@@ -30,16 +30,53 @@ using OpenIII.GameFiles;
 
 namespace OpenIII.Utils
 {
+    /// <summary>
+    /// A special stream for managing files directly from the archive file
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Специальный вид потока для работы с файлом напрямую в архиве
+    /// </summary>
     class ArchiveStream : FileStream
     {
+        /// <summary>
+        /// Handle of the archived <see cref="GameFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Указатель на архивированный файл <see cref="GameFile"/>
+        /// </summary>
         public GameFile File { get; }
+
+        /// <summary>
+        /// Length of the archived <see cref="GameFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Размер архивированного файла <see cref="GameFile"/>
+        /// </summary>
         public override long Length { get => File.Length; }
 
+        /// <summary>
+        /// Current position relative to the <see cref="GameFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Текущая позиция относительно файла <see cref="GameFile"/>
+        /// </summary>
         public override long Position {
             get => base.Position - File.Offset;
             set => base.Position = value + File.Offset;
         }
 
+        /// <summary>
+        /// Constructior for the <see cref="ArchiveStream"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор для потока <see cref="ArchiveStream"/>
+        /// </summary>
+        /// <param name="gameFile">Archived file</param>
+        /// <param name="gameFile" xml:lang="ru">Архивированный файл</param>
+        /// <param name="mode">File access mode</param>
+        /// <param name="mode" xml:lang="ru">Метод доступа к файлу</param>
+        /// <param name="access">File access permissions</param>
+        /// <param name="access" xml:lang="ru">Разрешения доступа к файлу</param>
         public ArchiveStream(GameFile gameFile, FileMode mode, FileAccess access)
             : base(gameFile.ParentArchive.FullPath, mode, access)
         {
@@ -47,6 +84,16 @@ namespace OpenIII.Utils
             base.Seek(File.Offset, SeekOrigin.Begin);
         }
 
+        /// <summary>
+        /// Move current position to the <paramref name="offset"/> relative to the <paramref name="origin"/> of the <see cref="GameFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Переместить текущую позицию на смещение <paramref name="offset"/> относительно <paramref name="origin"/> файла <see cref="GameFile"/>
+        /// </summary>
+        /// <param name="offset">New offset</param>
+        /// <param name="offset" xml:lang="ru">Новое смещение</param>
+        /// <param name="origin">Relative position where to move from</param>
+        /// <param name="origin" xml:lang="ru">Позиция относительно которой необходимо переместить текущую позицию</param>
         public override long Seek(long offset, SeekOrigin origin)
         {
             return base.Seek(offset + File.Offset, origin);

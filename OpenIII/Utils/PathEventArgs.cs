@@ -28,10 +28,30 @@ using System.Text;
 
 namespace OpenIII
 {
+    /// <summary>
+    /// Class that defines event arguments that are used in events when new game path selected
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс, определяющий аргументы события, которые используются при выборе нового пути к игре
+    /// </summary>
     public class PathEventArgs : EventArgs
     {
+        /// <summary>
+        /// Selected game path
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Выбранный путь к игре
+        /// </summary>
         public string Path { get; }
 
+        /// <summary>
+        /// Default <see cref="PathEventArgs"/> constructor
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Конструктор <see cref="PathEventArgs"/> по умолчанию
+        /// </summary>
+        /// <param name="path">Path of the game</param>
+        /// <param name="path" xml:lang="ru">Путь к игре</param>
         public PathEventArgs(string path)
         {
             Path = path;

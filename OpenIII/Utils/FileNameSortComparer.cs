@@ -29,8 +29,24 @@ using OpenIII.GameFiles;
 
 namespace OpenIII.Utils
 {
+    /// <summary>
+    /// A class that defines comparator for files and directories sorting
+    /// </summary>
+    /// <summary xml:lang="ru">
+    /// Класс, определяющий компаратор для сортировки файлов и директорий
+    /// </summary>
     class FileNameSortComparer : IComparer<FileSystemElement>
     {
+        /// <summary>
+        /// Compare two <see cref="FileSystemElement"/> file system elements
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Сравнить два элемента файловой системы <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <param name="left">Left file system element</param>
+        /// <param name="left" xml:lang="ru">Левый элемент файловой системы</param>
+        /// <param name="right">Right file system element</param>
+        /// <param name="right" xml:lang="ru">Правый элемент файловой системы</param>
         public int Compare(FileSystemElement left, FileSystemElement right)
         {
             int comparison = 0;
