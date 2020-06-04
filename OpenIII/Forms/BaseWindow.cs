@@ -67,55 +67,21 @@ namespace OpenIII.Forms
             Text = title;
         }
 
-        /// <summary>
-        /// Closes current window with save notification prompt if file is edited
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Закрывает текущее окно выводя перед закрытием предложение сохранить файл если он был изменён
-        /// </summary>
-        /// <param name="e">Cancel event arguments</param>
-        /// <param name="e" xml:lang="ru">Аргументы отмены закрытия окна</param>
-        public void CloseWindow(CancelEventArgs e)
+        private void OnWindowClosing(object sender, FormClosingEventArgs e)
         {
             if (isFileEdited == true)
             {
-                DialogResult dialogResult = MessageBox.Show("Some changes wasn't saved. Do you really want to close window?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dialogResult = MessageBox.Show("You have unsaved changes. Do you want to save them?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
                 switch (dialogResult)
                 {
                     case DialogResult.Yes:
-                        Close();
+                        //Save()
                         break;
 
-                    case DialogResult.No:
+                    case DialogResult.Cancel:
                         e.Cancel = true;
-                        return;
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Closes current window with save notification prompt if file is edited
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Закрывает текущее окно выводя перед закрытием предложение сохранить файл если он был изменён
-        /// </summary>
-        public void CloseWindow()
-        {
-            if (isFileEdited == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("Some changes wasn't saved. Do you really want to close window?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                switch (dialogResult)
-                {
-                    case DialogResult.Yes:
-                        Close();
                         break;
-
-                    case DialogResult.No:
-                        return;
-                    break;
                 }
             }
         }

@@ -60,6 +60,7 @@ namespace OpenIII.Forms
             this.ClientSize = new System.Drawing.Size(624, 442);
             this.Name = "BaseWindow";
             this.Text = "BaseWindow";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnWindowClosing);
             this.ResumeLayout(false);
 
         }

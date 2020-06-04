@@ -172,7 +172,6 @@ namespace OpenIII.Forms
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FXTEditorWindow";
             this.Text = "FXT Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FXTEditorWindow_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gXTEditorWindowBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
