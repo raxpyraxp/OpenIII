@@ -132,11 +132,7 @@ namespace OpenIII.Forms
         {
             if (DataGridView.SelectedCells.Count > 0)
             {
-                // TODO: Program crashes in selecting multiple rows. Need to fix that later.
-                foreach (int indexItem in indexes)
-                {
-                    CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[indexItem].RowIndex);
-                }
+                CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
             }
 
             isFileEdited = true;
