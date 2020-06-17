@@ -22,7 +22,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 
@@ -36,6 +35,14 @@ namespace OpenIII.GameFiles
     /// </summary>
     public class FXTFile : GameFile
     {
+        /// <summary>
+        /// Standard header for each FXT file
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Стандартная строка заголовка с которой начинается каждый FXT файл
+        /// </summary>
+        string Headers = "# Hello!";
+
         /// <summary>
         /// List of the <see cref="FXTFileItem"/> text lines from the current <see cref="FXTFile"/>
         /// </summary>
@@ -84,10 +91,28 @@ namespace OpenIII.GameFiles
             }
 
             Items = data;
-
             Reader.Close();
 
             return data;
+        }
+
+        public void SaveFile()
+        {
+            string data = this.DataToString();
+
+            try
+            {
+                StreamWriter streamWriter = new StreamWriter(this.GetStream(FileMode.Create, FileAccess.Write));
+                streamWriter.WriteLine(Headers);
+                streamWriter.Write(data);
+                streamWriter.Close();
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            isFileEdited = false;
         }
 
         /// <summary>
@@ -144,7 +169,7 @@ namespace OpenIII.GameFiles
         /// <summary xml:lang="ru">
         /// Максимально допустимая длина ключа
         /// </summary>
-        private const int maxKeyLength = 8;
+        public const int MAX_KEY_LENGTH = 8;
 
         /// <summary>
         /// A key that is used in the script to request line output in the game

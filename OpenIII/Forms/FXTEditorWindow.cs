@@ -24,8 +24,6 @@
 using OpenIII.GameFiles;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace OpenIII.Forms
@@ -38,14 +36,6 @@ namespace OpenIII.Forms
     /// </summary>
     public partial class FXTEditorWindow : BaseWindow
     {
-        /// <summary>
-        /// Standard header for each FXT file
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Стандартная строка заголовка с которой начинается каждый FXT файл
-        /// </summary>
-        private const string Headers = "# Hello!";
-
         /// <summary>
         /// Current opened file which user is editing
         /// </summary>
@@ -117,7 +107,7 @@ namespace OpenIII.Forms
         {
             CurrentFile.Items.Add(new FXTFileItem(key, value));
 
-            isFileEdited = true;
+            CurrentFile.isFileEdited = true;
         }
 
         /// <summary>
@@ -135,7 +125,7 @@ namespace OpenIII.Forms
                 CurrentFile.Items.RemoveAt(DataGridView.SelectedCells[0].RowIndex);
             }
 
-            isFileEdited = true;
+            CurrentFile.isFileEdited = true;
         }
 
         /// <summary>
@@ -168,31 +158,13 @@ namespace OpenIII.Forms
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            string data = CurrentFile.DataToString();
-
             try
             {
-                if (isFileEdited == true)
-                {
-                    StreamWriter streamWriter = new StreamWriter(CurrentFile.GetStream(FileMode.Create, FileAccess.Write));
-                    streamWriter.WriteLine(Headers);
-                    streamWriter.Write(data);
-                    streamWriter.Close();
-                }
-                else
-                {
-                    MessageBox.Show("File wasn't changed!");
-                    return;
-                }
-            }
-            catch (Exception exception)
+                CurrentFile.SaveFile();
+            } catch (Exception exception)
             {
-                MessageBox.Show($"Can't save the file!\n{exception}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(exception.Message);
             }
-
-            MessageBox.Show("File saved successsfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            isFileEdited = false;
         }
 
         /// <summary>
@@ -209,7 +181,7 @@ namespace OpenIII.Forms
         {
             DataGridView.Rows[e.RowIndex].ErrorText = "";
 
-            if (e.FormattedValue.ToString().Length > 7 && e.ColumnIndex == 0) {
+            if (e.FormattedValue.ToString().Length > FXTFileItem.MAX_KEY_LENGTH && e.ColumnIndex == 0) {
                 e.Cancel = true;
                 DataGridView.Rows[e.RowIndex].ErrorText = "Key's name length can't be greater than 7!";
             }
@@ -227,7 +199,7 @@ namespace OpenIII.Forms
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            isFileEdited = true;
+            CurrentFile.isFileEdited = true;
         }
 
         /// <summary>
@@ -270,6 +242,25 @@ namespace OpenIII.Forms
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FXTEditorWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CurrentFile.isFileEdited)
+            {
+                DialogResult dialogResult = MessageBox.Show("You have unsaved changes. Do you want to save them?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                switch (dialogResult)
+                {
+                    case DialogResult.Yes:
+                        CurrentFile.SaveFile();
+                        break;
+
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
     }
 }

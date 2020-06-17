@@ -36,14 +36,6 @@ namespace OpenIII.Forms
     public partial class BaseWindow : Form
     {
         /// <summary>
-        /// File edited flag
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Флаг, указывающий на то, что файл был изменён после сохранения
-        /// </summary>
-        protected bool isFileEdited = false;
-
-        /// <summary>
         /// Form constructor
         /// </summary>
         /// <summary xml:lang="ru">
@@ -69,21 +61,7 @@ namespace OpenIII.Forms
 
         private void OnWindowClosing(object sender, FormClosingEventArgs e)
         {
-            if (isFileEdited == true)
-            {
-                DialogResult dialogResult = MessageBox.Show("You have unsaved changes. Do you want to save them?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
-                switch (dialogResult)
-                {
-                    case DialogResult.Yes:
-                        //Save()
-                        break;
-
-                    case DialogResult.Cancel:
-                        e.Cancel = true;
-                        break;
-                }
-            }
         }
     }
 }

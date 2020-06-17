@@ -594,5 +594,50 @@ namespace OpenIII
                 return;
             }
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = "";
+            dialog.Filter = "GXT file (*.gxt)|*.gxt|FXT file (*.fxt)|*.fxt";
+            dialog.FilterIndex = 2;
+            dialog.Title = "Save as...";
+            DialogResult result = dialog.ShowDialog();
+
+            switch (result)
+            {
+                case DialogResult.OK:
+                    GameFile file = new GameFile(dialog.FileName);
+
+                    switch (file.Extension)
+                    {
+                        case ".fxt":
+                            FXTFile fxtFile = new FXTFile(file.FullPath);
+                            FXTEditorWindow fxtEditorWindow = new FXTEditorWindow();
+
+                            try
+                            {
+                                fxtFile.SaveFile();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            
+                            fxtEditorWindow.OpenFile(fxtFile);
+                            fxtEditorWindow.Show();
+                            break;
+                        case ".gxt":
+                            
+                            break;
+                        default:
+                            MessageBox.Show("Unknown file extention!");
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

@@ -63,6 +63,14 @@ namespace OpenIII.GameFiles
     public class GameFile : FileSystemElement
     {
         /// <summary>
+        /// File edited flag
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Флаг, указывающий на то, что файл был изменён после сохранения
+        /// </summary>
+        public bool isFileEdited = false;
+
+        /// <summary>
         /// <see cref="GameFile"/> size in bytes in the <see cref="ArchiveFile"/>
         /// If file is not in <see cref="ArchiveFile"/> equals 0
         /// </summary>
