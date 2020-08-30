@@ -41,7 +41,7 @@ namespace OpenIII.GameFiles
         /// <summary xml:lang="ru">
         /// Стандартная строка заголовка с которой начинается каждый FXT файл
         /// </summary>
-        string Headers = "# Hello!";
+        string Headers = "# File created or edited by OpenIII.";
 
         /// <summary>
         /// List of the <see cref="FXTFileItem"/> text lines from the current <see cref="FXTFile"/>

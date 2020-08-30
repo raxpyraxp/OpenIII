@@ -71,14 +71,29 @@ namespace OpenIII.GameFiles
 
             foreach (GXTFileBlockEntry item in CurrentFile.Blocks[0].Entries)
             {
-                listBox1.Items.Add(item.Name);
+                ListViewItem listItem = new ListViewItem(item.Name);
+                listItem.Tag = item;
+                listView1.Items.Add(listItem);
             }
 
             dataGridView1.ColumnCount = 2;
 
-            for (int i = 0; i < CurrentFile.Blocks[1].Entries.Count; i++)
+            ListViewItem selected = listView1.Items[0];
+
+            SelectDictionary((GXTFileBlockEntry)selected.Tag);
+
+            /*for (int i = 0; i < CurrentFile.Blocks[1].Entries.Count; i++)
             {
-                dataGridView1.Rows.Add(CurrentFile.Blocks[1].Entries[i].Name, CurrentFile.Blocks[2].Entries[i].Name);
+                dataGridView1.Rows.Add(CurrentFile.Blocks[1].Entries[i].Name, null);
+            }*/
+            
+        }
+
+        public void SelectDictionary(GXTFileBlockEntry dict)
+        {
+            foreach (GXTFileBlockEntry entry in dict.ChildBlock.Entries)
+            {
+                dataGridView1.Rows.Add(entry.Name);
             }
         }
     }

@@ -101,12 +101,15 @@ namespace OpenIII.GameFiles
             byte[] buf;
             string tablBlockName, tkeyBlockName, tdatBlockName;
             int tablBlockSize, tkeyBlockSize, tdatBlockSize;
+            bool isMain = false;
 
             // Создаём блок TABL
+            // имя блока
             buf = new byte[4];
             stream.Read(buf, 0, buf.Length);
             tablBlockName = Encoding.ASCII.GetString(buf);
 
+            // размер блока
             buf = new byte[4];
             stream.Read(buf, 0, buf.Length);
             tablBlockSize = BitConverter.ToInt32(buf, 0);
@@ -125,30 +128,116 @@ namespace OpenIII.GameFiles
             stream.Read(buf, 0, buf.Length);
             tkeyBlockName = Encoding.ASCII.GetString(buf);
 
-
-            // Создаём блок TKEY
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            tkeyBlockSize = BitConverter.ToInt32(buf, 0);
-
-            GXTFileBlock tkeyBlock = new GXTFileBlock(tkeyBlockName, tkeyBlockName, tkeyBlockSize, new List<GXTFileBlockEntry>());
-
-            stream.Read(buf, 0, buf.Length);
-
-            // Находим элементы блока TKEY
-            for (int i = 0; i < tkeyBlockSize; i += (TABL_BLOCK_NAME_SIZE + TABL_BLOCK_SIZE_SIZE + TABL_ENTRY_OFFSET_SIZE))
+            foreach (GXTFileBlockEntry tablBlockItem in tablBlock.Entries)
             {
-                tkeyBlock.Entries.Add(tkeyBlock.GetEntry(stream));
+                string blockName;
+                int blockSize;
+                List<GXTFileBlockEntry> entries = new List<GXTFileBlockEntry>();
+
+                stream.Seek(tablBlockItem.Offset, SeekOrigin.Begin);
+
+                if (isMain)
+                {
+                    buf = new byte[8];
+                    stream.Read(buf, 0, buf.Length);
+                    blockName = Encoding.ASCII.GetString(buf);
+
+                    buf = new byte[4];
+                    stream.Read(buf, 0, buf.Length);
+                }
+                else
+                {
+                    buf = new byte[4];
+                    stream.Read(buf, 0, buf.Length);
+                    blockName = Encoding.ASCII.GetString(buf);
+                }
+
+                buf = new byte[4];
+                stream.Read(buf, 0, buf.Length);
+                blockSize = BitConverter.ToInt32(buf, 0);
+
+                for (int i = 0; i < blockSize / 12; i++)
+                {
+                    int entryOffset = 0;
+                    string entryName = "";
+
+                    buf = new byte[4];
+                    stream.Read(buf, 0, buf.Length);
+                    entryOffset = BitConverter.ToInt32(buf, 0);
+
+                    buf = new byte[8];
+                    stream.Read(buf, 0, buf.Length);
+                    entryName = Encoding.ASCII.GetString(buf);
+
+                    entries.Add(new GXTFileBlockEntry(entryName, entryOffset));
+                }
+
+                buf = new byte[4];
+                stream.Read(buf, 0, buf.Length);
+
+                GXTFileBlock tkeyBlock = new GXTFileBlock(blockName, blockSize, entries);
+                Blocks.Add(tkeyBlock);
+
+                tablBlockItem.ChildBlock = tkeyBlock;
+                
+                if (!isMain) isMain = true;
+
+                foreach (GXTFileBlockEntry entry in entries)
+                {
+                    buf = new byte[8];
+                    stream.Read(buf, 0, buf.Length);
+                    blockName = Encoding.ASCII.GetString(buf);
+
+                    buf = new byte[4];
+                    stream.Read(buf, 0, buf.Length);
+                    blockSize = BitConverter.ToInt32(buf, 0);
+                }
             }
 
-            Blocks.Add(tkeyBlock);
+            isMain = false;
 
+            /*stream.Seek(Blocks[1].Entries[2].Offset + Blocks[1].Size + 16, SeekOrigin.Begin);
+            
+            buf = new byte[4];
+            stream.Read(buf, 0, buf.Length);
+            string newblockName = Encoding.ASCII.GetString(buf);*/
+
+
+
+            /*
+            foreach (GXTFileBlockEntry tablBlockItem in tablBlock.Entries)
+            {
+                string blockName;
+                int blockSize;
+                List<GXTFileBlockEntry> entries = new List<GXTFileBlockEntry>();
+                
+                if (isMain)
+                {
+                    stream.Seek(tablBlockItem.Offset + Blocks[1].Size + 8, SeekOrigin.Begin);
+                }
+                else
+                {
+                    stream.Seek(tablBlockItem.Offset + Blocks[1].Size + 16, SeekOrigin.Begin);
+                }
+
+                buf = new byte[4];
+                stream.Read(buf, 0, buf.Length);
+                blockName = Encoding.ASCII.GetString(buf);
+
+                buf = new byte[4];
+                stream.Read(buf, 0, buf.Length);
+                blockSize = BitConverter.ToInt32(buf, 0);
+                
+                if (!isMain) isMain = true;
+            }
+            */
 
             // Создаём блок TDAT
             //buf = new byte[4];
             //stream.Read(buf, 0, buf.Length);
             //tdatBlockName = Encoding.ASCII.GetString(buf);
 
+            /*
             buf = new byte[4];
             stream.Read(buf, 0, buf.Length);
             tdatBlockSize = BitConverter.ToInt32(buf, 0);
@@ -177,6 +266,7 @@ namespace OpenIII.GameFiles
             }
 
             Blocks.Add(tdatBlock);
+            */
         }
     }
 
@@ -314,6 +404,8 @@ namespace OpenIII.GameFiles
         /// Имя элемента
         /// </summary>
         public string Name { get; set; }
+
+        public GXTFileBlock ChildBlock { get; set; }
 
         /// <summary>
         /// Constructior for GXT element
