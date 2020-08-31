@@ -120,6 +120,14 @@
     <Compile Include="GameFiles\GameFile.cs" />
     <Compile Include="GameFiles\FileSystemElement.cs" />
     <Compile Include="GameFiles\GXTFile.cs" />
+    <Compile Include="GameFiles\GXT\GXTFileBlock.cs" />
+    <Compile Include="GameFiles\GXT\GXTFileBlockEntry.cs" />
+    <Compile Include="GameFiles\GXT\TABLBlock.cs" />
+    <Compile Include="GameFiles\GXT\TDATBlock.cs" />
+    <Compile Include="GameFiles\GXT\TDATEntry.cs" />
+    <Compile Include="GameFiles\GXT\TKEYEntry.cs" />
+    <Compile Include="GameFiles\GXT\TABLEntry.cs" />
+    <Compile Include="GameFiles\GXT\TKEYBlock.cs" />
     <Compile Include="GameFiles\IDEFile.cs" />
     <Compile Include="Utils\ArchiveStream.cs" />
     <Compile Include="Utils\FileNameSortComparer.cs" />

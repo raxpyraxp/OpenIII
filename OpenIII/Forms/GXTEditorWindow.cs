@@ -22,6 +22,7 @@
  */
 
 using OpenIII.Forms;
+using OpenIII.GameFiles.GXT;
 using System.Windows.Forms;
 
 namespace OpenIII.GameFiles
@@ -69,7 +70,7 @@ namespace OpenIII.GameFiles
 
             CurrentFile = file;
 
-            foreach (GXTFileBlockEntry item in CurrentFile.Blocks[0].Entries)
+            /*foreach (GXTFileBlockEntry item in CurrentFile.Blocks[0].Entries)
             {
                 ListViewItem listItem = new ListViewItem(item.Name);
                 listItem.Tag = item;
@@ -80,20 +81,58 @@ namespace OpenIII.GameFiles
 
             ListViewItem selected = listView1.Items[0];
 
-            SelectDictionary((GXTFileBlockEntry)selected.Tag);
+            SelectDictionary((GXTFileBlockEntry)selected.Tag);*/
 
             /*for (int i = 0; i < CurrentFile.Blocks[1].Entries.Count; i++)
             {
                 dataGridView1.Rows.Add(CurrentFile.Blocks[1].Entries[i].Name, null);
             }*/
-            
+
+            dataGridView1.ColumnCount = 2;
+
+            switch (CurrentFile.FileVersion)
+            {
+                case GXTFileVersion.III:
+                    SelectDictionary((TKEYBlock)CurrentFile.MainBlock);
+                    break;
+                case GXTFileVersion.VC:
+                case GXTFileVersion.SA:
+                    foreach (TABLEntry entry in ((TABLBlock)CurrentFile.MainBlock).Entries)
+                    {
+                        ListViewItem listItem = new ListViewItem(entry.Name);
+                        listItem.Tag = entry;
+                        listView1.Items.Add(listItem);
+                    }
+
+                    ListViewItem selected = listView1.Items[0];
+                    TABLEntry selectedEntry = (TABLEntry)selected.Tag;
+                    SelectDictionary(selectedEntry.ChildBlock);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void SelectDictionary(GXTFileBlockEntry dict)
+        public void SelectDictionary(TKEYBlock tkey)
         {
-            foreach (GXTFileBlockEntry entry in dict.ChildBlock.Entries)
+            dataGridView1.Rows.Clear();
+
+            foreach (TKEYEntry entry in tkey.Entries)
             {
-                dataGridView1.Rows.Add(entry.Name);
+                dataGridView1.Rows.Add(
+                    CurrentFile.FileVersion == GXTFileVersion.SA ? "0x" + entry.Hash.ToString("X8") : entry.Name,
+                    entry.AssociatedEntry.TranslatedText);
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 1)
+            {
+                int selectedIndex = listView1.SelectedItems[0].Index;
+                ListViewItem selected = listView1.Items[selectedIndex];
+                TABLEntry selectedEntry = (TABLEntry)selected.Tag;
+                SelectDictionary(selectedEntry.ChildBlock);
             }
         }
     }

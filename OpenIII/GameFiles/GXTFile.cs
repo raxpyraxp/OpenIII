@@ -26,9 +26,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using OpenIII.GameFiles.GXT;
 
 namespace OpenIII.GameFiles
 {
+    public enum GXTFileVersion
+    {
+        Unknown,
+        III,
+        VC,
+        SA
+    }
+
     /// <summary>
     /// An implementation for viewing or ediding text dictionaries (.GXT)
     /// </summary>
@@ -37,46 +46,20 @@ namespace OpenIII.GameFiles
     /// </summary>
     public class GXTFile : GameFile
     {
-        /// <summary>
-        /// Size of the TABL block name
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Размер названия блока TABL
-        /// </summary>
-        public const int TABL_BLOCK_NAME_SIZE = 4;
+        public GXTFileBlock MainBlock { get; set; }
 
-        /// <summary>
-        /// Size of the TABL block size
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Размер области в которой находится размер блока TABL
-        /// </summary>
-        public const int TABL_BLOCK_SIZE_SIZE = 4;
+        public GXTFileVersion FileVersion {
+            get {
+                if (fileVersion == GXTFileVersion.Unknown)
+                {
+                    ReadVersionFromFile();
+                }
 
+                return fileVersion;
+            }
+        }
 
-        /// <summary>
-        /// Size of the TABL entry name
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Размер названия элемента в блоке TABL
-        /// </summary>
-        public const int TABL_ENTRY_NAME_SIZE = 4;
-
-        /// <summary>
-        /// Size of the TABL entry offset
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Размер смещения элемента в блоке TABL
-        /// </summary>
-        public const int TABL_ENTRY_OFFSET_SIZE = 4;
-
-        /// <summary>
-        /// List of the <see cref="GXTFileBlock"/> blocks from the current <see cref="GXTFile"/>
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Список блоков <see cref="GXTFileBlock"/> из текущего файла <see cref="GXTFile"/>
-        /// </summary>
-        public List<GXTFileBlock> Blocks = new List<GXTFileBlock>();
+        private GXTFileVersion fileVersion;
 
         /// <summary>
         /// Default <see cref="GXTFile"/> constructor
@@ -97,330 +80,55 @@ namespace OpenIII.GameFiles
         public void ParseData()
         {
             Stream stream = this.GetStream(FileMode.Open, FileAccess.Read);
+            ReadVersionFromStream(stream);
 
-            byte[] buf;
-            string tablBlockName, tkeyBlockName, tdatBlockName;
-            int tablBlockSize, tkeyBlockSize, tdatBlockSize;
-            bool isMain = false;
-
-            // Создаём блок TABL
-            // имя блока
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            tablBlockName = Encoding.ASCII.GetString(buf);
-
-            // размер блока
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            tablBlockSize = BitConverter.ToInt32(buf, 0);
-
-            GXTFileBlock tablBlock = new GXTFileBlock(tablBlockName, tablBlockSize, new List<GXTFileBlockEntry>());
-
-            // Находим элементы блока TABL
-            for (int i = 0; i < tablBlockSize; i += (TABL_BLOCK_NAME_SIZE + TABL_BLOCK_SIZE_SIZE + TABL_ENTRY_OFFSET_SIZE))
+            switch (FileVersion)
             {
-                tablBlock.Entries.Add(tablBlock.GetEntry(stream));
+                case GXTFileVersion.III:
+                    stream.Seek(0, SeekOrigin.Begin);
+                    MainBlock = new TKEYBlock(stream, true, FileVersion);
+                    break;
+                case GXTFileVersion.VC:
+                    stream.Seek(0, SeekOrigin.Begin);
+                    MainBlock = new TABLBlock(stream, FileVersion);
+                    break;
+                case GXTFileVersion.SA:
+                    MainBlock = new TABLBlock(stream, FileVersion);
+                    break;
+                default:
+                    break;
             }
 
-            Blocks.Add(tablBlock);
+            stream.Close();
+        }
 
-            buf = new byte[4];
+        public void ReadVersionFromFile()
+        {
+            Stream stream = GetStream(FileMode.Open, FileAccess.Read);
+            ReadVersionFromStream(stream);
+            stream.Close();
+        }
+
+        public void ReadVersionFromStream(Stream stream)
+        {
+            byte[] buf = new byte[4];
+            stream.Seek(0, SeekOrigin.Begin);
             stream.Read(buf, 0, buf.Length);
-            tkeyBlockName = Encoding.ASCII.GetString(buf);
 
-            foreach (GXTFileBlockEntry tablBlockItem in tablBlock.Entries)
+            if (Encoding.ASCII.GetString(buf) == "TKEY")
             {
-                string blockName;
-                int blockSize;
-                List<GXTFileBlockEntry> entries = new List<GXTFileBlockEntry>();
-
-                stream.Seek(tablBlockItem.Offset, SeekOrigin.Begin);
-
-                if (isMain)
-                {
-                    buf = new byte[8];
-                    stream.Read(buf, 0, buf.Length);
-                    blockName = Encoding.ASCII.GetString(buf);
-
-                    buf = new byte[4];
-                    stream.Read(buf, 0, buf.Length);
-                }
-                else
-                {
-                    buf = new byte[4];
-                    stream.Read(buf, 0, buf.Length);
-                    blockName = Encoding.ASCII.GetString(buf);
-                }
-
-                buf = new byte[4];
-                stream.Read(buf, 0, buf.Length);
-                blockSize = BitConverter.ToInt32(buf, 0);
-
-                for (int i = 0; i < blockSize / 12; i++)
-                {
-                    int entryOffset = 0;
-                    string entryName = "";
-
-                    buf = new byte[4];
-                    stream.Read(buf, 0, buf.Length);
-                    entryOffset = BitConverter.ToInt32(buf, 0);
-
-                    buf = new byte[8];
-                    stream.Read(buf, 0, buf.Length);
-                    entryName = Encoding.ASCII.GetString(buf);
-
-                    entries.Add(new GXTFileBlockEntry(entryName, entryOffset));
-                }
-
-                buf = new byte[4];
-                stream.Read(buf, 0, buf.Length);
-
-                GXTFileBlock tkeyBlock = new GXTFileBlock(blockName, blockSize, entries);
-                Blocks.Add(tkeyBlock);
-
-                tablBlockItem.ChildBlock = tkeyBlock;
-                
-                if (!isMain) isMain = true;
-
-                foreach (GXTFileBlockEntry entry in entries)
-                {
-                    buf = new byte[8];
-                    stream.Read(buf, 0, buf.Length);
-                    blockName = Encoding.ASCII.GetString(buf);
-
-                    buf = new byte[4];
-                    stream.Read(buf, 0, buf.Length);
-                    blockSize = BitConverter.ToInt32(buf, 0);
-                }
+                fileVersion = GXTFileVersion.III;
             }
 
-            isMain = false;
-
-            /*stream.Seek(Blocks[1].Entries[2].Offset + Blocks[1].Size + 16, SeekOrigin.Begin);
-            
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            string newblockName = Encoding.ASCII.GetString(buf);*/
-
-
-
-            /*
-            foreach (GXTFileBlockEntry tablBlockItem in tablBlock.Entries)
+            if (Encoding.ASCII.GetString(buf) == "TABL")
             {
-                string blockName;
-                int blockSize;
-                List<GXTFileBlockEntry> entries = new List<GXTFileBlockEntry>();
-                
-                if (isMain)
-                {
-                    stream.Seek(tablBlockItem.Offset + Blocks[1].Size + 8, SeekOrigin.Begin);
-                }
-                else
-                {
-                    stream.Seek(tablBlockItem.Offset + Blocks[1].Size + 16, SeekOrigin.Begin);
-                }
-
-                buf = new byte[4];
-                stream.Read(buf, 0, buf.Length);
-                blockName = Encoding.ASCII.GetString(buf);
-
-                buf = new byte[4];
-                stream.Read(buf, 0, buf.Length);
-                blockSize = BitConverter.ToInt32(buf, 0);
-                
-                if (!isMain) isMain = true;
-            }
-            */
-
-            // Создаём блок TDAT
-            //buf = new byte[4];
-            //stream.Read(buf, 0, buf.Length);
-            //tdatBlockName = Encoding.ASCII.GetString(buf);
-
-            /*
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            tdatBlockSize = BitConverter.ToInt32(buf, 0);
-
-            GXTFileBlock tdatBlock = new GXTFileBlock("", tdatBlockSize, new List<GXTFileBlockEntry>());
-
-            string tmp = "";
-
-            for (int i = 0; i < tkeyBlock.Entries.Count; i++)
-            {
-                while (Encoding.ASCII.GetString(buf) != "\0\0")
-                {
-                    buf = new byte[2];
-                    stream.Read(buf, 0, buf.Length);
-                    tmp += Encoding.ASCII.GetString(buf);
-                }
-
-                tmp = tmp.Replace("\0", "");
-
-                tdatBlock.Entries.Add(new GXTFileBlockEntry(tmp, 0));
-
-                tmp = "";
-
-                buf = new byte[0];
-                stream.Read(buf, 0, buf.Length);
+                fileVersion = GXTFileVersion.VC;
             }
 
-            Blocks.Add(tdatBlock);
-            */
-        }
-    }
-
-    /// <summary>
-    /// An implementation for managing GXT blocks
-    /// </summary>
-    /// <summary xml:lang="ru">
-    /// Класс для работы с блоками GXT
-    /// </summary>
-    public class GXTFileBlock
-    {
-        // public string EntryName;
-
-        /// <summary>
-        /// Size of the block
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Размер блока
-        /// </summary>
-        public int Size { get; set; }
-
-        /// <summary>
-        /// Name of the block
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Название блока
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Name of the block (again?)
-        /// TODO: fix
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Название блока (опять?)
-        /// TODO: Ещё раз пересмотреть необходимость
-        /// </summary>
-        public string EntryName { get; set; }
-
-        /// <summary>
-        /// List of child <see cref="GXTFileBlockEntry"/> entries
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Список дочерних элементов <see cref="GXTFileBlockEntry"/>
-        /// </summary>
-        public List<GXTFileBlockEntry> Entries { get; set; }
-
-        /// <summary>
-        /// Constructior for TABL type block initialization
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Конструктор для создания блока типа TABL
-        /// </summary>
-        /// <param name="name">Block name</param>
-        /// <param name="size">Block size</param>
-        /// <param name="entries">List of child <see cref="GXTFileBlockEntry"/> entries</param>
-        /// <param name="name" xml:lang="ru">Название блока</param>
-        /// <param name="size" xml:lang="ru">Размер блока</param>
-        /// <param name="entries" xml:lang="ru">Список дочерних элементов <see cref="GXTFileBlockEntry"/></param>
-        public GXTFileBlock(string name, int size, List<GXTFileBlockEntry> entries)
-        {
-            this.Name = name;
-            this.Size = size;
-            this.Entries = entries;
-        }
-
-        /// <summary>
-        /// Constructior for TKEY type block initialization
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Конструктор для создания блока типа TKEY
-        /// </summary>
-        /// <param name="entryName"></param>
-        /// <param name="name">Block name</param>
-        /// <param name="size">Block size</param>
-        /// <param name="entries">List of child <see cref="GXTFileBlockEntry"/> entries</param>
-        /// <param name="entryName" xml:lang="ru"></param>
-        /// <param name="name" xml:lang="ru">Название блока</param>
-        /// <param name="size" xml:lang="ru">Размер блока</param>
-        /// <param name="entries" xml:lang="ru">Список дочерних элементов <see cref="GXTFileBlockEntry"/></param>
-        public GXTFileBlock(string entryName, string name, int size, List<GXTFileBlockEntry> entries)
-        {
-            this.EntryName = entryName;
-            this.Name = name;
-            this.Size = size;
-            this.Entries = entries;
-        }
-
-        /// <summary>
-        /// Gets the next entry in block
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Получает следующий дочерний элемент в блоке
-        /// </summary>
-        /// <param name="stream">GXT file stream</param>
-        /// <param name="stream" xml:lang="ru">Поток GXT файла</param>
-        public GXTFileBlockEntry GetEntry(Stream stream)
-        {
-            string blockName;
-            int entryOffset;
-            byte[] buf;
-
-            buf = new byte[8];
-            stream.Read(buf, 0, buf.Length);
-            blockName = Encoding.ASCII.GetString(buf);
-
-            buf = new byte[4];
-            stream.Read(buf, 0, buf.Length);
-            entryOffset = BitConverter.ToInt32(buf, 0);
-
-            return new GXTFileBlockEntry(blockName, entryOffset);
-        }
-    }
-
-    /// <summary>
-    /// An implementation for managing GXT entries
-    /// </summary>
-    /// <summary xml:lang="ru">
-    /// Класс для работы с элементами GXT
-    /// </summary>
-    public class GXTFileBlockEntry
-    {
-        /// <summary>
-        /// Offset of the entry in block
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Смещение элемента в блоке
-        /// </summary>
-        public int Offset { get; set; }
-
-        /// <summary>
-        /// Name of the entry
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Имя элемента
-        /// </summary>
-        public string Name { get; set; }
-
-        public GXTFileBlock ChildBlock { get; set; }
-
-        /// <summary>
-        /// Constructior for GXT element
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Конструктор для создания GXT элемента
-        /// </summary>
-        /// <param name="name">Entry name</param>
-        /// <param name="offset">Entry offset in block</param>
-        /// <param name="name" xml:lang="ru">Название элемента</param>
-        /// <param name="offset" xml:lang="ru">Смещение элемента в блоке</param>
-        public GXTFileBlockEntry(string name, int offset)
-        {
-            this.Name = name;
-            this.Offset = offset;
+            if (BitConverter.ToInt32(buf, 0) == 0x080004)
+            {
+                fileVersion = GXTFileVersion.SA;
+            }
         }
     }
 }
