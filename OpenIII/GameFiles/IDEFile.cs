@@ -824,4 +824,17 @@ namespace OpenIII.GameFiles
             this.Flags = flags;
         }
     }
+
+    public class TXDP : ConfigRow
+    {
+        private string TxdName;
+
+        private string TxdParentName;
+
+        public TXDP(string txdName, string txdParentName)
+        {
+            this.TxdName = txdName;
+            this.TxdParentName = txdParentName;
+        }
+    }
 }
