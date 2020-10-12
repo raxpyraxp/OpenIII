@@ -333,6 +333,14 @@ namespace OpenIII.GameFiles
                             paramsBuf[1]
                         ));
                     break;
+                    case "hand":
+                        ConfigSections.Last().ConfigRows.Add(new HAND(
+                            Int32.Parse(paramsBuf[0]),
+                            paramsBuf[1],
+                            paramsBuf[2],
+                            paramsBuf[3]
+                        ));
+                    break;
                 }
             }
 
@@ -835,6 +843,25 @@ namespace OpenIII.GameFiles
         {
             this.TxdName = txdName;
             this.TxdParentName = txdParentName;
+        }
+    }
+
+    public class HAND : ConfigRow
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Unknown { get; set; }
+
+        public HAND(int id, string modelName, string txdName, string Unknown)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Unknown = Unknown;
         }
     }
 }
