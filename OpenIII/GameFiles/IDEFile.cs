@@ -51,8 +51,9 @@ namespace OpenIII.GameFiles
             var culture = CultureInfo.InvariantCulture;
             StreamReader Reader = new StreamReader(this.FullPath);
 
-            while ((lineIterator = Reader.ReadLine()) != null)
+            while (!Reader.EndOfStream)
             {
+                lineIterator = Reader.ReadLine();
                 List<string> paramsBuf;
 
                 if (ExcludedSynbols.IndexOf(lineIterator) >= 0 || lineIterator.IndexOf('#') > -1)
@@ -92,7 +93,7 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
-                                    float.Parse(paramsBuf[3]),
+                                    double.Parse(paramsBuf[3], culture),
                                     Int32.Parse(paramsBuf[4])
                                 ));
                                 break;
@@ -103,7 +104,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[4], culture),
                                     Int32.Parse(paramsBuf[5])
                                 ));
                                 break;
@@ -114,8 +115,8 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
-                                    float.Parse(paramsBuf[5]),
+                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[5], culture),
                                     Int32.Parse(paramsBuf[6])
                                 ));
                                 break;
@@ -126,9 +127,9 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
-                                    float.Parse(paramsBuf[5]),
-                                    float.Parse(paramsBuf[6]),
+                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[5], culture),
+                                    double.Parse(paramsBuf[6], culture),
                                     Int32.Parse(paramsBuf[7])
                                 ));
                                 break;
@@ -212,7 +213,7 @@ namespace OpenIII.GameFiles
                                     double.Parse(paramsBuf[11], culture),
                                     double.Parse(paramsBuf[12], culture),
                                     double.Parse(paramsBuf[13], culture),
-                                    double.Parse(paramsBuf[14]),
+                                    double.Parse(paramsBuf[14], culture),
                                     Int32.Parse(paramsBuf[15]),
                                     Int32.Parse(paramsBuf[16]),
                                     Int32.Parse(paramsBuf[17]),
@@ -263,8 +264,37 @@ namespace OpenIII.GameFiles
                                 }
                                 break;
                             case 16:
+                                ConfigSections.Last().ConfigRows.Add(new TwoDFX(
+                                    Int32.Parse(paramsBuf[0]),
+                                    double.Parse(paramsBuf[1], culture),
+                                    double.Parse(paramsBuf[2], culture),
+                                    double.Parse(paramsBuf[3], culture),
+                                    Int32.Parse(paramsBuf[4]),
+                                    Int32.Parse(paramsBuf[5]),
+                                    Int32.Parse(paramsBuf[6]),
+                                    Int32.Parse(paramsBuf[7]),
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    double.Parse(paramsBuf[10], culture),
+                                    double.Parse(paramsBuf[11], culture),
+                                    double.Parse(paramsBuf[12], culture),
+                                    double.Parse(paramsBuf[13], culture),
+                                    double.Parse(paramsBuf[14], culture),
+                                    double.Parse(paramsBuf[15], culture)
+                                ));
                                 break;
                             case 9:
+                                ConfigSections.Last().ConfigRows.Add(new TwoDFX(
+                                    Int32.Parse(paramsBuf[0]),
+                                    double.Parse(paramsBuf[1], culture),
+                                    double.Parse(paramsBuf[2], culture),
+                                    double.Parse(paramsBuf[3], culture),
+                                    Int32.Parse(paramsBuf[4]),
+                                    Int32.Parse(paramsBuf[5]),
+                                    Int32.Parse(paramsBuf[6]),
+                                    Int32.Parse(paramsBuf[7]),
+                                    Int32.Parse(paramsBuf[8])
+                                ));
                                 break;
                         }
                     break;
@@ -377,17 +407,17 @@ namespace OpenIII.GameFiles
 
         private int MeshCount { get; set; }
 
-        private float DrawDistance1 { get; set; }
+        private double DrawDistance1 { get; set; }
 
-        private float DrawDistance2 { get; set; }
+        private double DrawDistance2 { get; set; }
 
-        private float DrawDistance3 { get; set; }
+        private double DrawDistance3 { get; set; }
 
         private int Flags { get; set; }
 
 
         // non-breakable objects and behaves equivalently to Type 1
-        public OBJ(int id, string modelName, string txdName, float drawDistance1, int flags)
+        public OBJ(int id, string modelName, string txdName, double drawDistance1, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -397,7 +427,7 @@ namespace OpenIII.GameFiles
         }
 
         // non-breakable objects
-        public OBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, int flags)
+        public OBJ(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -408,7 +438,7 @@ namespace OpenIII.GameFiles
         }
 
         // breakable objects
-        public OBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, int flags)
+        public OBJ(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -420,7 +450,7 @@ namespace OpenIII.GameFiles
         }
 
         // complex breakable objects
-        public OBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, float drawDistance3, int flags)
+        public OBJ(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
