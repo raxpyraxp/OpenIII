@@ -938,4 +938,181 @@ namespace OpenIII.GameFiles
             this.Unknown = Unknown;
         }
     }
+
+    public class CARS : ConfigRow
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
+        private int WheelModelId { get; set; }
+
+        private float WheelScale { get; set; }
+
+        private int LODModelId { get; set; }
+
+        private string Anims { get; set; }
+
+        private int SteeringAngle { get; set; }
+
+        private byte Flags { get; set; }
+
+        private float WheelScaleFront { get; set; }
+
+        private float WheelScaleRear { get; set; }
+
+        private float WheelUpgradeClass { get; set; }
+
+        private int Unknown { get; set; }
+
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, float wheelScale)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.WheelModelId = wheelModelId;
+            this.WheelScale = wheelScale;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.LODModelId = lodModelId;
+        }
+
+
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, float wheelScale)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.WheelModelId = wheelModelId;
+            this.WheelScale = wheelScale;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.LODModelId = lodModelId;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, float wheelScale, int steeringAngle)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.SteeringAngle = steeringAngle;
+            this.WheelScale = wheelScale;
+        }
+
+
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules, int wheelModelId, float wheelScaleFront, float wheelScaleRear, int unknown)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Flags = flags;
+            this.Comprules = comprules;
+            this.WheelModelId = wheelModelId;
+            this.WheelScaleFront = wheelScaleFront;
+            this.WheelScaleRear = wheelScaleRear;
+            this.Unknown = unknown;
+        }
+    }
 }
