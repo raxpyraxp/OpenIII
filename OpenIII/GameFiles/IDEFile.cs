@@ -113,7 +113,7 @@ namespace OpenIII.GameFiles
 
                 switch (ConfigSections.Last().Name)
                 {
-                    case "objs":
+                    case OBJ.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 5:
@@ -162,9 +162,9 @@ namespace OpenIII.GameFiles
                                 ));
                                 break;
                         }
-                        break;
+                    break;
 
-                    case "tobj":
+                    case TOBJ.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 7:
@@ -221,8 +221,9 @@ namespace OpenIII.GameFiles
                                 ));
                                 break;
                         }
-                        break;
-                    case "2dfx":
+                    break;
+
+                    case TwoDFX.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 20:
@@ -326,14 +327,16 @@ namespace OpenIII.GameFiles
                                 break;
                         }
                     break;
-                    case "hier":
+
+                    case HIER.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new HIER(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2]
                         ));
                     break;
-                    case "peds":
+
+                    case PEDS.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 7:
@@ -381,7 +384,8 @@ namespace OpenIII.GameFiles
                                 break;
                         }
                     break;
-                    case "weap":
+
+                    case WEAP.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new WEAP(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
@@ -391,7 +395,8 @@ namespace OpenIII.GameFiles
                             double.Parse(paramsBuf[5], culture)
                         ));
                     break;
-                    case "anim":
+
+                    case ANIM.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new ANIM(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
@@ -401,19 +406,25 @@ namespace OpenIII.GameFiles
                             Int32.Parse(paramsBuf[5])
                         ));
                     break;
-                    case "txdp":
+
+                    case TXDP.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new TXDP(
                             paramsBuf[0],
                             paramsBuf[1]
                         ));
                     break;
-                    case "hand":
+
+                    case HAND.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new HAND(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2],
                             paramsBuf[3]
                         ));
+                    break;
+
+                    case CARS.SectionName:
+
                     break;
                 }
             }
@@ -443,6 +454,8 @@ namespace OpenIII.GameFiles
 
     public class OBJ : ConfigRow
     {
+        public const string SectionName = "obj";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -509,6 +522,8 @@ namespace OpenIII.GameFiles
 
     public class TOBJ : ConfigRow
     {
+        public const string SectionName = "tobj";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -585,8 +600,9 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class TwoDFX : ConfigRow {
+        public const string SectionName = "2dfx";
+
         private int Id { get; set; }
 
         private double X { get; set; }
@@ -766,6 +782,8 @@ namespace OpenIII.GameFiles
     }
 
     public class HIER : ConfigRow {
+        public const string SectionName = "hier";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -783,6 +801,8 @@ namespace OpenIII.GameFiles
 
     public class PEDS : ConfigRow
     {
+        public const string SectionName = "peds";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -858,6 +878,8 @@ namespace OpenIII.GameFiles
 
     public class WEAP : ConfigRow
     {
+        public const string SectionName = "weap";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -884,6 +906,8 @@ namespace OpenIII.GameFiles
 
     public class ANIM : ConfigRow
     {
+        public const string SectionName = "anim";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -909,6 +933,8 @@ namespace OpenIII.GameFiles
 
     public class TXDP : ConfigRow
     {
+        public const string SectionName = "txdp";
+
         private string TxdName;
 
         private string TxdParentName;
@@ -922,6 +948,8 @@ namespace OpenIII.GameFiles
 
     public class HAND : ConfigRow
     {
+        public const string SectionName = "hand";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -941,6 +969,8 @@ namespace OpenIII.GameFiles
 
     public class CARS : ConfigRow
     {
+        public const string SectionName = "cars";
+
         private int Id { get; set; }
 
         private string ModelName { get; set; }
