@@ -41,6 +41,34 @@ namespace OpenIII.GameFiles
             "end", "#", ";"
         };
 
+        public enum CarGroupsIII : int
+        {
+            None            = 0b_0000_0000,
+            Poorfamily      = 0b_0000_0001,
+            Richfamily      = 0b_0000_0010,
+            Executive       = 0b_0000_0100,
+            Worker          = 0b_0000_1000,
+            Special         = 0b_0001_0000,
+            Big             = 0b_0010_0000,
+            Taxi            = 0b_0100_0000
+        };
+
+        public enum CarGroupsVC : int
+        {
+            None            = 0b_0000_0000_0000,
+            normal          = 0b_0000_0000_0001,
+            poorfamily      = 0b_0000_0000_0010,
+            richfamily      = 0b_0000_0000_0100,
+            executive       = 0b_0000_0000_1000,
+            worker          = 0b_0000_0001_0000,
+            big             = 0b_0000_0010_0000,
+            taxi            = 0b_0000_0100_0000,
+            moped           = 0b_0000_1000_0000,
+            motorbike       = 0b_0001_0000_0000,
+            leisureboat     = 0b_0010_0000_0000,
+            workerboat      = 0b_0100_0000_0000,
+        };
+
         public IDEFile(string filePath) : base(filePath) { }
 
         public List<ConfigSection> ConfigSections = new List<ConfigSection>();
@@ -316,7 +344,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[3],
                                     paramsBuf[4],
                                     paramsBuf[5],
-                                    0
+                                    Convert.ToInt32(paramsBuf[6], 16)
                                 ));
                                 break;
                             case 10:
@@ -327,13 +355,29 @@ namespace OpenIII.GameFiles
                                     paramsBuf[3],
                                     paramsBuf[4],
                                     paramsBuf[5],
-                                    0,
+                                    Convert.ToInt32(paramsBuf[6], 16),
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9])
                                  ));
                                 break;
                             case 14:
+                                ConfigSections.Last().ConfigRows.Add(new PEDS(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    Convert.ToInt32(paramsBuf[6], 16),
+                                    Int32.Parse(paramsBuf[7]),
+                                    paramsBuf[8],
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10]),
+                                    paramsBuf[11],
+                                    paramsBuf[12],
+                                    paramsBuf[13]
+                                 ));
                                 break;
                         }
                     break;
@@ -344,7 +388,7 @@ namespace OpenIII.GameFiles
                             paramsBuf[2],
                             paramsBuf[3],
                             Int32.Parse(paramsBuf[4]),
-                            0
+                            double.Parse(paramsBuf[5], culture)
                         ));
                     break;
                     case "anim":
