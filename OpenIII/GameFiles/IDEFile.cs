@@ -56,17 +56,17 @@ namespace OpenIII.GameFiles
         public enum CarGroupsVC : int
         {
             None            = 0b_0000_0000_0000,
-            normal          = 0b_0000_0000_0001,
-            poorfamily      = 0b_0000_0000_0010,
-            richfamily      = 0b_0000_0000_0100,
-            executive       = 0b_0000_0000_1000,
-            worker          = 0b_0000_0001_0000,
-            big             = 0b_0000_0010_0000,
-            taxi            = 0b_0000_0100_0000,
-            moped           = 0b_0000_1000_0000,
-            motorbike       = 0b_0001_0000_0000,
-            leisureboat     = 0b_0010_0000_0000,
-            workerboat      = 0b_0100_0000_0000,
+            Normal          = 0b_0000_0000_0001,
+            Poorfamily      = 0b_0000_0000_0010,
+            Richfamily      = 0b_0000_0000_0100,
+            Executive       = 0b_0000_0000_1000,
+            Worker          = 0b_0000_0001_0000,
+            Big             = 0b_0000_0010_0000,
+            Taxi            = 0b_0000_0100_0000,
+            Moped           = 0b_0000_1000_0000,
+            Motorbike       = 0b_0001_0000_0000,
+            Leisureboat     = 0b_0010_0000_0000,
+            Workerboat      = 0b_0100_0000_0000,
         };
 
         public IDEFile(string filePath) : base(filePath) { }
