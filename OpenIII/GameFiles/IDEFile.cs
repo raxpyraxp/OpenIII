@@ -70,17 +70,17 @@ namespace OpenIII.GameFiles
 
         public static class VehicleClassVC
         {
-            public const string Car     = "car";
+            public const string Car   = "car";
 
-            public const string Boat    = "boat";
+            public const string Boat  = "boat";
 
-            public const string Train   = "train";
+            public const string Train = "train";
 
-            public const string Heli    = "heli";
+            public const string Heli  = "heli";
 
-            public const string Plane   = "plane";
+            public const string Plane = "plane";
 
-            public const string Bike    = "bike";
+            public const string Bike  = "bike";
         }
 
         public IDEFile(string filePath) : base(filePath) { }
@@ -529,7 +529,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9]),
-                                    Convert.ToInt32(paramsBuf[10], 16)
+                                    Int32.Parse(paramsBuf[10])
                                 ));
                                 break;
                             case 10:
@@ -595,7 +595,7 @@ namespace OpenIII.GameFiles
 
     public class OBJ : ConfigRow
     {
-        public const string SectionName = "obj";
+        public const string SectionName = "objs";
 
         private int Id { get; set; }
 
