@@ -31,7 +31,6 @@ namespace OpenIII.GameFiles
 {
     public class IDEFile : GameFile
     {
-        // нужно будет реализовать в виде перечисления для использования в других классах
         public static List<string> SectionNames = new List<string> {
             "objs", "tobj", "hier", "cars", "peds", "path", "2dfx", "weap", "anim", "txdp"
         };
@@ -69,6 +68,21 @@ namespace OpenIII.GameFiles
             Workerboat      = 0b_0100_0000_0000,
         };
 
+        public static class VehicleClassVC
+        {
+            public const string Car     = "car";
+
+            public const string Boat    = "boat";
+
+            public const string Train   = "train";
+
+            public const string Heli    = "heli";
+
+            public const string Plane   = "plane";
+
+            public const string Bike    = "bike";
+        }
+
         public IDEFile(string filePath) : base(filePath) { }
 
         public List<ConfigSection> ConfigSections = new List<ConfigSection>();
@@ -78,6 +92,8 @@ namespace OpenIII.GameFiles
             string lineIterator;
             var culture = CultureInfo.InvariantCulture;
             StreamReader Reader = new StreamReader(this.FullPath);
+
+            Exception exception = new Exception("Неизвестное количество параметров.");
 
             while (!Reader.EndOfStream)
             {
@@ -106,9 +122,7 @@ namespace OpenIII.GameFiles
                         paramsBuf[i] = paramsBuf[i].Replace('\"', ' ');
                     }
 
-                    if (paramsBuf[i].IndexOf(' ') >= 0) {
-                        paramsBuf[i] = paramsBuf[i].Trim();
-                    }
+                    paramsBuf[i] = paramsBuf[i].Trim();
                 }
 
                 switch (ConfigSections.Last().Name)
@@ -382,6 +396,8 @@ namespace OpenIII.GameFiles
                                     paramsBuf[13]
                                  ));
                                 break;
+                            default:
+                                throw exception;
                         }
                     break;
 
@@ -424,7 +440,78 @@ namespace OpenIII.GameFiles
                     break;
 
                     case CARS.SectionName:
-
+                        switch (paramsBuf.Count)
+                        {
+                            case 13:
+                                if (paramsBuf[3] == VehicleClassVC.Bike)
+                                {
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        paramsBuf[7],
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[10], 16),
+                                        Int32.Parse(paramsBuf[11]),
+                                        double.Parse(paramsBuf[12], culture)
+                                    ));
+                                }
+                                else
+                                {
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        paramsBuf[7],
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[10], 16),
+                                        double.Parse(paramsBuf[12], culture),
+                                        Int32.Parse(paramsBuf[11])
+                                    ));
+                                }
+                            break;
+                            case 12:
+                                ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10]),
+                                    Int32.Parse(paramsBuf[11])
+                                ));
+                            break;
+                            case 11:
+                                ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10])
+                                ));
+                            break;
+                        }
                     break;
                 }
             }
@@ -993,7 +1080,7 @@ namespace OpenIII.GameFiles
 
         private int WheelModelId { get; set; }
 
-        private float WheelScale { get; set; }
+        private double WheelScale { get; set; }
 
         private int LODModelId { get; set; }
 
@@ -1012,7 +1099,7 @@ namespace OpenIII.GameFiles
         private int Unknown { get; set; }
 
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, float wheelScale)
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1059,7 +1146,7 @@ namespace OpenIII.GameFiles
 
 
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, float wheelScale)
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1107,7 +1194,7 @@ namespace OpenIII.GameFiles
             this.LODModelId = lodModelId;
         }
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, float wheelScale, int steeringAngle)
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, double wheelScale, int steeringAngle)
         {
             this.Id = id;
             this.ModelName = modelName;
