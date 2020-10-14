@@ -410,7 +410,7 @@ namespace OpenIII.GameFiles
                             Int32.Parse(paramsBuf[4]),
                             double.Parse(paramsBuf[5], culture)
                         ));
-                    break;
+                        break;
 
                     case ANIM.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new ANIM(
@@ -421,14 +421,14 @@ namespace OpenIII.GameFiles
                             double.Parse(paramsBuf[4], culture),
                             Int32.Parse(paramsBuf[5])
                         ));
-                    break;
+                        break;
 
                     case TXDP.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new TXDP(
                             paramsBuf[0],
                             paramsBuf[1]
                         ));
-                    break;
+                        break;
 
                     case HAND.SectionName:
                         ConfigSections.Last().ConfigRows.Add(new HAND(
@@ -437,7 +437,7 @@ namespace OpenIII.GameFiles
                             paramsBuf[2],
                             paramsBuf[3]
                         ));
-                    break;
+                        break;
 
                     case CARS.SectionName:
                         switch (paramsBuf.Count)
@@ -479,23 +479,44 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(paramsBuf[11])
                                     ));
                                 }
-                            break;
+                                break;
                             case 12:
-                                ConfigSections.Last().ConfigRows.Add(new CARS(
-                                    Int32.Parse(paramsBuf[0]),
-                                    paramsBuf[1],
-                                    paramsBuf[2],
-                                    paramsBuf[3],
-                                    paramsBuf[4],
-                                    paramsBuf[5],
-                                    paramsBuf[6],
-                                    paramsBuf[7],
-                                    Int32.Parse(paramsBuf[8]),
-                                    Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10]),
-                                    Int32.Parse(paramsBuf[11])
-                                ));
-                            break;
+                                if (int.TryParse(paramsBuf[11], out _))
+                                {
+                                    // VC
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[10], 16),
+                                        Int32.Parse(paramsBuf[11])
+                                    ));
+                                }
+                                else
+                                {
+                                    // III
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        Int32.Parse(paramsBuf[7]),
+                                        Int32.Parse(paramsBuf[8]),
+                                        Convert.ToInt32(paramsBuf[9], 16),
+                                        Int32.Parse(paramsBuf[10]),
+                                        double.Parse(paramsBuf[11], culture)
+                                    ));
+                                }
+                                break;
                             case 11:
                                 ConfigSections.Last().ConfigRows.Add(new CARS(
                                     Int32.Parse(paramsBuf[0]),
@@ -508,11 +529,44 @@ namespace OpenIII.GameFiles
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10])
+                                    Convert.ToInt32(paramsBuf[10], 16)
                                 ));
-                            break;
+                                break;
+                            case 10:
+                                ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    Int32.Parse(paramsBuf[7]),
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9])
+                                ));
+                                break;
+                            case 15:
+                                ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Convert.ToByte(paramsBuf[9], 16),
+                                    Convert.ToInt32(paramsBuf[10], 16),
+                                    Int32.Parse(paramsBuf[11]),
+                                    double.Parse(paramsBuf[12], culture),
+                                    double.Parse(paramsBuf[13], culture),
+                                    Int32.Parse(paramsBuf[14])
+                                ));
+                                break;
                         }
-                    break;
+                        break;
                 }
             }
 
@@ -1090,11 +1144,11 @@ namespace OpenIII.GameFiles
 
         private byte Flags { get; set; }
 
-        private float WheelScaleFront { get; set; }
+        private double WheelScaleFront { get; set; }
 
-        private float WheelScaleRear { get; set; }
+        private double WheelScaleRear { get; set; }
 
-        private float WheelUpgradeClass { get; set; }
+        private double WheelUpgradeClass { get; set; }
 
         private int Unknown { get; set; }
 
@@ -1213,7 +1267,7 @@ namespace OpenIII.GameFiles
 
 
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules, int wheelModelId, float wheelScaleFront, float wheelScaleRear, int unknown)
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules, int wheelModelId, double wheelScaleFront, double wheelScaleRear, int unknown)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1230,6 +1284,21 @@ namespace OpenIII.GameFiles
             this.WheelScaleFront = wheelScaleFront;
             this.WheelScaleRear = wheelScaleRear;
             this.Unknown = unknown;
+        }
+
+        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Flags = flags;
+            this.Comprules = comprules;
         }
     }
 }
