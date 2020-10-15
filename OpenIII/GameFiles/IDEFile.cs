@@ -83,6 +83,18 @@ namespace OpenIII.GameFiles
             public const string Bike  = "bike";
         }
 
+        public List<string> CleanParams(List<string> listParams)
+        {
+            List<string> result = new List<string>();
+
+            foreach (string param in listParams)
+            {
+                result.Add(param.Replace("\"", "").Trim());
+            }
+
+            return result;
+        }
+
         public IDEFile(string filePath) : base(filePath) { }
 
         public List<ConfigSection> ConfigSections = new List<ConfigSection>();
@@ -90,9 +102,8 @@ namespace OpenIII.GameFiles
         public void ParseData()
         {
             string lineIterator;
-            var culture = CultureInfo.InvariantCulture;
+            CultureInfo culture = CultureInfo.InvariantCulture;
             StreamReader Reader = new StreamReader(this.FullPath);
-
             Exception exception = new Exception("Неизвестное количество параметров.");
 
             while (!Reader.EndOfStream)
@@ -115,18 +126,48 @@ namespace OpenIII.GameFiles
 
                 if (paramsBuf.Count < 2) continue;
 
-                for (int i = 0; i < paramsBuf.Count; i++)
-                {
-                    if (paramsBuf[i].IndexOf('\"') >= 0)
-                    {
-                        paramsBuf[i] = paramsBuf[i].Replace('\"', ' ');
-                    }
-
-                    paramsBuf[i] = paramsBuf[i].Trim();
-                }
+                paramsBuf = CleanParams(paramsBuf);
 
                 switch (ConfigSections.Last().Name)
                 {
+                    // разбор секции PATH отличается от других, так как записи имеют отличный от остальных вид
+                    case PATH.SectionName:
+                        // в записях GTA III первая строка имеет 3 параметра
+                        if (paramsBuf.Count() == 3)
+                        {
+                            lineIterator = Reader.ReadLine();
+
+                            List<PATHNode> parsedNodes = new List<PATHNode>();
+                            List<string> nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                            nodesParamsBuf = CleanParams(nodesParamsBuf);
+
+                            while (nodesParamsBuf.Count == 9) {
+                                parsedNodes.Add(new PATHNode(
+                                    Int32.Parse(nodesParamsBuf[0]),
+                                    Int32.Parse(nodesParamsBuf[1]),
+                                    Int32.Parse(nodesParamsBuf[2]),
+                                    double.Parse(nodesParamsBuf[3], culture),
+                                    double.Parse(nodesParamsBuf[4], culture),
+                                    double.Parse(nodesParamsBuf[5], culture),
+                                    double.Parse(nodesParamsBuf[6], culture),
+                                    Int32.Parse(nodesParamsBuf[7]),
+                                    Int32.Parse(nodesParamsBuf[8])
+                                ));
+
+                                if (parsedNodes.Count == 12) break;
+                                
+                                lineIterator = Reader.ReadLine();
+                                nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                            }
+
+                            ConfigSections.Last().ConfigRows.Add(new PATH(
+                                paramsBuf[0],
+                                Int32.Parse(paramsBuf[1]),
+                                paramsBuf[2],
+                                parsedNodes.ToArray()
+                            ));
+                        }
+                        break;
                     case OBJ.SectionName:
                         switch (paramsBuf.Count)
                         {
@@ -518,19 +559,38 @@ namespace OpenIII.GameFiles
                                 }
                                 break;
                             case 11:
-                                ConfigSections.Last().ConfigRows.Add(new CARS(
-                                    Int32.Parse(paramsBuf[0]),
-                                    paramsBuf[1],
-                                    paramsBuf[2],
-                                    paramsBuf[3],
-                                    paramsBuf[4],
-                                    paramsBuf[5],
-                                    paramsBuf[6],
-                                    paramsBuf[7],
-                                    Int32.Parse(paramsBuf[8]),
-                                    Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10])
-                                ));
+                                if (Int32.TryParse(paramsBuf[10], out _))
+                                {
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        paramsBuf[7],
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Int32.Parse(paramsBuf[10])
+                                    ));
+                                }
+                                else
+                                {
+                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        paramsBuf[7],
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[10], 16)
+                                    ));
+                                }
                                 break;
                             case 10:
                                 ConfigSections.Last().ConfigRows.Add(new CARS(
@@ -1299,6 +1359,63 @@ namespace OpenIII.GameFiles
             this.Frequency = frequency;
             this.Flags = flags;
             this.Comprules = comprules;
+        }
+    }
+
+    public class PATH : ConfigRow
+    {
+        public const string SectionName = "path";
+
+        public List<PATHNode> Nodes = new List<PATHNode>();
+
+        private string GroupType { get; set; }
+
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+
+        public PATH(string groupType, int id, string modelName, PATHNode[] nodes)
+        {
+            this.GroupType = groupType;
+            this.Id = id;
+            this.ModelName = modelName;
+            this.Nodes = nodes.OfType<PATHNode>().ToList();
+        }
+    }
+
+    public class PATHNode
+    {
+        private int NodeType { get; set; }
+
+        private int NextNode { get; set; }
+
+        private int IsCrossRoad { get; set; }
+
+        private double X { get; set; }
+
+        private double Y { get; set; }
+
+        private double Z { get; set; }
+
+        private double Unknown { get; set; }
+
+        private int LeftLanes { get; set; }
+
+        private int RightLanes { get; set; }
+
+
+        public PATHNode(int nodeType, int nextNode, int isCrossRoad, double x, double y, double z, double unknown, int leftLanes, int rightLanes)
+        {
+            this.NodeType = nodeType;
+            this.NextNode = nextNode;
+            this.IsCrossRoad = isCrossRoad;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.Unknown = unknown;
+            this.LeftLanes = leftLanes;
+            this.RightLanes = rightLanes;
         }
     }
 }
