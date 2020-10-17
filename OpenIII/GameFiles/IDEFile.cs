@@ -83,7 +83,7 @@ namespace OpenIII.GameFiles
             public const string Bike  = "bike";
         }
 
-        public List<string> CleanParams(List<string> listParams)
+        public static List<string> CleanParams(List<string> listParams)
         {
             List<string> result = new List<string>();
 
@@ -132,40 +132,69 @@ namespace OpenIII.GameFiles
                 {
                     // разбор секции PATH отличается от других, так как записи имеют отличный от остальных вид
                     case PATH.SectionName:
-                        // в записях GTA III первая строка имеет 3 параметра
-                        if (paramsBuf.Count() == 3)
+                        lineIterator = Reader.ReadLine();
+
+                        List<PATHNode> parsedNodes = new List<PATHNode>();
+                        List<string> nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                        nodesParamsBuf = CleanParams(nodesParamsBuf);
+
+                        switch (paramsBuf.Count)
                         {
-                            lineIterator = Reader.ReadLine();
+                            case 3:
+                                while (nodesParamsBuf.Count == 9)
+                                {
+                                    parsedNodes.Add(new PATHNode(
+                                        Int32.Parse(nodesParamsBuf[0]),
+                                        Int32.Parse(nodesParamsBuf[1]),
+                                        Int32.Parse(nodesParamsBuf[2]),
+                                        double.Parse(nodesParamsBuf[3], culture),
+                                        double.Parse(nodesParamsBuf[4], culture),
+                                        double.Parse(nodesParamsBuf[5], culture),
+                                        double.Parse(nodesParamsBuf[6], culture),
+                                        Int32.Parse(nodesParamsBuf[7]),
+                                        Int32.Parse(nodesParamsBuf[8])
+                                    ));
 
-                            List<PATHNode> parsedNodes = new List<PATHNode>();
-                            List<string> nodesParamsBuf = new List<string>(lineIterator.Split(','));
-                            nodesParamsBuf = CleanParams(nodesParamsBuf);
+                                    if (parsedNodes.Count == 12) break;
 
-                            while (nodesParamsBuf.Count == 9) {
-                                parsedNodes.Add(new PATHNode(
-                                    Int32.Parse(nodesParamsBuf[0]),
-                                    Int32.Parse(nodesParamsBuf[1]),
-                                    Int32.Parse(nodesParamsBuf[2]),
-                                    double.Parse(nodesParamsBuf[3], culture),
-                                    double.Parse(nodesParamsBuf[4], culture),
-                                    double.Parse(nodesParamsBuf[5], culture),
-                                    double.Parse(nodesParamsBuf[6], culture),
-                                    Int32.Parse(nodesParamsBuf[7]),
-                                    Int32.Parse(nodesParamsBuf[8])
+                                    lineIterator = Reader.ReadLine();
+                                    nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                                }
+
+                                ConfigSections.Last().ConfigRows.Add(new PATH(
+                                    paramsBuf[0],
+                                    Int32.Parse(paramsBuf[1]),
+                                    paramsBuf[2],
+                                    parsedNodes.ToArray()
                                 ));
+                                break;
+                            case 2:
+                                while (nodesParamsBuf.Count == 12)
+                                {
+                                    parsedNodes.Add(new PATHNode(
+                                        Int32.Parse(nodesParamsBuf[0]),
+                                        Int32.Parse(nodesParamsBuf[1]),
+                                        Int32.Parse(nodesParamsBuf[2]),
+                                        double.Parse(nodesParamsBuf[3], culture),
+                                        double.Parse(nodesParamsBuf[4], culture),
+                                        double.Parse(nodesParamsBuf[5], culture),
+                                        Int32.Parse(nodesParamsBuf[7]),
+                                        Int32.Parse(nodesParamsBuf[8]),
+                                        double.Parse(nodesParamsBuf[6], culture)
+                                    ));
 
-                                if (parsedNodes.Count == 12) break;
-                                
-                                lineIterator = Reader.ReadLine();
-                                nodesParamsBuf = new List<string>(lineIterator.Split(','));
-                            }
+                                    if (parsedNodes.Count == 12) break;
 
-                            ConfigSections.Last().ConfigRows.Add(new PATH(
-                                paramsBuf[0],
-                                Int32.Parse(paramsBuf[1]),
-                                paramsBuf[2],
-                                parsedNodes.ToArray()
-                            ));
+                                    lineIterator = Reader.ReadLine();
+                                    nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                                }
+
+                                ConfigSections.Last().ConfigRows.Add(new PATH(
+                                    paramsBuf[0],
+                                    Int32.Parse(paramsBuf[1]),
+                                    parsedNodes.ToArray()
+                                ));
+                                break;
                         }
                         break;
                     case OBJ.SectionName:
@@ -1374,12 +1403,21 @@ namespace OpenIII.GameFiles
 
         private string ModelName { get; set; }
 
+        private int Delimiter { get; set; }
+
 
         public PATH(string groupType, int id, string modelName, PATHNode[] nodes)
         {
             this.GroupType = groupType;
             this.Id = id;
             this.ModelName = modelName;
+            this.Nodes = nodes.OfType<PATHNode>().ToList();
+        }
+
+        public PATH(string groupType, int delimiter, PATHNode[] nodes)
+        {
+            this.GroupType = groupType;
+            this.Delimiter = delimiter;
             this.Nodes = nodes.OfType<PATHNode>().ToList();
         }
     }
@@ -1405,6 +1443,27 @@ namespace OpenIII.GameFiles
         private int RightLanes { get; set; }
 
 
+        private double XRel { get; set; }
+
+        private double YRel { get; set; }
+
+        private double ZRel { get; set; }
+
+        private double XAbs { get; set; }
+
+        private double YAbs { get; set; }
+
+        private double ZAbs { get; set; }
+
+        private double Median { get; set; }
+
+        private int SpeedLimit { get; set; }
+
+        private int Flags { get; set; }
+
+        private double SpawnRate { get; set; }
+
+
         public PATHNode(int nodeType, int nextNode, int isCrossRoad, double x, double y, double z, double unknown, int leftLanes, int rightLanes)
         {
             this.NodeType = nodeType;
@@ -1416,6 +1475,19 @@ namespace OpenIII.GameFiles
             this.Unknown = unknown;
             this.LeftLanes = leftLanes;
             this.RightLanes = rightLanes;
+        }
+
+        public PATHNode(int nodeType, int nextNode, int isCrossRoad, double xRel, double yRel, double zRel, int leftLanes, int rightLanes, double median)
+        {
+            this.NodeType = nodeType;
+            this.NextNode = nextNode;
+            this.IsCrossRoad = isCrossRoad;
+            this.XRel = xRel;
+            this.YRel = yRel;
+            this.ZRel = zRel;
+            this.LeftLanes = leftLanes;
+            this.RightLanes = rightLanes;
+            this.Median = median;
         }
     }
 }
