@@ -675,6 +675,13 @@ namespace OpenIII.GameFiles
         {
             this.Name = name;
         }
+
+        public override string ToString()
+        {
+            var rows = string.Join<ConfigRow>("\n", this.ConfigRows.ToArray());
+
+            return this.Name + "\n" + rows + "\n" + "end";
+        }
     }
 
 
@@ -951,6 +958,9 @@ namespace OpenIII.GameFiles
         public const string SectionName = "2dfx";
     }
 
+    /// <summary>
+    /// Lights.
+    /// </summary>
     public class TwoDFXType1 : TwoDFX
     {
         private int Id { get; set; }
@@ -1018,6 +1028,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// Particles.
+    /// </summary>
     public class TwoDFXType2 : TwoDFX
     {
         private int Id { get; set; }
@@ -1067,6 +1080,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// Peds.
+    /// </summary>
     public class TwoDFXType3 : TwoDFX
     {
         private int Id { get; set; }
@@ -1116,6 +1132,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// Sun Reflections.
+    /// </summary>
     public class TwoDFXType4 : TwoDFX
     {
         private int Id { get; set; }
