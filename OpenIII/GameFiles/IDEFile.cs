@@ -202,7 +202,7 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 5:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType4(
+                                ConfigSections.Last().ConfigRows.Add(new OBJS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -212,7 +212,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 6:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType1(
+                                ConfigSections.Last().ConfigRows.Add(new OBJS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -223,7 +223,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType2(
+                                ConfigSections.Last().ConfigRows.Add(new OBJS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -235,7 +235,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 8:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType3(
+                                ConfigSections.Last().ConfigRows.Add(new OBJS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -253,7 +253,7 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType4(
+                                ConfigSections.Last().ConfigRows.Add(new TOBJ(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -265,7 +265,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 8:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType1(
+                                ConfigSections.Last().ConfigRows.Add(new TOBJ(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -278,7 +278,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 9:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType2(
+                                ConfigSections.Last().ConfigRows.Add(new TOBJ(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -292,7 +292,7 @@ namespace OpenIII.GameFiles
                                 break;
 
                             case 10:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType3(
+                                ConfigSections.Last().ConfigRows.Add(new TOBJ(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -312,7 +312,7 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 20:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType1(
+                                ConfigSections.Last().ConfigRows.Add(new TwoDFX(
                                     Int32.Parse(paramsBuf[0]),
                                     double.Parse(paramsBuf[1], culture),
                                     double.Parse(paramsBuf[2], culture),
@@ -340,7 +340,7 @@ namespace OpenIII.GameFiles
                                 // У первого типа параметр 2DFXType всегда 1
                                 if (paramsBuf[8] == "1")
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new TwoDFXType2(
+                                    ConfigSections.Last().ConfigRows.Add(new TwoDFX(
                                         Int32.Parse(paramsBuf[0]),
                                         double.Parse(paramsBuf[1], culture),
                                         double.Parse(paramsBuf[2], culture),
@@ -359,7 +359,7 @@ namespace OpenIII.GameFiles
                                 }
                                 else
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new TwoDFXType3(
+                                    ConfigSections.Last().ConfigRows.Add(new TwoDFX(
                                         Int32.Parse(paramsBuf[0]),
                                         double.Parse(paramsBuf[1], culture),
                                         double.Parse(paramsBuf[2], culture),
@@ -378,7 +378,7 @@ namespace OpenIII.GameFiles
                                 }
                                 break;
                             case 16:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType4(
+                                ConfigSections.Last().ConfigRows.Add(new TwoDFX(
                                     Int32.Parse(paramsBuf[0]),
                                     double.Parse(paramsBuf[1], culture),
                                     double.Parse(paramsBuf[2], culture),
@@ -398,7 +398,7 @@ namespace OpenIII.GameFiles
                                 ));
                                 break;
                             case 9:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType5(
+                                ConfigSections.Last().ConfigRows.Add(new TwoDFX(
                                     Int32.Parse(paramsBuf[0]),
                                     double.Parse(paramsBuf[1], culture),
                                     double.Parse(paramsBuf[2], culture),
@@ -414,7 +414,7 @@ namespace OpenIII.GameFiles
                     break;
 
                     case HIER.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new HIERType1(
+                        ConfigSections.Last().ConfigRows.Add(new HIER(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2]
@@ -425,7 +425,7 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType1(
+                                ConfigSections.Last().ConfigRows.Add(new PEDS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -436,7 +436,7 @@ namespace OpenIII.GameFiles
                                 ));
                                 break;
                             case 10:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType2(
+                                ConfigSections.Last().ConfigRows.Add(new PEDS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -450,7 +450,7 @@ namespace OpenIII.GameFiles
                                  ));
                                 break;
                             case 14:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType3(
+                                ConfigSections.Last().ConfigRows.Add(new PEDS(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -473,7 +473,7 @@ namespace OpenIII.GameFiles
                     break;
 
                     case WEAP.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new WEAPType1(
+                        ConfigSections.Last().ConfigRows.Add(new WEAP(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2],
@@ -484,7 +484,7 @@ namespace OpenIII.GameFiles
                         break;
 
                     case ANIM.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new ANIMType1(
+                        ConfigSections.Last().ConfigRows.Add(new ANIM(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2],
@@ -495,14 +495,14 @@ namespace OpenIII.GameFiles
                         break;
 
                     case TXDP.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new TXDPType1(
+                        ConfigSections.Last().ConfigRows.Add(new TXDP(
                             paramsBuf[0],
                             paramsBuf[1]
                         ));
                         break;
 
                     case HAND.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new HANDType1(
+                        ConfigSections.Last().ConfigRows.Add(new HAND(
                             Int32.Parse(paramsBuf[0]),
                             paramsBuf[1],
                             paramsBuf[2],
@@ -680,11 +680,14 @@ namespace OpenIII.GameFiles
 
     public class ConfigRow
     {
+        protected List<string> NonRequiredParams = new List<string>();
+
         public override string ToString()
         {
             var result = this.GetType()
                              .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                             .Select(field => field.GetValue(this))
+                             // If parameter is not required and null, don't include it in the string
+                             .Select(field => (!NonRequiredParams.Contains(field.Name) || field.GetValue(this) != null) ? field.GetValue(this) : null)
                              .ToArray();
             return string.Join(", ", result);
         }
@@ -693,65 +696,7 @@ namespace OpenIII.GameFiles
     public class OBJS : ConfigRow
     {
         public const string SectionName = "objs";
-    }
 
-    public class OBJSType1 : OBJS
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private int MeshCount { get; set; }
-
-        private double DrawDistance1 { get; set; }
-
-        private int Flags { get; set; }
-
-
-        public OBJSType1(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.MeshCount = meshCount;
-            this.DrawDistance1 = drawDistance1;
-            this.Flags = flags;
-        }
-    }
-
-    public class OBJSType2 : OBJS
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private int MeshCount { get; set; }
-
-        private double DrawDistance1 { get; set; }
-
-        private double DrawDistance2 { get; set; }
-
-        private int Flags { get; set; }
-
-
-        public OBJSType2(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.MeshCount = meshCount;
-            this.DrawDistance1 = drawDistance1;
-            this.DrawDistance2 = drawDistance2;
-            this.Flags = flags;
-        }
-    }
-
-    public class OBJSType3 : OBJS
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -766,10 +711,40 @@ namespace OpenIII.GameFiles
 
         private double DrawDistance3 { get; set; }
 
+        private double DrawDistance { get; set; }
+
         private int Flags { get; set; }
 
+        private new List<string> NonRequiredParams = new List<string>()
+        { 
+            "DrawDistance",
+            "DrawDistance1",
+            "DrawDistance2",
+            "DrawDistance3"
+        };
 
-        public OBJSType3(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags)
+        public OBJS(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.MeshCount = meshCount;
+            this.DrawDistance1 = drawDistance1;
+            this.Flags = flags;
+        }
+
+        public OBJS(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.MeshCount = meshCount;
+            this.DrawDistance1 = drawDistance1;
+            this.DrawDistance2 = drawDistance2;
+            this.Flags = flags;
+        }
+
+        public OBJS(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -780,22 +755,8 @@ namespace OpenIII.GameFiles
             this.DrawDistance3 = drawDistance3;
             this.Flags = flags;
         }
-    }
 
-    public class OBJSType4 : OBJS
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private double DrawDistance { get; set; }
-
-        private int Flags { get; set; }
-
-        
-        public OBJSType4(int id, string modelName, string txdName, double drawDistance, int flags)
+        public OBJS(int id, string modelName, string txdName, double drawDistance, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -805,14 +766,10 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class TOBJ : ConfigRow
     {
         public const string SectionName = "tobj";
-    }
 
-    public class TOBJType1 : TOBJ
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -821,72 +778,7 @@ namespace OpenIII.GameFiles
 
         private int MeshCount { get; set; }
 
-        private float DrawDistance1 { get; set; }
-
-        private int Flags { get; set; }
-
-        private int TimeOn { get; set; }
-
-        private int TimeOff { get; set; }
-
-
-        public TOBJType1(int id, string modelName, string txdName, int meshCount, float drawDistance1, int flags, int timeOn, int timeOff)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.MeshCount = meshCount;
-            this.DrawDistance1 = drawDistance1;
-            this.Flags = flags;
-            this.TimeOn = timeOn;
-            this.TimeOff = timeOff;
-        }
-    }
-
-    public class TOBJType2 : TOBJ
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private int MeshCount { get; set; }
-
-        private float DrawDistance1 { get; set; }
-
-        private float DrawDistance2 { get; set; }
-
-        private int Flags { get; set; }
-
-        private int TimeOn { get; set; }
-
-        private int TimeOff { get; set; }
-
-
-        public TOBJType2(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, int flags, int timeOn, int timeOff)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.MeshCount = meshCount;
-            this.DrawDistance1 = drawDistance1;
-            this.DrawDistance2 = drawDistance2;
-            this.Flags = flags;
-            this.TimeOn = timeOn;
-            this.TimeOff = timeOff;
-        }
-    }
-
-    public class TOBJType3 : TOBJ
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private int MeshCount { get; set; }
+        private float DrawDistance { get; set; }
 
         private float DrawDistance1 { get; set; }
 
@@ -900,8 +792,40 @@ namespace OpenIII.GameFiles
 
         private int TimeOff { get; set; }
 
+        private new List<string> NonRequiredParams = new List<string>()
+        {
+            "DrawDistance",
+            "DrawDistance1",
+            "DrawDistance2",
+            "DrawDistance3"
+        };
 
-        public TOBJType3(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, float drawDistance3, int flags, int timeOn, int timeOff)
+        public TOBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, int flags, int timeOn, int timeOff)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.MeshCount = meshCount;
+            this.DrawDistance1 = drawDistance1;
+            this.Flags = flags;
+            this.TimeOn = timeOn;
+            this.TimeOff = timeOff;
+        }
+
+        public TOBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, int flags, int timeOn, int timeOff)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.MeshCount = meshCount;
+            this.DrawDistance1 = drawDistance1;
+            this.DrawDistance2 = drawDistance2;
+            this.Flags = flags;
+            this.TimeOn = timeOn;
+            this.TimeOff = timeOff;
+        }
+
+        public TOBJ(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, float drawDistance3, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -914,26 +838,8 @@ namespace OpenIII.GameFiles
             this.TimeOn = timeOn;
             this.TimeOff = timeOff;
         }
-    }
 
-    public class TOBJType4 : TOBJ
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private float DrawDistance { get; set; }
-
-        private int Flags { get; set; }
-
-        private int TimeOn { get; set; }
-
-        private int TimeOff { get; set; }
-
-
-        public TOBJType4(int id, string modelName, string txdName, float drawDistance, int flags, int timeOn, int timeOff)
+        public TOBJ(int id, string modelName, string txdName, float drawDistance, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -945,14 +851,10 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class TwoDFX : ConfigRow
     {
         public const string SectionName = "2dfx";
-    }
 
-    public class TwoDFXType1 : TwoDFX
-    {
         private int Id { get; set; }
 
         private double X { get; set; }
@@ -993,7 +895,67 @@ namespace OpenIII.GameFiles
 
         private int Flags { get; set; }
 
-        public TwoDFXType1(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, string corona, string shadow, double distance, double outerRange, double size, double innerRange, int shadowIntensity, int flash, int wet, int flare, int flags)
+        private int Particle { get; set; }
+
+        private double StrengthX { get; set; }
+
+        private double StrengthY { get; set; }
+
+        private double StrengthZ { get; set; }
+
+        private double Scale { get; set; }
+
+        private int Unknown1 { get; set; }
+
+        private int Unknown2 { get; set; }
+
+        private int Behavior { get; set; }
+
+        private double Unk1 { get; set; }
+
+        private double Unk2 { get; set; }
+
+        private double Unk3 { get; set; }
+
+        private int Unknown3 { get; set; }
+
+        private double RollX { get; set; }
+
+        private double RollY { get; set; }
+
+        private double RollZ { get; set; }
+
+        private new List<string> NonRequiredParams = new List<string>()
+        {
+            "Corona",
+            "Shadow",
+            "Distance",
+            "OuterRange",
+            "Size",
+            "InnerRange",
+            "ShadowIntensity",
+            "Flash",
+            "Wet",
+            "Flare",
+            "Flags",
+            "Particle",
+            "StrengthX",
+            "StrengthY",
+            "StrengthZ",
+            "Scale",
+            "Unknown",
+            "Unk1",
+            "Unk2",
+            "Unk3",
+            "Unknown1",
+            "Unknown2",
+            "Behavior",
+            "RotX",
+            "RotY",
+            "RotZ"
+        };
+
+        public TwoDFX(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, string corona, string shadow, double distance, double outerRange, double size, double innerRange, int shadowIntensity, int flash, int wet, int flare, int flags)
         {
             this.Id = id;
             this.X = x;
@@ -1016,39 +978,8 @@ namespace OpenIII.GameFiles
             this.Flare = flare;
             this.Flags = flags;
         }
-    }
 
-    public class TwoDFXType2 : TwoDFX
-    {
-        private int Id { get; set; }
-
-        private double X { get; set; }
-
-        private double Y { get; set; }
-
-        private double Z { get; set; }
-
-        private int R { get; set; }
-
-        private int G { get; set; }
-
-        private int B { get; set; }
-
-        private int Unknown { get; set; }
-
-        private int TwoDFXType { get; set; }
-
-        private int Particle { get; set; }
-
-        private double StrengthX { get; set; }
-
-        private double StrengthY { get; set; }
-
-        private double StrengthZ { get; set; }
-
-        private double Scale { get; set; }
-
-        public TwoDFXType2(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, int particle, double strengthX, double strengthY, double strengthZ, double scale)
+        public TwoDFX(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, int particle, double strengthX, double strengthY, double strengthZ, double scale)
         {
             this.Id = id;
             this.X = x;
@@ -1065,39 +996,8 @@ namespace OpenIII.GameFiles
             this.StrengthZ = strengthZ;
             this.Scale = scale;
         }
-    }
 
-    public class TwoDFXType3 : TwoDFX
-    {
-        private int Id { get; set; }
-
-        private double X { get; set; }
-
-        private double Y { get; set; }
-
-        private double Z { get; set; }
-
-        private int R { get; set; }
-
-        private int G { get; set; }
-
-        private int B { get; set; }
-
-        private int Unknown1 { get; set; }
-
-        private int TwoDFXType { get; set; }
-
-        private int Unknown2 { get; set; }
-
-        private double Unk1 { get; set; }
-
-        private double Unk2 { get; set; }
-
-        private double Unk3 { get; set; }
-
-        private int Unknown3 { get; set; }
-
-        public TwoDFXType3(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int unknown2, double unk1, double unk2, double unk3, int unknown3)
+        public TwoDFX(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int unknown2, double unk1, double unk2, double unk3, int unknown3)
         {
             this.Id = id;
             this.X = x;
@@ -1114,43 +1014,8 @@ namespace OpenIII.GameFiles
             this.Unk3 = unk3;
             this.Unknown3 = unknown3;
         }
-    }
 
-    public class TwoDFXType4 : TwoDFX
-    {
-        private int Id { get; set; }
-
-        private double X { get; set; }
-
-        private double Y { get; set; }
-
-        private double Z { get; set; }
-
-        private int R { get; set; }
-
-        private int G { get; set; }
-
-        private int B { get; set; }
-
-        private int Unknown1 { get; set; }
-
-        private int TwoDFXType { get; set; }
-
-        private int Behavior { get; set; }
-
-        private double Unk1 { get; set; }
-
-        private double Unk2 { get; set; }
-
-        private double Unk3 { get; set; }
-
-        private double RollX { get; set; }
-
-        private double RollY { get; set; }
-
-        private double RollZ { get; set; }
-
-        public TwoDFXType4(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int behavior, double unk1, double unk2, double unk3, double rollX, double rollY, double rollZ)
+        public TwoDFX(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int behavior, double unk1, double unk2, double unk3, double rollX, double rollY, double rollZ)
         {
             this.Id = id;
             this.X = x;
@@ -1169,29 +1034,8 @@ namespace OpenIII.GameFiles
             this.RollY = rollY;
             this.RollZ = rollZ;
         }
-    }
 
-    public class TwoDFXType5 : TwoDFX
-    {
-        private int Id { get; set; }
-
-        private double X { get; set; }
-
-        private double Y { get; set; }
-
-        private double Z { get; set; }
-
-        private int R { get; set; }
-
-        private int G { get; set; }
-
-        private int B { get; set; }
-
-        private int Unknown { get; set; }
-
-        private int TwoDFXType { get; set; }
-
-        public TwoDFXType5(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType)
+        public TwoDFX(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType)
         {
             this.Id = id;
             this.X = x;
@@ -1205,101 +1049,28 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class HIER : ConfigRow
     {
         public const string SectionName = "hier";
-    }
 
-    public class HIERType1 : HIER
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
 
         private string TxdName { get; set; }
 
-        public HIERType1(int id, string modelName, string txdName)
+        public HIER(int id, string modelName, string txdName)
         {
             this.Id = id;
             this.ModelName = modelName;
             this.TxdName = txdName;
         }
     }
-
 
     public class PEDS : ConfigRow
     {
         public const string SectionName = "peds";
-    }
 
-    public class PEDSType1 : PEDS
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private string DefaultPedtype { get; set; }
-
-        private string Behavior { get; set; }
-
-        private string AnimGroup { get; set; }
-
-        private int CarsCanDrive { get; set; }
-
-        public PEDSType1(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.DefaultPedtype = defaultPedtype;
-            this.Behavior = behavior;
-            this.AnimGroup = AnimGroup;
-            this.CarsCanDrive = CarsCanDrive;
-        }
-    }
-
-    public class PEDSType2 : PEDS
-    {
-        private int Id { get; set; }
-
-        private string ModelName { get; set; }
-
-        private string TxdName { get; set; }
-
-        private string DefaultPedtype { get; set; }
-
-        private string Behavior { get; set; }
-
-        private string AnimGroup { get; set; }
-
-        private int CarsCanDrive { get; set; }
-
-        private string AnimFile { get; set; }
-
-        private int RadioStation1 { get; set; }
-
-        private int RadioStation2 { get; set; }
-
-        public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive, string animFile, int radioStation1, int radioStation2)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.DefaultPedtype = defaultPedtype;
-            this.Behavior = behavior;
-            this.AnimGroup = AnimGroup;
-            this.CarsCanDrive = CarsCanDrive;
-            this.AnimFile = animFile;
-            this.RadioStation1 = radioStation1;
-            this.RadioStation2 = radioStation2;
-        }
-    }
-
-    public class PEDSType3 : PEDS
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -1328,7 +1099,43 @@ namespace OpenIII.GameFiles
 
         private string Voice2 { get; set; }
 
-        public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int carsCanDrive, int flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
+        private new List<string> NonRequiredParams = new List<string>()
+        {
+            "AnimFile",
+            "RadioStation1",
+            "RadioStation2",
+            "Flags",
+            "VoiceArchive",
+            "Voice1",
+            "Voice2"
+        };
+
+        public PEDS(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.DefaultPedtype = defaultPedtype;
+            this.Behavior = behavior;
+            this.AnimGroup = AnimGroup;
+            this.CarsCanDrive = CarsCanDrive;
+        }
+
+        public PEDS(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive, string animFile, int radioStation1, int radioStation2)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.DefaultPedtype = defaultPedtype;
+            this.Behavior = behavior;
+            this.AnimGroup = AnimGroup;
+            this.CarsCanDrive = CarsCanDrive;
+            this.AnimFile = animFile;
+            this.RadioStation1 = radioStation1;
+            this.RadioStation2 = radioStation2;
+        }
+
+        public PEDS(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int carsCanDrive, int flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1347,14 +1154,10 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class WEAP : ConfigRow
     {
         public const string SectionName = "weap";
-    }
 
-    public class WEAPType1 : WEAP
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -1367,8 +1170,7 @@ namespace OpenIII.GameFiles
 
         private double DrawDistance { get; set; }
 
-
-        public WEAPType1(int id, string modelName, string txdName, string animationName, int meshCount, double drawDistance)
+        public WEAP(int id, string modelName, string txdName, string animationName, int meshCount, double drawDistance)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1379,14 +1181,10 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class ANIM : ConfigRow
     {
         public const string SectionName = "anim";
-    }
 
-    public class ANIMType1 : ANIM
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -1399,7 +1197,7 @@ namespace OpenIII.GameFiles
 
         private int Flags { get; set; }
 
-        public ANIMType1(int id, string modelName, string txdName, string animationName, double drawDistance, int flags)
+        public ANIM(int id, string modelName, string txdName, string animationName, double drawDistance, int flags)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1410,33 +1208,25 @@ namespace OpenIII.GameFiles
         }
     }
 
-
     public class TXDP : ConfigRow
     {
         public const string SectionName = "txdp";
-    }
 
-    public class TXDPType1 : TXDP
-    {
         private string TxdName;
 
         private string TxdParentName;
 
-        public TXDPType1(string txdName, string txdParentName)
+        public TXDP(string txdName, string txdParentName)
         {
             this.TxdName = txdName;
             this.TxdParentName = txdParentName;
         }
     }
 
-
     public class HAND : ConfigRow
     {
         public const string SectionName = "hand";
-    }
 
-    public class HANDType1 : HAND
-    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -1445,7 +1235,7 @@ namespace OpenIII.GameFiles
 
         private string Unknown { get; set; }
 
-        public HANDType1(int id, string modelName, string txdName, string Unknown)
+        public HAND(int id, string modelName, string txdName, string Unknown)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1453,7 +1243,6 @@ namespace OpenIII.GameFiles
             this.Unknown = Unknown;
         }
     }
-
 
     public class CARS : ConfigRow
     {
