@@ -98,7 +98,7 @@ namespace OpenIII.GameFiles
 
         public void SaveFile()
         {
-            string data = this.DataToString();
+            string data = this.ToString();
 
             try
             {
@@ -127,7 +127,7 @@ namespace OpenIII.GameFiles
         /// <returns xml:lang="ru">
         /// Список всех существующих строк в формате имя-значение строкой
         /// </returns>
-        public string DataToString()
+        public override string ToString()
         {
             string buf = null;
 
