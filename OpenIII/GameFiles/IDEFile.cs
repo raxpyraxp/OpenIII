@@ -1477,7 +1477,10 @@ namespace OpenIII.GameFiles
     public class CARS : ConfigRow
     {
         public const string SectionName = "cars";
+    }
 
+    public class CARSType1 : CARS
+    {
         private int Id { get; set; }
 
         private string ModelName { get; set; }
@@ -1502,119 +1505,364 @@ namespace OpenIII.GameFiles
 
         private double WheelScale { get; set; }
 
+
+        /// <summary>
+        /// III cars.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        /// <param name="wheelModelId"></param>
+        /// <param name="wheelScale"></param>
+        public CARSType1(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.WheelModelId = wheelModelId;
+            this.WheelScale = wheelScale;
+        }
+    }
+
+    public class CARSType2 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
+        /// <summary>
+        /// III boat, train and heli.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        public CARSType2(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+        }
+    }
+
+    public class CARSType3 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
         private int LODModelId { get; set; }
+
+        /// <summary>
+        /// III plane
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        /// <param name="lodModelId"></param>
+        public CARSType3(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.LODModelId = lodModelId;
+        }
+    }
+
+    public class CARSType4 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
 
         private string Anims { get; set; }
 
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
+        private int LODModelId { get; set; }
+
+        /// <summary>
+        /// VC plane
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        /// <param name="lodModelId"></param>
+        public CARSType4(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.LODModelId = lodModelId;
+        }
+    }
+
+    public class CARSType5 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string Anims { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
+        private int WheelModelId { get; set; }
+
+        private double WheelScale { get; set; }
+
+
+        /// <summary>
+        /// VC cars
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        /// <param name="wheelModelId"></param>
+        /// <param name="wheelScale"></param>
+        public CARSType5(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+            this.WheelModelId = wheelModelId;
+            this.WheelScale = wheelScale;
+        }
+    }
+
+    public class CARSType6 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string Anims { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
+        /// <summary>
+        /// VC boat and heli
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        public CARSType6(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules)
+        {
+            this.Id = id;
+            this.ModelName = modelName;
+            this.TxdName = txdName;
+            this.Type = type;
+            this.HandlingId = handlingId;
+            this.GXTKey = gxtKey;
+            this.Anims = anims;
+            this.VehicleClass = vehicleClass;
+            this.Frequency = frequency;
+            this.Level = level;
+            this.Comprules = comprules;
+        }
+    }
+
+    public class CARSType7 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string Anims { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Level { get; set; }
+
+        private int Comprules { get; set; }
+
         private int SteeringAngle { get; set; }
 
-        private byte Flags { get; set; }
-
-        private double WheelScaleFront { get; set; }
-
-        private double WheelScaleRear { get; set; }
-
-        private double WheelUpgradeClass { get; set; }
-
-        private int Unknown { get; set; }
+        private double WheelScale { get; set; }
 
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-            this.WheelModelId = wheelModelId;
-            this.WheelScale = wheelScale;
-        }
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-        }
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-            this.LODModelId = lodModelId;
-        }
-
-
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.Anims = anims;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-            this.WheelModelId = wheelModelId;
-            this.WheelScale = wheelScale;
-        }
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.Anims = anims;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-        }
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
-        {
-            this.Id = id;
-            this.ModelName = modelName;
-            this.TxdName = txdName;
-            this.Type = type;
-            this.HandlingId = handlingId;
-            this.GXTKey = gxtKey;
-            this.Anims = anims;
-            this.VehicleClass = vehicleClass;
-            this.Frequency = frequency;
-            this.Level = level;
-            this.Comprules = comprules;
-            this.LODModelId = lodModelId;
-        }
-
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, double wheelScale, int steeringAngle)
+        /// <summary>
+        /// VC bike
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="level"></param>
+        /// <param name="comprules"></param>
+        /// <param name="steeringAngle"></param>
+        /// <param name="wheelScale"></param>
+        public CARSType7(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int steeringAngle, double wheelScale)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1630,10 +1878,61 @@ namespace OpenIII.GameFiles
             this.SteeringAngle = steeringAngle;
             this.WheelScale = wheelScale;
         }
+    }
 
 
+    public class CARSType8 : CARS
+    {
+        private int Id { get; set; }
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules, int wheelModelId, double wheelScaleFront, double wheelScaleRear, int unknown)
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string Anims { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Flags { get; set; }
+
+        private int Comprules { get; set; }
+
+        private int WheelId { get; set; }
+
+        private double WheelScaleFront { get; set; }
+
+        private double WheelScaleRear { get; set; }
+
+        private int WheelUpgradeClass { get; set; }
+
+
+        /// <summary>
+        /// SA cars
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="flags"></param>
+        /// <param name="comprules"></param>
+        /// <param name="wheelId"></param>
+        /// <param name="wheelScaleFront"></param>
+        /// <param name="wheelScaleRear"></param>
+        /// <param name="wheelUpgradeClass"></param>
+        public CARSType8(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int flags, int comprules, int wheelId, double wheelScaleFront, double wheelScaleRear, int wheelUpgradeClass)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1646,13 +1945,58 @@ namespace OpenIII.GameFiles
             this.Frequency = frequency;
             this.Flags = flags;
             this.Comprules = comprules;
-            this.WheelModelId = wheelModelId;
+            this.WheelId = wheelId;
             this.WheelScaleFront = wheelScaleFront;
             this.WheelScaleRear = wheelScaleRear;
-            this.Unknown = unknown;
+            this.WheelUpgradeClass = wheelUpgradeClass;
         }
+    }
 
-        public CARS(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, byte flags, int comprules)
+
+    public class CARSType9 : CARS
+    {
+        private int Id { get; set; }
+
+        private string ModelName { get; set; }
+
+        private string TxdName { get; set; }
+
+        private string Type { get; set; }
+
+        private string HandlingId { get; set; }
+
+        private string GXTKey { get; set; }
+
+        private string Anims { get; set; }
+
+        private string VehicleClass { get; set; }
+
+        private int Frequency { get; set; }
+
+        private int Flags { get; set; }
+
+        private int Comprules { get; set; }
+
+
+        /// <summary>
+        /// SA boat
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="modelName"></param>
+        /// <param name="txdName"></param>
+        /// <param name="type"></param>
+        /// <param name="handlingId"></param>
+        /// <param name="gxtKey"></param>
+        /// <param name="anims"></param>
+        /// <param name="vehicleClass"></param>
+        /// <param name="frequency"></param>
+        /// <param name="flags"></param>
+        /// <param name="comprules"></param>
+        /// <param name="wheelId"></param>
+        /// <param name="wheelScaleFront"></param>
+        /// <param name="wheelScaleRear"></param>
+        /// <param name="wheelUpgradeClass"></param>
+        public CARSType9(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int flags, int comprules)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -1667,6 +2011,7 @@ namespace OpenIII.GameFiles
             this.Comprules = comprules;
         }
     }
+
 
     public class PATH : ConfigRow
     {
