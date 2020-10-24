@@ -41,7 +41,7 @@ namespace OpenIII.GameFiles
         /// <summary xml:lang="ru">
         /// Стандартная строка заголовка с которой начинается каждый FXT файл
         /// </summary>
-        string Headers = "# File created or edited by OpenIII.";
+        public static string Headers = "# File created or edited by OpenIII.";
 
         /// <summary>
         /// List of the <see cref="FXTFileItem"/> text lines from the current <see cref="FXTFile"/>
@@ -79,8 +79,9 @@ namespace OpenIII.GameFiles
             StreamReader Reader = new StreamReader(this.FullPath);
             BindingList<FXTFileItem> data = new BindingList<FXTFileItem>();
 
-            while ((lineIterator = Reader.ReadLine()) != null)
+            while (!Reader.EndOfStream)
             {
+                Reader.ReadLine();
 
                 if (lineIterator != "" && Char.IsLetterOrDigit(lineIterator[0]))
                 {
@@ -90,7 +91,7 @@ namespace OpenIII.GameFiles
                 }
             }
 
-            Items = data;
+            this.Items = data;
             Reader.Close();
 
             return data;
@@ -103,7 +104,7 @@ namespace OpenIII.GameFiles
             try
             {
                 StreamWriter streamWriter = new StreamWriter(this.GetStream(FileMode.Create, FileAccess.Write));
-                streamWriter.WriteLine(Headers);
+                streamWriter.WriteLine(FXTFile.Headers);
                 streamWriter.Write(data);
                 streamWriter.Close();
             }
@@ -112,7 +113,7 @@ namespace OpenIII.GameFiles
                 throw exception;
             }
 
-            isFileEdited = false;
+            this.isFileEdited = false;
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace OpenIII.GameFiles
         /// <param name="value" xml:lang="ru">Значение для новой строки</param>
         public void AddItem(string key, string value)
         {
-            Items.Add(new FXTFileItem(key, value));
+            this.Items.Add(new FXTFileItem(key, value));
         }
     }
 
@@ -169,7 +170,7 @@ namespace OpenIII.GameFiles
         /// <summary xml:lang="ru">
         /// Максимально допустимая длина ключа
         /// </summary>
-        public const int MAX_KEY_LENGTH = 8;
+        public static int MAX_KEY_LENGTH = 8;
 
         /// <summary>
         /// A key that is used in the script to request line output in the game
