@@ -100,6 +100,18 @@ namespace OpenIII.GameFiles
 
         public List<ConfigSection> ConfigSections = new List<ConfigSection>();
 
+        public override string ToString()
+        {
+            string buf = null;
+
+            foreach (ConfigSection configSection in this.ConfigSections)
+            {
+                buf += configSection.ToString() + '\n';
+            }
+
+            return buf;
+        }
+
         public void ParseData()
         {
             string lineIterator;
@@ -196,6 +208,8 @@ namespace OpenIII.GameFiles
                                     parsedNodes.ToArray()
                                 ));
                                 break;
+                            default:
+                                throw exception;
                         }
                         break;
                     case OBJS.SectionName:
@@ -246,6 +260,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[7])
                                 ));
                                 break;
+                            default:
+                                throw exception;
                         }
                     break;
 
@@ -305,6 +321,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[9])
                                 ));
                                 break;
+                            default:
+                                throw exception;
                         }
                     break;
 
@@ -410,6 +428,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[8])
                                 ));
                                 break;
+                            default:
+                                throw exception;
                         }
                     break;
 
@@ -611,7 +631,7 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(paramsBuf[8]),
                                         Convert.ToInt32(paramsBuf[9], 16),
                                         Int32.Parse(paramsBuf[10]),
-                                        double.Parse(paramsBuf[11])
+                                        double.Parse(paramsBuf[11], culture)
                                     ));
                                 }
                                 break;
@@ -670,6 +690,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[14])
                                 ));
                                 break;
+                            default:
+                                throw exception;
                         }
                         break;
                 }
