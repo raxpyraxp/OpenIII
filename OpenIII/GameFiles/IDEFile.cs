@@ -257,8 +257,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
-                                    float.Parse(paramsBuf[3]),
-                                    Int32.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[3], culture),
+                                    Convert.ToInt32(paramsBuf[4], 16),
                                     Int32.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6])
                                 ));
@@ -270,8 +270,8 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
-                                    Int32.Parse(paramsBuf[5]),
+                                    double.Parse(paramsBuf[4], culture),
+                                    Convert.ToInt32(paramsBuf[5], 16),
                                     Int32.Parse(paramsBuf[6]),
                                     Int32.Parse(paramsBuf[7])
                                 ));
@@ -283,9 +283,9 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
-                                    float.Parse(paramsBuf[5]),
-                                    Int32.Parse(paramsBuf[6]),
+                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[5], culture),
+                                    Convert.ToInt32(paramsBuf[6], 16),
                                     Int32.Parse(paramsBuf[7]),
                                     Int32.Parse(paramsBuf[8])
                                 ));
@@ -297,10 +297,10 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    float.Parse(paramsBuf[4]),
-                                    float.Parse(paramsBuf[5]),
-                                    float.Parse(paramsBuf[6]),
-                                    Int32.Parse(paramsBuf[7]),
+                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[5], culture),
+                                    double.Parse(paramsBuf[6], culture),
+                                    Convert.ToInt32(paramsBuf[7], 16),
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9])
                                 ));
@@ -458,7 +458,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[4],
                                     paramsBuf[5],
                                     Convert.ToInt32(paramsBuf[6], 16),
-                                    Int32.Parse(paramsBuf[7]),
+                                    Convert.ToInt32(paramsBuf[7], 16),
                                     paramsBuf[8],
                                     Int32.Parse(paramsBuf[9]),
                                     Int32.Parse(paramsBuf[10]),
@@ -524,7 +524,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[6],
                                     Int32.Parse(paramsBuf[7]),
                                     Int32.Parse(paramsBuf[8]),
-                                    Int32.Parse(paramsBuf[9])
+                                    Convert.ToInt32(paramsBuf[9], 16)
                                 ));
                                 break;
                             case 11:
@@ -540,7 +540,7 @@ namespace OpenIII.GameFiles
                                         paramsBuf[6],
                                         Int32.Parse(paramsBuf[7]),
                                         Int32.Parse(paramsBuf[8]),
-                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[9], 16),
                                         Int32.Parse(paramsBuf[10])
                                     ));
                                 }
@@ -557,7 +557,7 @@ namespace OpenIII.GameFiles
                                         paramsBuf[7],
                                         Int32.Parse(paramsBuf[8]),
                                         Int32.Parse(paramsBuf[9]),
-                                        Int32.Parse(paramsBuf[10])
+                                        Convert.ToInt32(paramsBuf[10], 16)
                                     ));
                                 }
 
@@ -593,7 +593,7 @@ namespace OpenIII.GameFiles
                                         paramsBuf[7],
                                         Int32.Parse(paramsBuf[8]),
                                         Int32.Parse(paramsBuf[9]),
-                                        Int32.Parse(paramsBuf[10]),
+                                        Convert.ToInt32(paramsBuf[10], 16),
                                         Int32.Parse(paramsBuf[11])
                                     ));
                                 }
@@ -609,7 +609,7 @@ namespace OpenIII.GameFiles
                                         paramsBuf[6],
                                         Int32.Parse(paramsBuf[7]),
                                         Int32.Parse(paramsBuf[8]),
-                                        Int32.Parse(paramsBuf[9]),
+                                        Convert.ToInt32(paramsBuf[9], 16),
                                         Int32.Parse(paramsBuf[10]),
                                         double.Parse(paramsBuf[11])
                                     ));
@@ -627,7 +627,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10]),
+                                    Convert.ToInt32(paramsBuf[10], 16),
                                     Int32.Parse(paramsBuf[11]),
                                     double.Parse(paramsBuf[12], culture)
                                 ));
@@ -663,7 +663,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10]),
+                                    Convert.ToInt32(paramsBuf[10], 16),
                                     Int32.Parse(paramsBuf[11]),
                                     double.Parse(paramsBuf[12], culture),
                                     double.Parse(paramsBuf[13], culture),
@@ -843,7 +843,7 @@ namespace OpenIII.GameFiles
 
         private int MeshCount { get; set; }
 
-        private float DrawDistance1 { get; set; }
+        private double DrawDistance1 { get; set; }
 
         private int Flags { get; set; }
 
@@ -852,7 +852,7 @@ namespace OpenIII.GameFiles
         private int TimeOff { get; set; }
 
 
-        public TOBJType1(int id, string modelName, string txdName, int meshCount, float drawDistance1, int flags, int timeOn, int timeOff)
+        public TOBJType1(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -875,9 +875,9 @@ namespace OpenIII.GameFiles
 
         private int MeshCount { get; set; }
 
-        private float DrawDistance1 { get; set; }
+        private double DrawDistance1 { get; set; }
 
-        private float DrawDistance2 { get; set; }
+        private double DrawDistance2 { get; set; }
 
         private int Flags { get; set; }
 
@@ -886,7 +886,7 @@ namespace OpenIII.GameFiles
         private int TimeOff { get; set; }
 
 
-        public TOBJType2(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, int flags, int timeOn, int timeOff)
+        public TOBJType2(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -910,11 +910,11 @@ namespace OpenIII.GameFiles
 
         private int MeshCount { get; set; }
 
-        private float DrawDistance1 { get; set; }
+        private double DrawDistance1 { get; set; }
 
-        private float DrawDistance2 { get; set; }
+        private double DrawDistance2 { get; set; }
 
-        private float DrawDistance3 { get; set; }
+        private double DrawDistance3 { get; set; }
 
         private int Flags { get; set; }
 
@@ -923,7 +923,7 @@ namespace OpenIII.GameFiles
         private int TimeOff { get; set; }
 
 
-        public TOBJType3(int id, string modelName, string txdName, int meshCount, float drawDistance1, float drawDistance2, float drawDistance3, int flags, int timeOn, int timeOff)
+        public TOBJType3(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -946,7 +946,7 @@ namespace OpenIII.GameFiles
 
         private string TxdName { get; set; }
 
-        private float DrawDistance { get; set; }
+        private double DrawDistance { get; set; }
 
         private int Flags { get; set; }
 
@@ -955,7 +955,7 @@ namespace OpenIII.GameFiles
         private int TimeOff { get; set; }
 
 
-        public TOBJType4(int id, string modelName, string txdName, float drawDistance, int flags, int timeOn, int timeOff)
+        public TOBJType4(int id, string modelName, string txdName, double drawDistance, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
             this.ModelName = modelName;
