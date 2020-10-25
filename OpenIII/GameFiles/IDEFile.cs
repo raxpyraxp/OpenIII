@@ -513,66 +513,24 @@ namespace OpenIII.GameFiles
                     case CARS.SectionName:
                         switch (paramsBuf.Count)
                         {
-                            case 13:
-                                if (paramsBuf[3] == VehicleClassVC.Bike)
-                                {
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
-                                        Int32.Parse(paramsBuf[0]),
-                                        paramsBuf[1],
-                                        paramsBuf[2],
-                                        paramsBuf[3],
-                                        paramsBuf[4],
-                                        paramsBuf[5],
-                                        paramsBuf[6],
-                                        paramsBuf[7],
-                                        Int32.Parse(paramsBuf[8]),
-                                        Int32.Parse(paramsBuf[9]),
-                                        Convert.ToInt32(paramsBuf[10], 16),
-                                        Int32.Parse(paramsBuf[11]),
-                                        double.Parse(paramsBuf[12], culture)
-                                    ));
-                                }
-                                else
-                                {
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
-                                        Int32.Parse(paramsBuf[0]),
-                                        paramsBuf[1],
-                                        paramsBuf[2],
-                                        paramsBuf[3],
-                                        paramsBuf[4],
-                                        paramsBuf[5],
-                                        paramsBuf[6],
-                                        paramsBuf[7],
-                                        Int32.Parse(paramsBuf[8]),
-                                        Int32.Parse(paramsBuf[9]),
-                                        Convert.ToInt32(paramsBuf[10], 16),
-                                        double.Parse(paramsBuf[12], culture),
-                                        Int32.Parse(paramsBuf[11])
-                                    ));
-                                }
+                            case 10:
+                                ConfigSections.Last().ConfigRows.Add(new CARSType2(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    Int32.Parse(paramsBuf[7]),
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9])
+                                ));
                                 break;
-                            case 12:
-                                if (int.TryParse(paramsBuf[11], out _))
+                            case 11:
+                                if (Int32.TryParse(paramsBuf[7], out int _))
                                 {
-                                    // VC
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
-                                        Int32.Parse(paramsBuf[0]),
-                                        paramsBuf[1],
-                                        paramsBuf[2],
-                                        paramsBuf[3],
-                                        paramsBuf[4],
-                                        paramsBuf[5],
-                                        paramsBuf[6],
-                                        Int32.Parse(paramsBuf[8]),
-                                        Int32.Parse(paramsBuf[9]),
-                                        Convert.ToInt32(paramsBuf[10], 16),
-                                        Int32.Parse(paramsBuf[11])
-                                    ));
-                                }
-                                else
-                                {
-                                    // III
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    ConfigSections.Last().ConfigRows.Add(new CARSType3(
                                         Int32.Parse(paramsBuf[0]),
                                         paramsBuf[1],
                                         paramsBuf[2],
@@ -582,16 +540,13 @@ namespace OpenIII.GameFiles
                                         paramsBuf[6],
                                         Int32.Parse(paramsBuf[7]),
                                         Int32.Parse(paramsBuf[8]),
-                                        Convert.ToInt32(paramsBuf[9], 16),
-                                        Int32.Parse(paramsBuf[10]),
-                                        double.Parse(paramsBuf[11], culture)
+                                        Int32.Parse(paramsBuf[9]),
+                                        Int32.Parse(paramsBuf[10])
                                     ));
                                 }
-                                break;
-                            case 11:
-                                if (Int32.TryParse(paramsBuf[10], out _))
+                                else
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    ConfigSections.Last().ConfigRows.Add(new CARSType6(
                                         Int32.Parse(paramsBuf[0]),
                                         paramsBuf[1],
                                         paramsBuf[2],
@@ -605,9 +560,29 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(paramsBuf[10])
                                     ));
                                 }
-                                else
+
+                                // TODO: Сделать проверку на соответствие CARSType9
+                                /*
+                                ConfigSections.Last().ConfigRows.Add(new CARSType9(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10])
+                                ));
+                                */
+
+                                break;
+                            case 12:
+                                if (Int32.TryParse(paramsBuf[11], out int _))
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARS(
+                                    ConfigSections.Last().ConfigRows.Add(new CARSType4(
                                         Int32.Parse(paramsBuf[0]),
                                         paramsBuf[1],
                                         paramsBuf[2],
@@ -618,26 +593,30 @@ namespace OpenIII.GameFiles
                                         paramsBuf[7],
                                         Int32.Parse(paramsBuf[8]),
                                         Int32.Parse(paramsBuf[9]),
-                                        Convert.ToInt32(paramsBuf[10], 16)
+                                        Int32.Parse(paramsBuf[10]),
+                                        Int32.Parse(paramsBuf[11])
+                                    ));
+                                }
+                                else
+                                {
+                                    ConfigSections.Last().ConfigRows.Add(new CARSType1(
+                                        Int32.Parse(paramsBuf[0]),
+                                        paramsBuf[1],
+                                        paramsBuf[2],
+                                        paramsBuf[3],
+                                        paramsBuf[4],
+                                        paramsBuf[5],
+                                        paramsBuf[6],
+                                        Int32.Parse(paramsBuf[7]),
+                                        Int32.Parse(paramsBuf[8]),
+                                        Int32.Parse(paramsBuf[9]),
+                                        Int32.Parse(paramsBuf[10]),
+                                        double.Parse(paramsBuf[11])
                                     ));
                                 }
                                 break;
-                            case 10:
-                                ConfigSections.Last().ConfigRows.Add(new CARS(
-                                    Int32.Parse(paramsBuf[0]),
-                                    paramsBuf[1],
-                                    paramsBuf[2],
-                                    paramsBuf[3],
-                                    paramsBuf[4],
-                                    paramsBuf[5],
-                                    paramsBuf[6],
-                                    Int32.Parse(paramsBuf[7]),
-                                    Int32.Parse(paramsBuf[8]),
-                                    Int32.Parse(paramsBuf[9])
-                                ));
-                                break;
-                            case 15:
-                                ConfigSections.Last().ConfigRows.Add(new CARS(
+                            case 13:
+                                ConfigSections.Last().ConfigRows.Add(new CARSType5(
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
@@ -647,8 +626,44 @@ namespace OpenIII.GameFiles
                                     paramsBuf[6],
                                     paramsBuf[7],
                                     Int32.Parse(paramsBuf[8]),
-                                    Convert.ToByte(paramsBuf[9], 16),
-                                    Convert.ToInt32(paramsBuf[10], 16),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10]),
+                                    Int32.Parse(paramsBuf[11]),
+                                    double.Parse(paramsBuf[12], culture)
+                                ));
+
+                                // TODO: Сделать проверку на соответствие CARSType7
+                                /*
+                                ConfigSections.Last().ConfigRows.Add(new CARSType7(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10]),
+                                    Int32.Parse(paramsBuf[11]),
+                                    double.Parse(paramsBuf[12], culture)
+                                ));
+                                */
+                                break;
+                            case 15:
+                                ConfigSections.Last().ConfigRows.Add(new CARSType8(
+                                    Int32.Parse(paramsBuf[0]),
+                                    paramsBuf[1],
+                                    paramsBuf[2],
+                                    paramsBuf[3],
+                                    paramsBuf[4],
+                                    paramsBuf[5],
+                                    paramsBuf[6],
+                                    paramsBuf[7],
+                                    Int32.Parse(paramsBuf[8]),
+                                    Int32.Parse(paramsBuf[9]),
+                                    Int32.Parse(paramsBuf[10]),
                                     Int32.Parse(paramsBuf[11]),
                                     double.Parse(paramsBuf[12], culture),
                                     double.Parse(paramsBuf[13], culture),
@@ -1479,6 +1494,9 @@ namespace OpenIII.GameFiles
         public const string SectionName = "cars";
     }
 
+    /// <summary>
+    /// III cars (12 props)
+    /// </summary>
     public class CARSType1 : CARS
     {
         private int Id { get; set; }
@@ -1505,22 +1523,6 @@ namespace OpenIII.GameFiles
 
         private double WheelScale { get; set; }
 
-
-        /// <summary>
-        /// III cars.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
-        /// <param name="wheelModelId"></param>
-        /// <param name="wheelScale"></param>
         public CARSType1(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
@@ -1538,6 +1540,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// III boat, train and heli (10 props)
+    /// </summary>
     public class CARSType2 : CARS
     {
         private int Id { get; set; }
@@ -1560,19 +1565,6 @@ namespace OpenIII.GameFiles
 
         private int Comprules { get; set; }
 
-        /// <summary>
-        /// III boat, train and heli.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
         public CARSType2(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules)
         {
             this.Id = id;
@@ -1588,6 +1580,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// III plane (11 props)
+    /// </summary>
     public class CARSType3 : CARS
     {
         private int Id { get; set; }
@@ -1612,20 +1607,6 @@ namespace OpenIII.GameFiles
 
         private int LODModelId { get; set; }
 
-        /// <summary>
-        /// III plane
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
-        /// <param name="lodModelId"></param>
         public CARSType3(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
         {
             this.Id = id;
@@ -1642,6 +1623,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// VC plane (12 props)
+    /// </summary>
     public class CARSType4 : CARS
     {
         private int Id { get; set; }
@@ -1668,21 +1652,6 @@ namespace OpenIII.GameFiles
 
         private int LODModelId { get; set; }
 
-        /// <summary>
-        /// VC plane
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
-        /// <param name="lodModelId"></param>
         public CARSType4(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
         {
             this.Id = id;
@@ -1700,6 +1669,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// VC cars (13 props)
+    /// </summary>
     public class CARSType5 : CARS
     {
         private int Id { get; set; }
@@ -1728,23 +1700,6 @@ namespace OpenIII.GameFiles
 
         private double WheelScale { get; set; }
 
-
-        /// <summary>
-        /// VC cars
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
-        /// <param name="wheelModelId"></param>
-        /// <param name="wheelScale"></param>
         public CARSType5(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
@@ -1763,6 +1718,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// VC boat and heli (11 props)
+    /// </summary>
     public class CARSType6 : CARS
     {
         private int Id { get; set; }
@@ -1787,20 +1745,6 @@ namespace OpenIII.GameFiles
 
         private int Comprules { get; set; }
 
-        /// <summary>
-        /// VC boat and heli
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
         public CARSType6(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules)
         {
             this.Id = id;
@@ -1817,6 +1761,9 @@ namespace OpenIII.GameFiles
         }
     }
 
+    /// <summary>
+    /// VC bike (13 props)
+    /// </summary>
     public class CARSType7 : CARS
     {
         private int Id { get; set; }
@@ -1845,23 +1792,6 @@ namespace OpenIII.GameFiles
 
         private double WheelScale { get; set; }
 
-
-        /// <summary>
-        /// VC bike
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="level"></param>
-        /// <param name="comprules"></param>
-        /// <param name="steeringAngle"></param>
-        /// <param name="wheelScale"></param>
         public CARSType7(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int steeringAngle, double wheelScale)
         {
             this.Id = id;
@@ -1880,7 +1810,9 @@ namespace OpenIII.GameFiles
         }
     }
 
-
+    /// <summary>
+    /// SA cars and other types (15 props)
+    /// </summary>
     public class CARSType8 : CARS
     {
         private int Id { get; set; }
@@ -1913,25 +1845,6 @@ namespace OpenIII.GameFiles
 
         private int WheelUpgradeClass { get; set; }
 
-
-        /// <summary>
-        /// SA cars
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="flags"></param>
-        /// <param name="comprules"></param>
-        /// <param name="wheelId"></param>
-        /// <param name="wheelScaleFront"></param>
-        /// <param name="wheelScaleRear"></param>
-        /// <param name="wheelUpgradeClass"></param>
         public CARSType8(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int flags, int comprules, int wheelId, double wheelScaleFront, double wheelScaleRear, int wheelUpgradeClass)
         {
             this.Id = id;
@@ -1952,7 +1865,9 @@ namespace OpenIII.GameFiles
         }
     }
 
-
+    /// <summary>
+    /// SA boat (11 props)
+    /// </summary>
     public class CARSType9 : CARS
     {
         private int Id { get; set; }
@@ -1977,25 +1892,6 @@ namespace OpenIII.GameFiles
 
         private int Comprules { get; set; }
 
-
-        /// <summary>
-        /// SA boat
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="modelName"></param>
-        /// <param name="txdName"></param>
-        /// <param name="type"></param>
-        /// <param name="handlingId"></param>
-        /// <param name="gxtKey"></param>
-        /// <param name="anims"></param>
-        /// <param name="vehicleClass"></param>
-        /// <param name="frequency"></param>
-        /// <param name="flags"></param>
-        /// <param name="comprules"></param>
-        /// <param name="wheelId"></param>
-        /// <param name="wheelScaleFront"></param>
-        /// <param name="wheelScaleRear"></param>
-        /// <param name="wheelUpgradeClass"></param>
         public CARSType9(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int flags, int comprules)
         {
             this.Id = id;
