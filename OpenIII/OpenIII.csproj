@@ -115,6 +115,8 @@
     <Compile Include="Forms\GXTEditorWindow.Designer.cs">
       <DependentUpon>GXTEditorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameFiles\ConfigFile.cs" />
+    <Compile Include="GameFiles\ConfigSections\IDESections.cs" />
     <Compile Include="GameFiles\FXTFile.cs" />
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
