@@ -81,7 +81,7 @@ namespace OpenIII.GameFiles
 
             while (!Reader.EndOfStream)
             {
-                Reader.ReadLine();
+                lineIterator = Reader.ReadLine();
 
                 if (lineIterator != "" && Char.IsLetterOrDigit(lineIterator[0]))
                 {
