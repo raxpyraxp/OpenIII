@@ -64,6 +64,10 @@ namespace OpenIII.Utils
                     fxtEditorWindow.Show();
                     break;
                 case ".ide":
+                    TestWindow testWindow = new TestWindow();
+                    testWindow.OpenFile(new IDEFile(file.FullPath));
+                    testWindow.Show();
+                    break;
                 case ".ipl":
                 case ".dat":
                 case ".txt":
