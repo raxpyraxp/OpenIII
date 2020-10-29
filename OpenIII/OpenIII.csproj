@@ -106,6 +106,12 @@
     <Compile Include="Forms\SetGamePathWindow.Designer.cs">
       <DependentUpon>SetGamePathWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TestWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestWindow.Designer.cs">
+      <DependentUpon>TestWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameFiles\ArchiveFile.cs" />
     <Compile Include="GameFiles\ArchiveFileV1.cs" />
     <Compile Include="GameFiles\ArchiveFileV2.cs" />
@@ -117,6 +123,7 @@
     </Compile>
     <Compile Include="GameFiles\ConfigFile.cs" />
     <Compile Include="GameFiles\ConfigSections\IDESections.cs" />
+    <Compile Include="GameFiles\ConfigSections\IPLSections.cs" />
     <Compile Include="GameFiles\FXTFile.cs" />
     <Compile Include="GameFiles\GameDirectory.cs" />
     <Compile Include="GameFiles\GameFile.cs" />
@@ -166,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SetGamePathWindow.resx">
       <DependentUpon>SetGamePathWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestWindow.resx">
+      <DependentUpon>TestWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TextEditorWindow.resx">
       <DependentUpon>TextEditorWindow.cs</DependentUpon>
