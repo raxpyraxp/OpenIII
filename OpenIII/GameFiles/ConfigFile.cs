@@ -49,7 +49,7 @@ namespace OpenIII.GameFiles
 
             foreach (ConfigSection configSection in this.ConfigSections)
             {
-                buf += configSection.ToString() + '\n';
+                buf += configSection.ToString() + "\r\n";
             }
 
             return buf;
@@ -82,9 +82,9 @@ namespace OpenIII.GameFiles
         /// <returns></returns>
         public override string ToString()
         {
-            var rows = string.Join<ConfigRow>("\n", this.ConfigRows.ToArray());
+            var rows = string.Join<ConfigRow>("\r\n", this.ConfigRows.ToArray());
 
-            return this.Name + "\n" + rows + "\n" + "end";
+            return this.Name + "\r\n" + rows + "\r\n" + "end";
         }
     }
 
