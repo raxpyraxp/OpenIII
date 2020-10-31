@@ -139,7 +139,7 @@ namespace OpenIII.GameFiles
                                     nodesParamsBuf = new List<string>(lineIterator.Split(','));
                                 }
 
-                                ConfigSections.Last().ConfigRows.Add(new PATH(
+                                ConfigSections.Last().ConfigRows.Add(new PATHType1(
                                     paramsBuf[0],
                                     Int32.Parse(paramsBuf[1]),
                                     paramsBuf[2],
@@ -167,7 +167,7 @@ namespace OpenIII.GameFiles
                                     nodesParamsBuf = new List<string>(lineIterator.Split(','));
                                 }
 
-                                ConfigSections.Last().ConfigRows.Add(new PATH(
+                                ConfigSections.Last().ConfigRows.Add(new PATHType2(
                                     paramsBuf[0],
                                     Int32.Parse(paramsBuf[1]),
                                     parsedNodes.ToArray()

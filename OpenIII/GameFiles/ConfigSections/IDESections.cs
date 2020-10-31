@@ -1,6 +1,8 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace OpenIII.GameFiles
 {
@@ -1204,27 +1206,52 @@ namespace OpenIII.GameFiles
     public class PATH : ConfigRow
     {
         public const string SectionName = "path";
+        protected List<PATHNode> Nodes = new List<PATHNode>();
 
-        private List<PATHNode> Nodes = new List<PATHNode>();
+        public override string ToString()
+        {
+            string nodes = null;
+            var result = this.GetType()
+                             .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Select(field => field.GetValue(this))     
+                             .ToList();
 
+            // удалёна коллекция узлов путей, так как узлы выводятся отдельно
+            result.RemoveAt(result.Count - 1);
+
+            foreach (var node in this.Nodes)
+            {
+                nodes += "\t" + node.ToString() + "\r\n";
+            }
+
+            return string.Join(", ", result) + "\r\n" + nodes;
+        }
+    }
+
+    public class PATHType1 : PATH
+    {
         private string GroupType { get; set; }
 
         private int Id { get; set; }
 
         private string ModelName { get; set; }
 
-        private int Delimiter { get; set; }
-
-
-        public PATH(string groupType, int id, string modelName, PATHNode[] nodes)
+        public PATHType1(string groupType, int id, string modelName, PATHNode[] nodes)
         {
             this.GroupType = groupType;
             this.Id = id;
             this.ModelName = modelName;
             this.Nodes = nodes.OfType<PATHNode>().ToList();
         }
+    }
 
-        public PATH(string groupType, int delimiter, PATHNode[] nodes)
+    public class PATHType2 : PATH
+    {
+        private string GroupType { get; set; }
+
+        private int Delimiter { get; set; }
+
+        public PATHType2(string groupType, int delimiter, PATHNode[] nodes)
         {
             this.GroupType = groupType;
             this.Delimiter = delimiter;
@@ -1252,7 +1279,6 @@ namespace OpenIII.GameFiles
 
         private int RightLanes { get; set; }
 
-
         private double XRel { get; set; }
 
         private double YRel { get; set; }
@@ -1272,7 +1298,6 @@ namespace OpenIII.GameFiles
         private int Flags { get; set; }
 
         private double SpawnRate { get; set; }
-
 
         public PATHNode(int nodeType, int nextNode, int isCrossRoad, double x, double y, double z, double unknown, int leftLanes, int rightLanes)
         {
@@ -1298,6 +1323,19 @@ namespace OpenIII.GameFiles
             this.LeftLanes = leftLanes;
             this.RightLanes = rightLanes;
             this.Median = median;
+        }
+
+        /// <summary>
+        /// Создаёт строку из всех параметров, разделённых запятыми
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            var result = this.GetType()
+                             .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Select(field => field.GetValue(this))
+                             .ToArray();
+            return string.Join(", ", result);
         }
     }
 }
