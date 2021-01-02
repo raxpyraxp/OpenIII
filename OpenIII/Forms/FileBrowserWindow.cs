@@ -29,6 +29,7 @@ using System.IO;
 using OpenIII.GameFiles;
 using OpenIII.Utils;
 using OpenIII.Forms;
+using OpenIII.GameDefinitions;
 
 namespace OpenIII
 {
@@ -505,6 +506,12 @@ namespace OpenIII
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnGtaPathChanged(object sender, PathEventArgs e)
         {
+            Properties.Settings.Default.GTAPath = e.Path;
+            Properties.Settings.Default.Save();
+
+            Game game = Game.ObtainGameDefinitionFromPath(e.Path);
+            Game.Instance = game;
+
             OpenDir(new GameDirectory(e.Path));
         }
 

@@ -30,6 +30,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using OpenIII.GameDefinitions;
 
 namespace OpenIII
 {
@@ -103,7 +104,7 @@ namespace OpenIII
         /// </summary>
         private void Check()
         {
-            switch (GameManager.GetGameFromPath(gtaPathTextBox.Text))
+            /*switch (GameManager.GetGameFromPath(gtaPathTextBox.Text))
             {
                 case Game.III:
                     statusLabel.ForeColor = Color.Green;
@@ -125,6 +126,21 @@ namespace OpenIII
                     statusLabel.Text = "Game not detected! Check your game directory.";
                     nextButton.Enabled = false;
                     break;
+            }*/
+
+            Game definition = Game.ObtainGameDefinitionFromPath(gtaPathTextBox.Text);
+
+            if (definition.IsDefined)
+            {
+                statusLabel.ForeColor = Color.Green;
+                statusLabel.Text = "Detected " + definition.Name;
+                nextButton.Enabled = true;
+            }
+            else
+            {
+                statusLabel.ForeColor = Color.Red;
+                statusLabel.Text = "Game not detected! Check your game directory.";
+                nextButton.Enabled = false;
             }
         }
 

@@ -112,6 +112,10 @@
     <Compile Include="Forms\TestWindow.Designer.cs">
       <DependentUpon>TestWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameDefinitions\Game.cs" />
+    <Compile Include="GameDefinitions\GTAIIIGame.cs" />
+    <Compile Include="GameDefinitions\GTASAGame.cs" />
+    <Compile Include="GameDefinitions\GTAVCGame.cs" />
     <Compile Include="GameFiles\ArchiveFile.cs" />
     <Compile Include="GameFiles\ArchiveFileV1.cs" />
     <Compile Include="GameFiles\ArchiveFileV2.cs" />
@@ -147,7 +151,6 @@
       <DependentUpon>DataEditorWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\PathEventArgs.cs" />
-    <Compile Include="Utils\GameManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameFiles\TextFile.cs" />

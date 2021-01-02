@@ -23,6 +23,7 @@
 
 using System;
 using System.Windows.Forms;
+using OpenIII.GameDefinitions;
 using OpenIII.GameFiles;
 
 namespace OpenIII
@@ -64,8 +65,12 @@ namespace OpenIII
         /// </summary>
         public OpenIIIApplicationContext()
         {
-            if (Properties.Settings.Default.GTAPath != "")
+            string path = Properties.Settings.Default.GTAPath;
+            Game game = Game.ObtainGameDefinitionFromPath(path);
+
+            if (path != "" && game.IsDefined)
             {
+                Game.Instance = game;
                 ShowFileBrowserWindow();
             }
             else
@@ -135,6 +140,10 @@ namespace OpenIII
             Properties.Settings.Default.GTAPath = e.Path;
             Properties.Settings.Default.Save();
             setGamePathWindow.FormClosed -= OnClosed;
+
+            Game game = Game.ObtainGameDefinitionFromPath(e.Path);
+            Game.Instance = game;
+            
             ShowFileBrowserWindow();
         }
     }
