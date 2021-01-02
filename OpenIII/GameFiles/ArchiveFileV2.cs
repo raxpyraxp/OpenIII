@@ -153,6 +153,28 @@ namespace OpenIII.GameFiles
         {
         }
 
+        public new static ArchiveFile Create(string path)
+        {
+            // Create .img file
+            FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            
+            // Version 2 signature
+            stream.Write(Encoding.ASCII.GetBytes("VER2"), 0, 4);
+
+            // Number of entries
+            stream.Write(new byte[] { 0x0, 0x0, 0x0, 0x0 }, 0, 4);
+
+            // Dir section
+            // TODO: make a static constant
+            stream.Seek(0x7F800 - 1, SeekOrigin.Begin);
+            stream.WriteByte(0);
+
+            stream.Flush();
+            stream.Close();
+            
+            return new ArchiveFileV2(path);
+        }
+
         /// <summary>
         /// Reads the version from the <see cref="ArchiveFile"/>
         /// </summary>
@@ -307,7 +329,18 @@ namespace OpenIII.GameFiles
         /// </returns>
         public int GetFirstFileOffset()
         {
-            return GetFirstFile().Offset;
+            GameFile file = GetFirstFile();
+
+            if (file == null)
+            {
+                // TODO: this is wrong, but we assume that file is valid and doesn't contain any file.
+                // Offset in IMG is int, so it is required to be int
+                return (int)Length;
+            }
+            else
+            {
+                return GetFirstFile().Offset;
+            }
         }
 
         /// <summary>

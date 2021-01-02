@@ -166,15 +166,16 @@ namespace OpenIII
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iMGArchiveToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // iMGArchiveToolStripMenuItem
             // 
             this.iMGArchiveToolStripMenuItem.Name = "iMGArchiveToolStripMenuItem";
-            this.iMGArchiveToolStripMenuItem.Size = new System.Drawing.Size(175, 26);
+            this.iMGArchiveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.iMGArchiveToolStripMenuItem.Text = ".IMG Archive";
+            this.iMGArchiveToolStripMenuItem.Click += new System.EventHandler(this.iMGArchiveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 

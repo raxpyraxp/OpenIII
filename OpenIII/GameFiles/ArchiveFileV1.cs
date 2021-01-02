@@ -125,6 +125,17 @@ namespace OpenIII.GameFiles
 
         }
 
+        public new static ArchiveFile Create(string path)
+        {
+            // Create .img file
+            new FileStream(path, FileMode.Create, FileAccess.Write).Close();
+
+            // Create .dir file
+            new FileStream(GetDirFilePath(path), FileMode.Create, FileAccess.Write).Close();
+
+            return new ArchiveFileV1(path);
+        }
+
         /// <summary>
         /// Gets .dir file path based on <see cref="ArchiveFile"/> path
         /// </summary>

@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using OpenIII.GameDefinitions;
 using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
@@ -230,10 +231,19 @@ namespace OpenIII.GameFiles
             throw new NotImplementedException();
         }
 
-        /*public static ArchiveFile Create(string path)
+        public static ArchiveFile Create(string path)
         {
-            Stream stream = 
-        }*/
+            switch (Game.Instance.imgVersion)
+            {
+                case ArchiveFileVersion.V1:
+                    return ArchiveFileV1.Create(path);
+                case ArchiveFileVersion.V2:
+                    return ArchiveFileV2.Create(path);
+                default:
+                    throw new InvalidOperationException();
+            }
+
+        }
 
         /// <summary>
         /// Экспортирует файл из архива

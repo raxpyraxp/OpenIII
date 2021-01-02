@@ -67,6 +67,8 @@ namespace OpenIII
         /// </summary>
         private GameDirectory rootDir;
 
+        private GameDirectory currentDir;
+
         /// <summary>
         /// Form constructor
         /// </summary>
@@ -112,6 +114,7 @@ namespace OpenIII
         public void OpenDir(GameDirectory rootDir)
         {
             this.rootDir = rootDir;
+            this.currentDir = rootDir;
             archiveFile = null;
             SetFileListView(rootDir.GetContent());
             SetDirListView(rootDir);
@@ -349,6 +352,7 @@ namespace OpenIII
                     if (resource is GameDirectory)
                     {
                         GameDirectory dir = (GameDirectory)resource;
+                        currentDir = dir;
                         ExpandDirectoryNode(dir);
                         SetFileListView(dir.GetContent());
                     }
@@ -445,6 +449,7 @@ namespace OpenIII
         {
             GameDirectory dir = (GameDirectory)e.Node.Tag;
             archiveFile = null;
+            currentDir = dir;
             SetFileListView(dir.GetContent());
         }
 
@@ -648,6 +653,18 @@ namespace OpenIII
                 default:
                     break;
             }
+        }
+
+        private void iMGArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewArchiveWindow window = new NewArchiveWindow();
+            window.OnPathSet += (s, ee) =>
+            {
+                ArchiveFile file = ArchiveFile.Create(Path.Combine(currentDir.FullPath, ee.Path));
+                OpenArchive(file);
+            };
+
+            window.ShowDialog();
         }
     }
 }
