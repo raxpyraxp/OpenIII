@@ -59,7 +59,15 @@ namespace OpenIII.GameDefinitions
         /// <summary xml:lang="ru">
         /// Поддерживаемая версия IMG архива
         /// </summary>
-        public override ArchiveFileVersion imgVersion { get => ArchiveFileVersion.V2; }
+        public override ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.V2; }
+
+        /// <summary>
+        /// Supported GXT version
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Поддерживаемая версия GXT
+        /// </summary>
+        public override GXTFileVersion GxtVersion { get => GXTFileVersion.SA; }
 
         /// <summary>
         /// Constructor for game definition

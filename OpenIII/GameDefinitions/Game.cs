@@ -101,7 +101,15 @@ namespace OpenIII.GameDefinitions
         /// <summary xml:lang="ru">
         /// Поддерживаемая версия IMG архива
         /// </summary>
-        public virtual ArchiveFileVersion imgVersion { get => ArchiveFileVersion.Unknown; }
+        public virtual ArchiveFileVersion ImgVersion { get => ArchiveFileVersion.Unknown; }
+
+        /// <summary>
+        /// Supported GXT version
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Поддерживаемая версия GXT
+        /// </summary>
+        public virtual GXTFileVersion GxtVersion { get => GXTFileVersion.Unknown; }
 
         /// <summary>
         /// Default constructor for game instance
