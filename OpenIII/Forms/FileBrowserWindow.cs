@@ -76,6 +76,7 @@ namespace OpenIII
         public FileBrowserWindow()
         {
             InitializeComponent();
+            gameToolStripStatusLabel.Text = Game.Instance.Name;
         }
 
         /// <summary>
@@ -511,6 +512,8 @@ namespace OpenIII
 
             Game game = Game.ObtainGameDefinitionFromPath(e.Path);
             Game.Instance = game;
+
+            gameToolStripStatusLabel.Text = game.Name;
 
             OpenDir(new GameDirectory(e.Path));
         }

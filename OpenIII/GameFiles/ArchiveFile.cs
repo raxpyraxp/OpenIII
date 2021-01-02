@@ -230,6 +230,11 @@ namespace OpenIII.GameFiles
             throw new NotImplementedException();
         }
 
+        /*public static ArchiveFile Create(string path)
+        {
+            Stream stream = 
+        }*/
+
         /// <summary>
         /// Экспортирует файл из архива
         /// </summary>

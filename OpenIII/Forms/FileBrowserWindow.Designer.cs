@@ -59,6 +59,7 @@ namespace OpenIII
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iMGArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +75,8 @@ namespace OpenIII
             this.setGamePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.iMGArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSeparator = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -111,7 +113,9 @@ namespace OpenIII
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.totalFilesTitleLabel,
-            this.totalFilesLabel});
+            this.totalFilesLabel,
+            this.toolStripStatusLabelSeparator,
+            this.gameToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 424);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
@@ -142,7 +146,7 @@ namespace OpenIII
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -154,7 +158,7 @@ namespace OpenIII
             this.exitToolStripMenuItem});
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.testToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -162,21 +166,27 @@ namespace OpenIII
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iMGArchiveToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // iMGArchiveToolStripMenuItem
+            // 
+            this.iMGArchiveToolStripMenuItem.Name = "iMGArchiveToolStripMenuItem";
+            this.iMGArchiveToolStripMenuItem.Size = new System.Drawing.Size(175, 26);
+            this.iMGArchiveToolStripMenuItem.Text = ".IMG Archive";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
             // 
@@ -192,7 +202,7 @@ namespace OpenIII
             this.replaceToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // cutToolStripMenuItem
@@ -256,7 +266,7 @@ namespace OpenIII
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setGamePathToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 26);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // setGamePathToolStripMenuItem
@@ -271,7 +281,7 @@ namespace OpenIII
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem1});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem1
@@ -281,11 +291,18 @@ namespace OpenIII
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
-            // iMGArchiveToolStripMenuItem
+            // gameToolStripStatusLabel
             // 
-            this.iMGArchiveToolStripMenuItem.Name = "iMGArchiveToolStripMenuItem";
-            this.iMGArchiveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.iMGArchiveToolStripMenuItem.Text = ".IMG Archive";
+            this.gameToolStripStatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.gameToolStripStatusLabel.Name = "gameToolStripStatusLabel";
+            this.gameToolStripStatusLabel.Size = new System.Drawing.Size(92, 20);
+            this.gameToolStripStatusLabel.Text = "Game Name";
+            // 
+            // toolStripStatusLabelSeparator
+            // 
+            this.toolStripStatusLabelSeparator.Name = "toolStripStatusLabelSeparator";
+            this.toolStripStatusLabelSeparator.Size = new System.Drawing.Size(495, 20);
+            this.toolStripStatusLabelSeparator.Spring = true;
             // 
             // FileBrowserWindow
             // 
@@ -335,5 +352,7 @@ namespace OpenIII
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iMGArchiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel gameToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeparator;
     }
 }
