@@ -26,6 +26,10 @@ using System.IO;
 using System.Drawing;
 using OpenIII.Utils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using OpenIII.Forms;
+using System.Threading;
 
 namespace OpenIII.GameFiles
 {
@@ -145,6 +149,8 @@ namespace OpenIII.GameFiles
         /// Расширение файла <see cref="GameFile"/>
         /// </summary>
         public override string Extension { get => FileInfo.Extension; }
+
+        public delegate void UpdateProgressDelegate(int percent, string description = "");
 
         /// <summary>
         /// Default <see cref="GameFile"/> constructor for the file in the file system
@@ -312,6 +318,11 @@ namespace OpenIII.GameFiles
         public void Extract(String destinationPath)
         {
             ParentArchive.ExtractFile(this, destinationPath);
+        }
+
+        public void ExtractAsync(String destinationPath, CancellationToken ct, UpdateProgressDelegate callback)
+        {
+            ParentArchive.ExtractFileAsync(this, destinationPath, ct, callback);
         }
 
         /// <summary>

@@ -106,6 +106,12 @@
     <Compile Include="Forms\NewArchiveWindow.Designer.cs">
       <DependentUpon>NewArchiveWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProgressBarWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressBarWindow.Designer.cs">
+      <DependentUpon>ProgressBarWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SetGamePathWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewArchiveWindow.resx">
       <DependentUpon>NewArchiveWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressBarWindow.resx">
+      <DependentUpon>ProgressBarWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SetGamePathWindow.resx">
       <DependentUpon>SetGamePathWindow.cs</DependentUpon>

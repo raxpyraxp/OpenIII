@@ -24,8 +24,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using OpenIII.GameDefinitions;
-using OpenIII.Utils;
 
 namespace OpenIII.GameFiles
 {
@@ -260,6 +260,32 @@ namespace OpenIII.GameFiles
             {
                 int read = stream.Read(buf, 0, SECTOR_SIZE);
                 destinationFile.Write(buf, 0, read);
+            }
+
+            destinationFile.Flush();
+            destinationFile.Close();
+            stream.Close();
+        }
+
+        public void ExtractFileAsync(GameFile entry, string destination, CancellationToken ct, UpdateProgressDelegate callback)
+        {
+            callback.Invoke(0, string.Format("Extracting {0}", entry.Name));
+            Stream stream = entry.GetStream(FileMode.Open, FileAccess.Read);
+            FileStream destinationFile = new FileStream(destination, FileMode.Create, FileAccess.Write);
+            byte[] buf = new byte[SECTOR_SIZE];
+
+            while (stream.Position < stream.Length)
+            {
+                if (ct.IsCancellationRequested)
+                {
+                    destinationFile.Close();
+                    File.Delete(destination);
+                    return;
+                }
+
+                int read = stream.Read(buf, 0, SECTOR_SIZE);
+                destinationFile.Write(buf, 0, read);
+                callback.Invoke((int)((float)stream.Position / stream.Length * 100), string.Format("Extracting {0}", entry.Name));
             }
 
             destinationFile.Flush();

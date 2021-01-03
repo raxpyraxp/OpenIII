@@ -30,6 +30,8 @@ using OpenIII.GameFiles;
 using OpenIII.Utils;
 using OpenIII.Forms;
 using OpenIII.GameDefinitions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace OpenIII
 {
@@ -673,7 +675,7 @@ namespace OpenIII
 
                 if (result == DialogResult.OK)
                 {
-                    entry.Extract(dialog.InitialDirectory + dialog.FileName);
+                    ExtractAsync(entry, dialog.InitialDirectory + dialog.FileName);
                 }
             }
             else if (fileListView.SelectedItems.Count > 1)
@@ -689,12 +691,8 @@ namespace OpenIII
                         entries.Add((GameFile)entry.Tag);
                     }
 
-                    foreach (GameFile entry in entries)
-                    {
-                        entry.Extract(dialog.SelectedPath + '\\' + entry.Name);
-                    }
-
-                    MessageBox.Show("Done!");
+                    MultipleExtractAsync(entries, dialog.SelectedPath);
+                    //MessageBox.Show("Done!");
                 }
 
                 return;
@@ -703,6 +701,54 @@ namespace OpenIII
             {
                 return;
             }
+        }
+
+        private void ExtractAsync(GameFile entry, string destination)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ProgressBarWindow window = new ProgressBarWindow();
+
+            window.StartDialogWithAction(() => entry.ExtractAsync(destination, tokenSource.Token, (progress, description) =>
+            {
+                window.InvokeOnThread(new Action(() =>
+                {
+                    window.SetProgress(progress);
+                    window.SetOperationText(description);
+
+                    if (progress == 100)
+                    {
+                        window.Close();
+                    }
+                }));
+            }), tokenSource);
+        }
+
+        private void MultipleExtractAsync(List<GameFile> entries, string destination)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ProgressBarWindow window = new ProgressBarWindow();
+
+            window.StartDialogWithAction(() => {
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (tokenSource.Token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    entries[i].ExtractAsync(destination + '\\' + entries[i].Name, tokenSource.Token, (progress, description) =>
+                    {
+                        window.InvokeOnThread(new Action(() =>
+                        {
+                            int percent = (int)((float)i / entries.Count * 100);
+                            window.SetProgress(percent);
+                            window.SetOperationText(String.Format("({0}/{1}) {2}", i+1, entries.Count, description));
+                        }));
+                    });
+                }
+
+                window.InvokeOnThread(new Action(() => window.Close()));
+            }, tokenSource);
         }
 
         private void ViewModeChangeClick(object sender, EventArgs e)
