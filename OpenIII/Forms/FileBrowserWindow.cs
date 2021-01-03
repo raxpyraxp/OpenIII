@@ -704,5 +704,33 @@ namespace OpenIII
                 return;
             }
         }
+
+        private void ViewModeChangeClick(object sender, EventArgs e)
+        {
+            if (sender == largeIconToolStripMenuItem)
+            {
+                fileListView.View = View.LargeIcon;
+            }
+
+            if (sender == smallIconToolStripMenuItem)
+            {
+                fileListView.View = View.SmallIcon;
+            }
+
+            if (sender == detailsToolStripMenuItem)
+            {
+                fileListView.View = View.Details;
+            }
+
+            if (sender == listToolStripMenuItem)
+            {
+                fileListView.View = View.List;
+            }
+
+            if (sender == tileToolStripMenuItem)
+            {
+                fileListView.View = View.Tile;
+            }
+        }
     }
 }

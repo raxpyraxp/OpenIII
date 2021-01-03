@@ -62,6 +62,7 @@ namespace OpenIII
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imgArchiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gXTFXTLocalizationFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,11 +74,16 @@ namespace OpenIII
             this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.largeIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smallIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setGamePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gXTFXTLocalizationFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -155,6 +161,7 @@ namespace OpenIII
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
@@ -181,7 +188,7 @@ namespace OpenIII
             this.imgArchiveToolStripMenuItem,
             this.gXTFXTLocalizationFileToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.newToolStripMenuItem.Text = "New";
             // 
             // imgArchiveToolStripMenuItem
@@ -191,17 +198,24 @@ namespace OpenIII
             this.imgArchiveToolStripMenuItem.Text = ".IMG Archive";
             this.imgArchiveToolStripMenuItem.Click += new System.EventHandler(this.OnCreateImgArchiveClick);
             // 
+            // gXTFXTLocalizationFileToolStripMenuItem
+            // 
+            this.gXTFXTLocalizationFileToolStripMenuItem.Name = "gXTFXTLocalizationFileToolStripMenuItem";
+            this.gXTFXTLocalizationFileToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
+            this.gXTFXTLocalizationFileToolStripMenuItem.Text = ".GXT/.FXT Localization File";
+            this.gXTFXTLocalizationFileToolStripMenuItem.Click += new System.EventHandler(this.OnCreateGxtClick);
+            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
             // 
@@ -277,6 +291,54 @@ namespace OpenIII
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnDeleteClick);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.largeIconToolStripMenuItem,
+            this.smallIconToolStripMenuItem,
+            this.detailsToolStripMenuItem,
+            this.listToolStripMenuItem,
+            this.tileToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // largeIconToolStripMenuItem
+            // 
+            this.largeIconToolStripMenuItem.Name = "largeIconToolStripMenuItem";
+            this.largeIconToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.largeIconToolStripMenuItem.Text = "Large icon";
+            this.largeIconToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
+            // 
+            // smallIconToolStripMenuItem
+            // 
+            this.smallIconToolStripMenuItem.Name = "smallIconToolStripMenuItem";
+            this.smallIconToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.smallIconToolStripMenuItem.Text = "Small icon";
+            this.smallIconToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
+            // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.detailsToolStripMenuItem.Text = "Detail";
+            this.detailsToolStripMenuItem.Visible = false;
+            this.detailsToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
+            // 
+            // listToolStripMenuItem
+            // 
+            this.listToolStripMenuItem.Name = "listToolStripMenuItem";
+            this.listToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.listToolStripMenuItem.Text = "List";
+            this.listToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
+            // 
+            // tileToolStripMenuItem
+            // 
+            this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
+            this.tileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.tileToolStripMenuItem.Text = "Tile";
+            this.tileToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
+            // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -306,13 +368,6 @@ namespace OpenIII
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutMenuItemClick);
-            // 
-            // gXTFXTLocalizationFileToolStripMenuItem
-            // 
-            this.gXTFXTLocalizationFileToolStripMenuItem.Name = "gXTFXTLocalizationFileToolStripMenuItem";
-            this.gXTFXTLocalizationFileToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
-            this.gXTFXTLocalizationFileToolStripMenuItem.Text = ".GXT/.FXT Localization File";
-            this.gXTFXTLocalizationFileToolStripMenuItem.Click += new System.EventHandler(this.OnCreateGxtClick);
             // 
             // FileBrowserWindow
             // 
@@ -366,5 +421,11 @@ namespace OpenIII
         private System.Windows.Forms.ToolStripStatusLabel gameToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeparator;
         private System.Windows.Forms.ToolStripMenuItem gXTFXTLocalizationFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem largeIconToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smallIconToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
     }
 }
