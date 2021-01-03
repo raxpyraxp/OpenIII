@@ -671,18 +671,62 @@ namespace OpenIII
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnDeleteClick(object sender, EventArgs e)
         {
-            GameFile resource = (GameFile)fileListView.SelectedItems[0].Tag;
-            DialogResult dialogResult = MessageBox.Show("Do you really want to delete selected file?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (fileListView.SelectedItems.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you really want to delete selected file?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (dialogResult == DialogResult.Yes)
-            {
-                resource.Delete();
-                RefreshFileList();
+                if (dialogResult == DialogResult.Yes)
+                {
+                    List<GameFile> files = new List<GameFile>();
+
+                    foreach (ListViewItem item in fileListView.SelectedItems)
+                    {
+                        files.Add((GameFile)item.Tag);
+                    }
+
+                    MultipleDeleteAsync(files);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
             }
-            else if (dialogResult == DialogResult.No)
-            {
-                return;
-            }
+        }
+
+        private void MultipleDeleteAsync(List<GameFile> entries)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ProgressBarWindow window = new ProgressBarWindow();
+
+            window.StartDialogWithAction(() => {
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (tokenSource.Token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    window.InvokeOnThread(new Action(() =>
+                    {
+                        int percent = (int)((float)i / entries.Count * 100);
+                        window.SetProgress(percent);
+                        window.SetOperationText(String.Format("({0}/{1}) Deleting {2}", i + 1, entries.Count, entries[i].Name));
+                    }));
+
+                    entries[i].Delete();
+                }
+
+                window.InvokeOnThread(new Action(() =>
+                {
+                    window.Close();
+                }));
+
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() => RefreshFileList()));
+                }
+
+            }, tokenSource);
         }
 
         private void OnCreateGxtClick(object sender, EventArgs e)
