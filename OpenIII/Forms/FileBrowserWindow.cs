@@ -33,6 +33,12 @@ using OpenIII.GameDefinitions;
 
 namespace OpenIII
 {
+    public enum FileBrowserWindowMode
+    {
+        FILE_BROWSER,
+        ARCHIVE_BROWSER
+    }
+
     /// <summary>
     /// File browser window, the main form of this app
     /// </summary>
@@ -69,6 +75,8 @@ namespace OpenIII
 
         private GameDirectory currentDir;
 
+        private FileBrowserWindowMode mode;
+
         /// <summary>
         /// Form constructor
         /// </summary>
@@ -79,6 +87,7 @@ namespace OpenIII
         {
             InitializeComponent();
             gameToolStripStatusLabel.Text = Game.Instance.Name;
+            SwitchToDirMode();
         }
 
         /// <summary>
@@ -116,6 +125,7 @@ namespace OpenIII
             this.rootDir = rootDir;
             this.currentDir = rootDir;
             archiveFile = null;
+            SwitchToDirMode();
             SetFileListView(rootDir.GetContent());
             SetDirListView(rootDir);
         }
@@ -131,9 +141,30 @@ namespace OpenIII
         public void OpenArchive(ArchiveFile archive)
         {
             archiveFile = archive;
+            SwitchToArchiveMode();
             SetFileListView(archiveFile.GetFileList());
             SetTotalFiles(archiveFile.TotalFiles);
             fileTreeView.SelectedNode = null;
+        }
+
+        public void SwitchToDirMode()
+        {
+            mode = FileBrowserWindowMode.FILE_BROWSER;
+            extractToolStripMenuItem.Visible = false;
+            insertToolStripMenuItem.Visible = false;
+            replaceToolStripMenuItem.Visible = false;
+            totalFilesLabel.Visible = false;
+            totalFilesTitleLabel.Visible = false;
+        }
+
+        public void SwitchToArchiveMode()
+        {
+            mode = FileBrowserWindowMode.ARCHIVE_BROWSER;
+            extractToolStripMenuItem.Visible = true;
+            insertToolStripMenuItem.Visible = true;
+            replaceToolStripMenuItem.Visible = true;
+            totalFilesLabel.Visible = true;
+            totalFilesTitleLabel.Visible = true;
         }
 
         /// <summary>
@@ -342,7 +373,7 @@ namespace OpenIII
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnFileListViewDoubleClick(object sender, EventArgs e)
         {
-            if (archiveFile == null)
+            if (mode == FileBrowserWindowMode.FILE_BROWSER)
             {
                 // If browsing directory
                 if (fileListView.SelectedItems.Count == 1)
@@ -410,6 +441,7 @@ namespace OpenIII
             GameDirectory dir = (GameDirectory)e.Node.Tag;
             archiveFile = null;
             currentDir = dir;
+            SwitchToDirMode();
             SetFileListView(dir.GetContent());
         }
 
@@ -491,7 +523,7 @@ namespace OpenIII
         /// </summary>
         private void RefreshFileList()
         {
-            if (archiveFile == null)
+            if (mode == FileBrowserWindowMode.FILE_BROWSER)
             {
                 OpenDir(rootDir);
             }
@@ -535,7 +567,7 @@ namespace OpenIII
 
             if (result == DialogResult.OK)
             {
-                if (archiveFile != null)
+                if (mode == FileBrowserWindowMode.FILE_BROWSER)
                 {
                     archiveFile.InsertFile(new GameFile(dialog.FileName));
                 }
