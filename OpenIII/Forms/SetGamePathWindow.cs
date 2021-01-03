@@ -85,13 +85,38 @@ namespace OpenIII
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void SelectPathButtonClick(object sender, EventArgs e)
         {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT
+                && Environment.OSVersion.Version.Major > 5)
+            {
+                OpenVistaDialog();
+            }
+            else
+            {
+                OpenFolderDialog();
+            }
+        }
+
+        private void OpenVistaDialog()
+        {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             CommonFileDialogResult result = dialog.ShowDialog();
-            
+
             if (result == CommonFileDialogResult.Ok)
             {
                 gtaPathTextBox.Text = dialog.FileName;
+                Check();
+            }
+        }
+
+        private void OpenFolderDialog()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                gtaPathTextBox.Text = dialog.SelectedPath;
                 Check();
             }
         }
