@@ -566,17 +566,97 @@ namespace OpenIII
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "All Files|*.*";
             dialog.Title = "Insert File...";
+            dialog.Multiselect = true;
             DialogResult result = dialog.ShowDialog();
 
             if (result == DialogResult.OK)
             {
-                if (mode == FileBrowserWindowMode.FILE_BROWSER)
+                if (mode == FileBrowserWindowMode.ARCHIVE_BROWSER)
                 {
-                    archiveFile.InsertFile(new GameFile(dialog.FileName));
+                    if (dialog.FileNames.Length > 1)
+                    {
+                        List<GameFile> files = new List<GameFile>();
+
+                        foreach (string filename in dialog.FileNames)
+                        {
+                            files.Add(new GameFile(filename));
+                        }
+
+                        MultipleInsertAsync(files);
+                    }
+                    else
+                    {
+                        InsertAsync(new GameFile(dialog.FileNames[0]));
+                    }
                 }
             }
 
-            RefreshFileList();
+            //RefreshFileList();
+        }
+
+        private void InsertAsync(GameFile entry)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ProgressBarWindow window = new ProgressBarWindow();
+
+            window.StartDialogWithAction(() =>
+            {
+                archiveFile.InsertFileAsync(entry, tokenSource.Token, (progress, description) =>
+                {
+                    window.InvokeOnThread(new Action(() =>
+                    {
+                        window.SetProgress(progress);
+                        window.SetOperationText(description);
+
+                        if (progress == 100)
+                        {
+                            window.Close();
+                        }
+                    }));
+                });
+
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() => RefreshFileList()));
+                }
+            }, tokenSource);
+        }
+
+        private void MultipleInsertAsync(List<GameFile> entries)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ProgressBarWindow window = new ProgressBarWindow();
+
+            window.StartDialogWithAction(() => {
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (tokenSource.Token.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
+                    archiveFile.InsertFileAsync(entries[i], tokenSource.Token, (progress, description) =>
+                    {
+                        window.InvokeOnThread(new Action(() =>
+                        {
+                            int percent = (int)((float)i / entries.Count * 100);
+                            window.SetProgress(percent);
+                            window.SetOperationText(String.Format("({0}/{1}) {2}", i + 1, entries.Count, description));
+                        }));
+                    });
+                }
+
+                window.InvokeOnThread(new Action(() =>
+                {
+                    window.Close();
+                }));
+
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() => RefreshFileList()));
+                }
+
+            }, tokenSource);
         }
 
         /// <summary>

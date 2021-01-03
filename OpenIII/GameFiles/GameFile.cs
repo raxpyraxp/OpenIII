@@ -385,9 +385,11 @@ namespace OpenIII.GameFiles
             }
             else
             {
+                // Length can be different for newly added files and file in archive, but offset + name + parent archive are always equal
+                // This is because we have a length in bytes for filesystem entities and a length in sectors for archived files
                 return file.Name == this.Name &&
                     file.Offset == this.Offset &&
-                    file.Length == this.Length &&
+                    //file.Length == this.Length &&
                     file.ParentArchive.Equals(this.ParentArchive);
             }
         }

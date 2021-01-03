@@ -473,7 +473,8 @@ namespace OpenIII.GameFiles
         /// <param name="offset" xml:lang="ru">Смещение начала файла <paramref name="file"/></param>
         /// <param name="file"><see cref="GameFile"/> that needs new entry to be defined</param>
         /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись о котором необходимо добавить в таблицу</param>
-        public override void AddNewFileEntry(int offset, GameFile file)
+        /// <returns><see cref="GameFile"/> entry for a new file</returns>
+        public override GameFile AddNewFileEntry(int offset, GameFile file)
         {
             List<GameFile> entries = new List<GameFile>();
             int firstFileOffset = GetFirstFileOffset();
@@ -504,7 +505,7 @@ namespace OpenIII.GameFiles
                 tmpFile.Delete();
 
                 // Try to add file entry again
-                AddNewFileEntry(offset, file);
+                return AddNewFileEntry(offset, file);
             }
             else
             {
@@ -520,6 +521,8 @@ namespace OpenIII.GameFiles
 
                 headerStream.Close();
                 archiveStream.Close();
+
+                return new GameFile(offset, (int)file.Length, file.Name, this);
             }
         }
 

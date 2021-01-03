@@ -324,6 +324,39 @@ namespace OpenIII.GameFiles
             sourceStream.Close();
         }
 
+        public void InsertFileAsync(GameFile sourceFile, CancellationToken ct, UpdateProgressDelegate callback)
+        {
+            callback.Invoke(0, string.Format("Inserting {0}", sourceFile.Name));
+            int offset = CalculateOffsetForNewEntry();
+            GameFile addedEntry = AddNewFileEntry(offset, sourceFile);
+
+            Stream sourceStream = sourceFile.GetStream(FileMode.Open, FileAccess.Read);
+            Stream destinationStream = GetStream(FileMode.Open, FileAccess.Write);
+            byte[] buf;
+
+            destinationStream.Seek(offset, SeekOrigin.Begin);
+
+            while (sourceStream.Position < sourceStream.Length)
+            {
+                if (ct.IsCancellationRequested)
+                {
+                    sourceStream.Close();
+                    destinationStream.Close();
+                    DeleteFileEntry(addedEntry);
+                    return;
+                }
+
+                buf = new byte[SECTOR_SIZE];
+                int read = sourceStream.Read(buf, 0, SECTOR_SIZE);
+                destinationStream.Write(buf, 0, SECTOR_SIZE);
+                callback.Invoke((int)((float)sourceStream.Position / sourceStream.Length * 100), string.Format("Inserting {0}", sourceFile.Name));
+            }
+
+            destinationStream.Flush();
+            destinationStream.Close();
+            sourceStream.Close();
+        }
+
         /// <summary>
         /// Deletes <see cref="GameFile"/> from the current <see cref="ArchiveFile"/>
         /// </summary>
@@ -400,7 +433,8 @@ namespace OpenIII.GameFiles
         /// <param name="offset" xml:lang="ru">Смещение начала файла <paramref name="file"/></param>
         /// <param name="file"><see cref="GameFile"/> that needs new entry to be defined</param>
         /// <param name="file" xml:lang="ru">Файл <see cref="GameFile"/>, запись о котором необходимо добавить в таблицу</param>
-        public abstract void AddNewFileEntry(int offset, GameFile file);
+        /// <returns><see cref="GameFile"/> entry for a new file</returns>
+        public abstract GameFile AddNewFileEntry(int offset, GameFile file);
 
         /// <summary>
         /// Deletes the table of contents entry for the <see cref="GameFile"/> from the current <see cref="ArchiveFile"/>
