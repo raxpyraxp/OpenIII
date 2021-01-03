@@ -233,7 +233,7 @@ namespace OpenIII.GameFiles
 
         public static ArchiveFile Create(string path)
         {
-            switch (Game.Instance.imgVersion)
+            switch (Game.Instance.ImgVersion)
             {
                 case ArchiveFileVersion.V1:
                     return ArchiveFileV1.Create(path);
