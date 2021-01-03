@@ -113,21 +113,41 @@ namespace OpenIII
         }
 
         /// <summary>
+        /// Set root directory in the file browser window
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Установить новый корневой каталог в файловом менеджере
+        /// </summary>
+        /// <param name="rootDir">Directory to be opened</param>
+        /// <param name="rootDir" xml:lang="ru">Каталог который необходимо открыть</param>
+        public void OpenRootDir(GameDirectory rootDir)
+        {
+            this.rootDir = rootDir;
+            SetDirListView(rootDir);
+            OpenDir(rootDir);
+        }
+
+        /// <summary>
         /// Open directory in the file browser window
         /// </summary>
         /// <summary xml:lang="ru">
         /// Открыть каталог в файловом менеджере
         /// </summary>
-        /// <param name="rootDir">Directory to be opened</param>
-        /// <param name="rootDir" xml:lang="ru">Каталог который необходимо открыть</param>
-        public void OpenDir(GameDirectory rootDir)
+        /// <param name="dir">Directory to be opened</param>
+        /// <param name="dir" xml:lang="ru">Каталог который необходимо открыть</param>
+        public void OpenDir(GameDirectory dir, bool expand = false)
         {
-            this.rootDir = rootDir;
-            this.currentDir = rootDir;
+            this.currentDir = dir;
             archiveFile = null;
             SwitchToDirMode();
-            SetFileListView(rootDir.GetContent());
-            SetDirListView(rootDir);
+
+            if (expand)
+            {
+                ExpandDirectoryNode(dir);
+            }
+
+            SetFileListView(dir.GetContent());
+            Text = string.Format("OpenIII - [{0}]", currentDir.FullPath);
         }
 
         /// <summary>
@@ -145,6 +165,7 @@ namespace OpenIII
             SetFileListView(archiveFile.GetFileList());
             SetTotalFiles(archiveFile.TotalFiles);
             fileTreeView.SelectedNode = null;
+            Text = string.Format("OpenIII - [{0}]", archiveFile.FullPath);
         }
 
         public void SwitchToDirMode()
@@ -382,10 +403,7 @@ namespace OpenIII
 
                     if (resource is GameDirectory)
                     {
-                        GameDirectory dir = (GameDirectory)resource;
-                        currentDir = dir;
-                        ExpandDirectoryNode(dir);
-                        SetFileListView(dir.GetContent());
+                        OpenDir((GameDirectory)resource, true);
                     }
                     else
                     {
@@ -396,7 +414,7 @@ namespace OpenIII
             else
             {
                 // If browsing archive
-                OnExtractFromArchiveClicked(this, new EventArgs());
+                OnExtractFromArchiveClick(this, new EventArgs());
             }
         }
 
@@ -438,11 +456,7 @@ namespace OpenIII
         /// <param name="e" xml:lang="ru">Аргументы события</param>
         private void OnFileTreeViewDirSelect(object sender, TreeViewEventArgs e)
         {
-            GameDirectory dir = (GameDirectory)e.Node.Tag;
-            archiveFile = null;
-            currentDir = dir;
-            SwitchToDirMode();
-            SetFileListView(dir.GetContent());
+            OpenDir((GameDirectory)e.Node.Tag);
         }
 
         /// <summary>
@@ -458,21 +472,6 @@ namespace OpenIII
         private void OnExitMenuItemClick(object sender, EventArgs e)
         {
             AppDefs.ExitFromApp();
-        }
-
-        /// <summary>
-        /// About menu item event handler
-        /// </summary>
-        /// <summary xml:lang="ru">
-        /// Обработчик события нажатия пункта меню "О программе"
-        /// </summary>
-        /// <param name="sender">Component that emitted the event</param>
-        /// <param name="e">Event arguments</param>
-        /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
-        /// <param name="e" xml:lang="ru">Аргументы события</param>
-        private void OnAboutMenuItemClick(object sender, EventArgs e)
-        {
-            
         }
 
         /// <summary>
@@ -512,7 +511,7 @@ namespace OpenIII
 
             gameToolStripStatusLabel.Text = game.Name;
 
-            OpenDir(new GameDirectory(e.Path));
+            OpenRootDir(new GameDirectory(e.Path));
         }
 
         /// <summary>
@@ -525,7 +524,9 @@ namespace OpenIII
         {
             if (mode == FileBrowserWindowMode.FILE_BROWSER)
             {
-                OpenDir(rootDir);
+                GameDirectory curDir = currentDir;
+                OpenRootDir(rootDir);
+                OpenDir(curDir);
             }
             else
             {
@@ -543,7 +544,7 @@ namespace OpenIII
         /// <param name="e">Event arguments</param>
         /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
         /// <param name="e" xml:lang="ru">Аргументы события</param>
-        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void OnAboutMenuItemClick(object sender, EventArgs e)
         {
             new AboutWindow().ShowDialog();
         }
@@ -558,7 +559,7 @@ namespace OpenIII
         /// <param name="e">Event arguments</param>
         /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
         /// <param name="e" xml:lang="ru">Аргументы события</param>
-        private void insertToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnInsertClick(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "All Files|*.*";
@@ -586,10 +587,10 @@ namespace OpenIII
         /// <param name="e">Event arguments</param>
         /// <param name="sender" xml:lang="ru">Указатель на компонент, который отправил событие</param>
         /// <param name="e" xml:lang="ru">Аргументы события</param>
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnDeleteClick(object sender, EventArgs e)
         {
             GameFile resource = (GameFile)fileListView.SelectedItems[0].Tag;
-            DialogResult dialogResult = MessageBox.Show("Do you really want to delete selected file?", "Some Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("Do you really want to delete selected file?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -602,7 +603,7 @@ namespace OpenIII
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnCreateGxtClick(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.FileName = "";
@@ -647,7 +648,7 @@ namespace OpenIII
             }
         }
 
-        private void iMGArchiveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OnCreateImgArchiveClick(object sender, EventArgs e)
         {
             NewArchiveWindow window = new NewArchiveWindow();
             window.OnPathSet += (s, ee) =>
@@ -659,7 +660,7 @@ namespace OpenIII
             window.ShowDialog();
         }
 
-        private void OnExtractFromArchiveClicked(object sender, EventArgs e)
+        private void OnExtractFromArchiveClick(object sender, EventArgs e)
         {
             if (fileListView.SelectedItems.Count == 1)
             {

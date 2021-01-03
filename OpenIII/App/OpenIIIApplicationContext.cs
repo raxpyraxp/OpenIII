@@ -90,7 +90,7 @@ namespace OpenIII
             GameDirectory dir = new GameDirectory(Properties.Settings.Default.GTAPath);
 
             fileBrowserWindow = FileBrowserWindow.GetInstance();
-            fileBrowserWindow.OpenDir(dir);
+            fileBrowserWindow.OpenRootDir(dir);
             fileBrowserWindow.FormClosed += OnClosed;
             fileBrowserWindow.Show();
         }
