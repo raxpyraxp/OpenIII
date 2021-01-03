@@ -44,7 +44,7 @@ namespace OpenIII.Utils
         /// <summary xml:lang="ru">
         /// Указатель на архивированный файл <see cref="GameFile"/>
         /// </summary>
-        public GameFile File { get; }
+        public GameFile File { get; private set; }
 
         /// <summary>
         /// Length of the archived <see cref="GameFile"/>
@@ -52,7 +52,7 @@ namespace OpenIII.Utils
         /// <summary xml:lang="ru">
         /// Размер архивированного файла <see cref="GameFile"/>
         /// </summary>
-        public override long Length { get => File.Length; }
+        public override long Length { get => File != null ? File.Length : 0; }
 
         /// <summary>
         /// Current position relative to the <see cref="GameFile"/>
