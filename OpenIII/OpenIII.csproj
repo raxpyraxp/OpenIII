@@ -239,5 +239,8 @@
     <Folder Include="DataExchanges\" />
     <Folder Include="UI\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\cover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

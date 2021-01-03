@@ -42,6 +42,7 @@ namespace OpenIII.Forms
         public AboutWindow()
         {
             InitializeComponent();
+            versionLabel.Text = string.Format("Version {0}", Application.ProductVersion);
         }
 
         /// <summary>
@@ -88,6 +89,11 @@ namespace OpenIII.Forms
         private void licenseLinkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-3.0.html");
+        }
+
+        private void githubLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/worm202/OpenIII");
         }
     }
 }

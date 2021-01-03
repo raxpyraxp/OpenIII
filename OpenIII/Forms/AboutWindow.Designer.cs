@@ -59,12 +59,18 @@ namespace OpenIII.Forms
             this.freeSoftwareLabel = new System.Windows.Forms.Label();
             this.warrantyDetailsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.freeSoftwareDetailsLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.versionLabel = new System.Windows.Forms.Label();
+            this.githubNoticeLabel = new System.Windows.Forms.Label();
+            this.githubLink = new System.Windows.Forms.LinkLabel();
+            this.gplNoticeLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // prographerCopyrightLabel
             // 
             this.prographerCopyrightLabel.AutoSize = true;
-            this.prographerCopyrightLabel.Location = new System.Drawing.Point(12, 142);
+            this.prographerCopyrightLabel.Location = new System.Drawing.Point(12, 396);
             this.prographerCopyrightLabel.Name = "prographerCopyrightLabel";
             this.prographerCopyrightLabel.Size = new System.Drawing.Size(353, 17);
             this.prographerCopyrightLabel.TabIndex = 2;
@@ -73,7 +79,7 @@ namespace OpenIII.Forms
             // raxpCopyrightLabel
             // 
             this.raxpCopyrightLabel.AutoSize = true;
-            this.raxpCopyrightLabel.Location = new System.Drawing.Point(12, 178);
+            this.raxpCopyrightLabel.Location = new System.Drawing.Point(12, 432);
             this.raxpCopyrightLabel.Name = "raxpCopyrightLabel";
             this.raxpCopyrightLabel.Size = new System.Drawing.Size(299, 17);
             this.raxpCopyrightLabel.TabIndex = 3;
@@ -82,7 +88,7 @@ namespace OpenIII.Forms
             // warrantyNoticeLabel
             // 
             this.warrantyNoticeLabel.AutoSize = true;
-            this.warrantyNoticeLabel.Location = new System.Drawing.Point(12, 250);
+            this.warrantyNoticeLabel.Location = new System.Drawing.Point(12, 542);
             this.warrantyNoticeLabel.Name = "warrantyNoticeLabel";
             this.warrantyNoticeLabel.Size = new System.Drawing.Size(372, 17);
             this.warrantyNoticeLabel.TabIndex = 4;
@@ -91,7 +97,7 @@ namespace OpenIII.Forms
             // prographerEmailLinkLabel
             // 
             this.prographerEmailLinkLabel.AutoSize = true;
-            this.prographerEmailLinkLabel.Location = new System.Drawing.Point(371, 142);
+            this.prographerEmailLinkLabel.Location = new System.Drawing.Point(371, 396);
             this.prographerEmailLinkLabel.Name = "prographerEmailLinkLabel";
             this.prographerEmailLinkLabel.Size = new System.Drawing.Size(182, 17);
             this.prographerEmailLinkLabel.TabIndex = 5;
@@ -102,7 +108,7 @@ namespace OpenIII.Forms
             // raxpEmailLinkLabel
             // 
             this.raxpEmailLinkLabel.AutoSize = true;
-            this.raxpEmailLinkLabel.Location = new System.Drawing.Point(317, 178);
+            this.raxpEmailLinkLabel.Location = new System.Drawing.Point(317, 432);
             this.raxpEmailLinkLabel.Name = "raxpEmailLinkLabel";
             this.raxpEmailLinkLabel.Size = new System.Drawing.Size(173, 17);
             this.raxpEmailLinkLabel.TabIndex = 6;
@@ -113,7 +119,7 @@ namespace OpenIII.Forms
             // freeSoftwareLabel
             // 
             this.freeSoftwareLabel.AutoSize = true;
-            this.freeSoftwareLabel.Location = new System.Drawing.Point(12, 279);
+            this.freeSoftwareLabel.Location = new System.Drawing.Point(12, 571);
             this.freeSoftwareLabel.Name = "freeSoftwareLabel";
             this.freeSoftwareLabel.Size = new System.Drawing.Size(539, 17);
             this.freeSoftwareLabel.TabIndex = 7;
@@ -123,7 +129,7 @@ namespace OpenIII.Forms
             // warrantyDetailsLinkLabel
             // 
             this.warrantyDetailsLinkLabel.AutoSize = true;
-            this.warrantyDetailsLinkLabel.Location = new System.Drawing.Point(390, 250);
+            this.warrantyDetailsLinkLabel.Location = new System.Drawing.Point(390, 542);
             this.warrantyDetailsLinkLabel.Name = "warrantyDetailsLinkLabel";
             this.warrantyDetailsLinkLabel.Size = new System.Drawing.Size(78, 17);
             this.warrantyDetailsLinkLabel.TabIndex = 8;
@@ -134,7 +140,7 @@ namespace OpenIII.Forms
             // freeSoftwareDetailsLinkLabel
             // 
             this.freeSoftwareDetailsLinkLabel.AutoSize = true;
-            this.freeSoftwareDetailsLinkLabel.Location = new System.Drawing.Point(557, 279);
+            this.freeSoftwareDetailsLinkLabel.Location = new System.Drawing.Point(557, 571);
             this.freeSoftwareDetailsLinkLabel.Name = "freeSoftwareDetailsLinkLabel";
             this.freeSoftwareDetailsLinkLabel.Size = new System.Drawing.Size(78, 17);
             this.freeSoftwareDetailsLinkLabel.TabIndex = 9;
@@ -142,11 +148,64 @@ namespace OpenIII.Forms
             this.freeSoftwareDetailsLinkLabel.Text = "See details";
             this.freeSoftwareDetailsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.licenseLinkLabelClicked);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::OpenIII.Properties.Resources.cover;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(872, 329);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.versionLabel.Location = new System.Drawing.Point(384, 352);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(133, 25);
+            this.versionLabel.TabIndex = 11;
+            this.versionLabel.Text = "Version: 0.0.0";
+            // 
+            // githubNoticeLabel
+            // 
+            this.githubNoticeLabel.AutoSize = true;
+            this.githubNoticeLabel.Location = new System.Drawing.Point(12, 468);
+            this.githubNoticeLabel.Name = "githubNoticeLabel";
+            this.githubNoticeLabel.Size = new System.Drawing.Size(333, 17);
+            this.githubNoticeLabel.TabIndex = 12;
+            this.githubNoticeLabel.Text = "You can contribute to this program using our official";
+            // 
+            // githubLink
+            // 
+            this.githubLink.AutoSize = true;
+            this.githubLink.Location = new System.Drawing.Point(349, 468);
+            this.githubLink.Name = "githubLink";
+            this.githubLink.Size = new System.Drawing.Size(119, 17);
+            this.githubLink.TabIndex = 13;
+            this.githubLink.TabStop = true;
+            this.githubLink.Text = "GitHub repository";
+            this.githubLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.githubLinkClicked);
+            // 
+            // gplNoticeLabel
+            // 
+            this.gplNoticeLabel.AutoSize = true;
+            this.gplNoticeLabel.Location = new System.Drawing.Point(12, 512);
+            this.gplNoticeLabel.Name = "gplNoticeLabel";
+            this.gplNoticeLabel.Size = new System.Drawing.Size(503, 17);
+            this.gplNoticeLabel.TabIndex = 14;
+            this.gplNoticeLabel.Text = "This program is licensed under GNU General Public License version 3 or later.";
+            // 
             // AboutWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 430);
+            this.ClientSize = new System.Drawing.Size(901, 601);
+            this.Controls.Add(this.gplNoticeLabel);
+            this.Controls.Add(this.githubLink);
+            this.Controls.Add(this.githubNoticeLabel);
+            this.Controls.Add(this.versionLabel);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.freeSoftwareDetailsLinkLabel);
             this.Controls.Add(this.warrantyDetailsLinkLabel);
             this.Controls.Add(this.freeSoftwareLabel);
@@ -161,7 +220,8 @@ namespace OpenIII.Forms
             this.MinimizeBox = false;
             this.Name = "AboutWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AboutWindow";
+            this.Text = "About";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +237,10 @@ namespace OpenIII.Forms
         private System.Windows.Forms.Label freeSoftwareLabel;
         private System.Windows.Forms.LinkLabel warrantyDetailsLinkLabel;
         private System.Windows.Forms.LinkLabel freeSoftwareDetailsLinkLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.Label githubNoticeLabel;
+        private System.Windows.Forms.LinkLabel githubLink;
+        private System.Windows.Forms.Label gplNoticeLabel;
     }
 }
