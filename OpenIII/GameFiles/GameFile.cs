@@ -218,6 +218,10 @@ namespace OpenIII.GameFiles
             {
                 case ".img":
                     return ArchiveFile.CreateInstance(path);
+                case ".fxt":
+                    return new FXTFile(path);
+                case ".gxt":
+                    return new GXTFile(path);
                 default:
                     return new GameFile(path);
             }
