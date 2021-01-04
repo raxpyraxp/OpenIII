@@ -322,7 +322,6 @@ namespace OpenIII
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.detailsToolStripMenuItem.Text = "Detail";
-            this.detailsToolStripMenuItem.Visible = false;
             this.detailsToolStripMenuItem.Click += new System.EventHandler(this.ViewModeChangeClick);
             // 
             // listToolStripMenuItem

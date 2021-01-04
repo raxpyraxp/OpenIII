@@ -46,6 +46,14 @@ namespace OpenIII.GameFiles
     /// </summary>
     public class GXTFile : GameFile
     {
+        /// <summary>
+        /// Type name of the <see cref="FXTFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Наименование типа элемента файловой системы <see cref="FXTFile"/>
+        /// </summary>
+        public override string Type { get => "GXT text dictionary"; }
+
         public GXTFileBlock MainBlock { get; set; }
 
         public GXTFileVersion FileVersion {

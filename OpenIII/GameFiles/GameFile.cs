@@ -150,6 +150,14 @@ namespace OpenIII.GameFiles
         /// </summary>
         public override string Extension { get => FileInfo.Extension; }
 
+        /// <summary>
+        /// Type name of the <see cref="GameFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Наименование типа элемента файловой системы <see cref="GameFile"/>
+        /// </summary>
+        public override string Type { get => Extension.ToUpper() + " file"; }
+
         public delegate void UpdateProgressDelegate(int percent, string description = "");
 
         /// <summary>

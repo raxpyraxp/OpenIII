@@ -61,6 +61,14 @@ namespace OpenIII.GameFiles
         public abstract string Extension { get; }
 
         /// <summary>
+        /// Type name of the <see cref="FileSystemElement"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Наименование типа элемента файловой системы <see cref="FileSystemElement"/>
+        /// </summary>
+        public abstract string Type { get; }
+
+        /// <summary>
         /// Small icon for the type of the <see cref="FileSystemElement"/>
         /// </summary>
         /// <summary xml:lang="ru">

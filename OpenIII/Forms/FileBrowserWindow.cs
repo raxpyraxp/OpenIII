@@ -178,6 +178,10 @@ namespace OpenIII
             replaceToolStripMenuItem.Visible = false;
             totalFilesLabel.Visible = false;
             totalFilesTitleLabel.Visible = false;
+
+            fileListView.Columns.Clear();
+            fileListView.Columns.Add("NAME", "Name", 150);
+            fileListView.Columns.Add("TYPE", "Type", 150);
         }
 
         public void SwitchToArchiveMode()
@@ -188,6 +192,10 @@ namespace OpenIII
             replaceToolStripMenuItem.Visible = true;
             totalFilesLabel.Visible = true;
             totalFilesTitleLabel.Visible = true;
+
+            fileListView.Columns.Clear();
+            fileListView.Columns.Add("NAME", "Name", 150);
+            fileListView.Columns.Add("TYPE", "Type", 150);
         }
 
         /// <summary>
@@ -225,6 +233,7 @@ namespace OpenIII
 
                 item.Tag = resource;
                 item.ImageKey = imageKey;
+                item.SubItems.Add(resource.Type);
 
                 fileListView.Items.Add(item);
             }

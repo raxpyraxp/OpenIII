@@ -61,6 +61,14 @@ namespace OpenIII.GameFiles
         public override string Extension { get => DirectoryInfo.Extension; }
 
         /// <summary>
+        /// Type name of the <see cref="GameDirectory"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Наименование типа элемента файловой системы <see cref="GameDirectory"/>
+        /// </summary>
+        public override string Type { get => "Directory"; }
+
+        /// <summary>
         /// Default <see cref="GameDirectory"/> constructor
         /// </summary>
         /// <summary xml:lang="ru">

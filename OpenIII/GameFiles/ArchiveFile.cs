@@ -51,6 +51,14 @@ namespace OpenIII.GameFiles
     public abstract class ArchiveFile : GameFile
     {
         /// <summary>
+        /// Type name of the <see cref="ArchiveFile"/>
+        /// </summary>
+        /// <summary xml:lang="ru">
+        /// Наименование типа элемента файловой системы <see cref="ArchiveFile"/>
+        /// </summary>
+        public override string Type { get => "IMG archive"; }
+
+        /// <summary>
         /// Basic DVD-like sector size for archive data storage
         /// </summary>
         /// <summary xml:lang="ru">
