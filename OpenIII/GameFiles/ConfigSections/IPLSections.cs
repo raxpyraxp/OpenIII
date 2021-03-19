@@ -180,6 +180,7 @@
         private double Radios { get; set; }
     }
 
+    // TODO: классы секций IDE- и IPL-файлов соответствуют и не могут быть определены в обоих файлах
 
     public class CULL : ConfigRow
     {
@@ -263,5 +264,168 @@
         private double Vz { get; set; }
 
         private double Cm { get; set; }
+    }
+
+
+    public class ENEX : ConfigRow
+    {
+        public const string SectionName = "enex";
+    }
+
+    public class ENEXType1 : ENEX
+    {
+        private double X1 { get; set; }
+
+        private double Y1 { get; set; }
+
+        private double Z1 { get; set; }
+
+        private double EnterAngle { get; set; }
+
+        private double SizeX { get; set; }
+
+        private double SizeY { get; set; }
+
+        private double SizeZ { get; set; }
+
+        private double X2 { get; set; }
+
+        private double Y2 { get; set; }
+
+        private double Z2 { get; set; }
+
+        private double ExitAngle { get; set; }
+
+        private int TargetInterior { get; set; }
+
+        private int Flags { get; set; }
+
+        private string Name { get; set; }
+
+        private int Sky { get; set; }
+
+        private int NumPedsToSpawn { get; set; }
+
+        private int TimeOn { get; set; }
+
+        private int TimeOff { get; set; }
+    }
+
+
+    public class GRGE : ConfigRow
+    {
+        public const string SectionName = "grge";
+    }
+
+    public class GRGEType1 : GRGE
+    {
+        private double Pos1 { get; set; }
+
+        private double Pos2 { get; set; }
+
+        private double Pos3 { get; set; }
+
+        private double LineX { get; set; }
+
+        private double LineY { get; set; }
+
+        private double CubeX { get; set; }
+
+        private double CubeY { get; set; }
+
+        private double CubeZ { get; set; }
+
+        private int Flag { get; set; }
+
+        private int Type { get; set; }
+
+        private string Name { get; set; }
+    }
+
+
+    public class JUMP : ConfigRow
+    {
+        public const string SectionName = "jump";
+    }
+
+    public class JUMPType1 : JUMP
+    {
+        private double StartLowerX { get; set; }
+
+        private double StartLowerY { get; set; }
+
+        private double StartLowerZ { get; set; }
+
+        private double StartUpperX { get; set; }
+
+        private double StartUpperY { get; set; }
+
+        private double StartUpperZ { get; set; }
+
+        private double TargetLowerX { get; set; }
+
+        private double TargetLowerY { get; set; }
+
+        private double TargetLowerZ { get; set; }
+
+        private double TargetUpperX { get; set; }
+
+        private double TargetUpperY { get; set; }
+
+        private double TargetUpperZ { get; set; }
+
+        private double CameraX { get; set; }
+
+        private double CameraY { get; set; }
+
+        private double CameraZ { get; set; }
+
+        private int Reward { get; set; }
+    }
+
+
+    public class OCCL : ConfigRow
+    {
+        public const string SectionName = "occl";
+    }
+
+    public class OCCLType1 : OCCL
+    {
+        private double MidX { get; set; }
+
+        private double MidY { get; set; }
+
+        private double BottomZ { get; set; }
+
+        private double WidthX { get; set; }
+
+        private double WidthY { get; set; }
+
+        private double Height { get; set; }
+
+        private double Rotation { get; set; }
+    }
+
+    public class OCCLType2 : OCCL
+    {
+        private double MidX { get; set; }
+
+        private double MidY { get; set; }
+
+        private double BottomZ { get; set; }
+
+        private double WidthX { get; set; }
+
+        private double WidthY { get; set; }
+
+        private double Height { get; set; }
+
+        private double Rotation { get; set; }
+
+        // TODO: определить точное имя параметра
+        private double Unknown1 { get; set; }
+
+        // TODO: определить точное имя параметра
+        private int Unknown2 { get; set; }
     }
 }
