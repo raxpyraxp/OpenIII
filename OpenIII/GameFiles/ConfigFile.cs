@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -100,10 +101,24 @@ namespace OpenIII.GameFiles
         /// <returns></returns>
         public override string ToString()
         {
-            var result = this.GetType()
+            Object[] result = this.GetType()
                              .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                              .Select(field => field.GetValue(this))
                              .ToArray();
+
+            // TODO: Заменить после переобъявления get-методов у полей Corona и Shadow
+            for (var i = 0; i < result.Length; i++)
+            {
+                switch (result[i])
+                {
+                    case "coronastar":
+                        result[i] = "\"coronastar\"";
+                        break;
+                    case "shad_exp":
+                        result[i] = "\"shad_exp\"";
+                        break;
+                }
+            }
             return string.Join(", ", result);
         }
     }
