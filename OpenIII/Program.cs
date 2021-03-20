@@ -22,6 +22,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 using OpenIII.GameFiles;
 
@@ -44,6 +45,7 @@ namespace OpenIII
         [STAThread]
         static void Main()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

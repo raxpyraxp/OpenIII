@@ -23,10 +23,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace OpenIII.GameFiles
 {
@@ -80,7 +78,6 @@ namespace OpenIII.GameFiles
         public void ParseData()
         {
             string lineIterator;
-            CultureInfo culture = CultureInfo.InvariantCulture;
             StreamReader Reader = new StreamReader(this.FullPath);
             Exception exception = new Exception("Неизвестное количество параметров.");
 
@@ -125,10 +122,10 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(nodesParamsBuf[0]),
                                         Int32.Parse(nodesParamsBuf[1]),
                                         Int32.Parse(nodesParamsBuf[2]),
-                                        double.Parse(nodesParamsBuf[3], culture),
-                                        double.Parse(nodesParamsBuf[4], culture),
-                                        double.Parse(nodesParamsBuf[5], culture),
-                                        double.Parse(nodesParamsBuf[6], culture),
+                                        double.Parse(nodesParamsBuf[3]),
+                                        double.Parse(nodesParamsBuf[4]),
+                                        double.Parse(nodesParamsBuf[5]),
+                                        double.Parse(nodesParamsBuf[6]),
                                         Int32.Parse(nodesParamsBuf[7]),
                                         Int32.Parse(nodesParamsBuf[8])
                                     ));
@@ -153,12 +150,12 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(nodesParamsBuf[0]),
                                         Int32.Parse(nodesParamsBuf[1]),
                                         Int32.Parse(nodesParamsBuf[2]),
-                                        double.Parse(nodesParamsBuf[3], culture),
-                                        double.Parse(nodesParamsBuf[4], culture),
-                                        double.Parse(nodesParamsBuf[5], culture),
+                                        double.Parse(nodesParamsBuf[3]),
+                                        double.Parse(nodesParamsBuf[4]),
+                                        double.Parse(nodesParamsBuf[5]),
                                         Int32.Parse(nodesParamsBuf[7]),
                                         Int32.Parse(nodesParamsBuf[8]),
-                                        double.Parse(nodesParamsBuf[6], culture)
+                                        double.Parse(nodesParamsBuf[6])
                                     ));
 
                                     if (parsedNodes.Count == 12) break;
@@ -185,7 +182,7 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
-                                    double.Parse(paramsBuf[3], culture),
+                                    double.Parse(paramsBuf[3]),
                                     Int32.Parse(paramsBuf[4])
                                 ));
                                 break;
@@ -196,7 +193,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[4]),
                                     Int32.Parse(paramsBuf[5])
                                 ));
                                 break;
@@ -207,8 +204,8 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
-                                    double.Parse(paramsBuf[5], culture),
+                                    double.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6])
                                 ));
                                 break;
@@ -219,9 +216,9 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
-                                    double.Parse(paramsBuf[5], culture),
-                                    double.Parse(paramsBuf[6], culture),
+                                    double.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[5]),
+                                    double.Parse(paramsBuf[6]),
                                     Int32.Parse(paramsBuf[7])
                                 ));
                                 break;
@@ -238,7 +235,7 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[0]),
                                     paramsBuf[1],
                                     paramsBuf[2],
-                                    double.Parse(paramsBuf[3], culture),
+                                    double.Parse(paramsBuf[3]),
                                     Convert.ToInt32(paramsBuf[4], 16),
                                     Int32.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6])
@@ -251,7 +248,7 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
+                                    double.Parse(paramsBuf[4]),
                                     Convert.ToInt32(paramsBuf[5], 16),
                                     Int32.Parse(paramsBuf[6]),
                                     Int32.Parse(paramsBuf[7])
@@ -264,8 +261,8 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
-                                    double.Parse(paramsBuf[5], culture),
+                                    double.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[5]),
                                     Convert.ToInt32(paramsBuf[6], 16),
                                     Int32.Parse(paramsBuf[7]),
                                     Int32.Parse(paramsBuf[8])
@@ -278,9 +275,9 @@ namespace OpenIII.GameFiles
                                     paramsBuf[1],
                                     paramsBuf[2],
                                     Int32.Parse(paramsBuf[3]),
-                                    double.Parse(paramsBuf[4], culture),
-                                    double.Parse(paramsBuf[5], culture),
-                                    double.Parse(paramsBuf[6], culture),
+                                    double.Parse(paramsBuf[4]),
+                                    double.Parse(paramsBuf[5]),
+                                    double.Parse(paramsBuf[6]),
                                     Convert.ToInt32(paramsBuf[7], 16),
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9])
@@ -297,9 +294,9 @@ namespace OpenIII.GameFiles
                             case 20:
                                 ConfigSections.Last().ConfigRows.Add(new TwoDFXType1(
                                     Int32.Parse(paramsBuf[0]),
-                                    double.Parse(paramsBuf[1], culture),
-                                    double.Parse(paramsBuf[2], culture),
-                                    double.Parse(paramsBuf[3], culture),
+                                    double.Parse(paramsBuf[1]),
+                                    double.Parse(paramsBuf[2]),
+                                    double.Parse(paramsBuf[3]),
                                     Int32.Parse(paramsBuf[4]),
                                     Int32.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6]),
@@ -307,10 +304,10 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[8]),
                                     paramsBuf[9],
                                     paramsBuf[10],
-                                    double.Parse(paramsBuf[11], culture),
-                                    double.Parse(paramsBuf[12], culture),
-                                    double.Parse(paramsBuf[13], culture),
-                                    double.Parse(paramsBuf[14], culture),
+                                    double.Parse(paramsBuf[11]),
+                                    double.Parse(paramsBuf[12]),
+                                    double.Parse(paramsBuf[13]),
+                                    double.Parse(paramsBuf[14]),
                                     Int32.Parse(paramsBuf[15]),
                                     Int32.Parse(paramsBuf[16]),
                                     Int32.Parse(paramsBuf[17]),
@@ -325,37 +322,37 @@ namespace OpenIII.GameFiles
                                 {
                                     ConfigSections.Last().ConfigRows.Add(new TwoDFXType2(
                                         Int32.Parse(paramsBuf[0]),
-                                        double.Parse(paramsBuf[1], culture),
-                                        double.Parse(paramsBuf[2], culture),
-                                        double.Parse(paramsBuf[3], culture),
+                                        double.Parse(paramsBuf[1]),
+                                        double.Parse(paramsBuf[2]),
+                                        double.Parse(paramsBuf[3]),
                                         Int32.Parse(paramsBuf[4]),
                                         Int32.Parse(paramsBuf[5]),
                                         Int32.Parse(paramsBuf[6]),
                                         Int32.Parse(paramsBuf[7]),
                                         Int32.Parse(paramsBuf[8]),
                                         Int32.Parse(paramsBuf[9]),
-                                        double.Parse(paramsBuf[10], culture),
-                                        double.Parse(paramsBuf[11], culture),
-                                        double.Parse(paramsBuf[12], culture),
-                                        double.Parse(paramsBuf[13], culture)
+                                        double.Parse(paramsBuf[10]),
+                                        double.Parse(paramsBuf[11]),
+                                        double.Parse(paramsBuf[12]),
+                                        double.Parse(paramsBuf[13])
                                     ));
                                 }
                                 else
                                 {
                                     ConfigSections.Last().ConfigRows.Add(new TwoDFXType3(
                                         Int32.Parse(paramsBuf[0]),
-                                        double.Parse(paramsBuf[1], culture),
-                                        double.Parse(paramsBuf[2], culture),
-                                        double.Parse(paramsBuf[3], culture),
+                                        double.Parse(paramsBuf[1]),
+                                        double.Parse(paramsBuf[2]),
+                                        double.Parse(paramsBuf[3]),
                                         Int32.Parse(paramsBuf[4]),
                                         Int32.Parse(paramsBuf[5]),
                                         Int32.Parse(paramsBuf[6]),
                                         Int32.Parse(paramsBuf[7]),
                                         Int32.Parse(paramsBuf[8]),
                                         Int32.Parse(paramsBuf[9]),
-                                        double.Parse(paramsBuf[10], culture),
-                                        double.Parse(paramsBuf[11], culture),
-                                        double.Parse(paramsBuf[12], culture),
+                                        double.Parse(paramsBuf[10]),
+                                        double.Parse(paramsBuf[11]),
+                                        double.Parse(paramsBuf[12]),
                                         Int32.Parse(paramsBuf[13])
                                     ));
                                 }
@@ -363,29 +360,29 @@ namespace OpenIII.GameFiles
                             case 16:
                                 ConfigSections.Last().ConfigRows.Add(new TwoDFXType4(
                                     Int32.Parse(paramsBuf[0]),
-                                    double.Parse(paramsBuf[1], culture),
-                                    double.Parse(paramsBuf[2], culture),
-                                    double.Parse(paramsBuf[3], culture),
+                                    double.Parse(paramsBuf[1]),
+                                    double.Parse(paramsBuf[2]),
+                                    double.Parse(paramsBuf[3]),
                                     Int32.Parse(paramsBuf[4]),
                                     Int32.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6]),
                                     Int32.Parse(paramsBuf[7]),
                                     Int32.Parse(paramsBuf[8]),
                                     Int32.Parse(paramsBuf[9]),
-                                    double.Parse(paramsBuf[10], culture),
-                                    double.Parse(paramsBuf[11], culture),
-                                    double.Parse(paramsBuf[12], culture),
-                                    double.Parse(paramsBuf[13], culture),
-                                    double.Parse(paramsBuf[14], culture),
-                                    double.Parse(paramsBuf[15], culture)
+                                    double.Parse(paramsBuf[10]),
+                                    double.Parse(paramsBuf[11]),
+                                    double.Parse(paramsBuf[12]),
+                                    double.Parse(paramsBuf[13]),
+                                    double.Parse(paramsBuf[14]),
+                                    double.Parse(paramsBuf[15])
                                 ));
                                 break;
                             case 9:
                                 ConfigSections.Last().ConfigRows.Add(new TwoDFXType5(
                                     Int32.Parse(paramsBuf[0]),
-                                    double.Parse(paramsBuf[1], culture),
-                                    double.Parse(paramsBuf[2], culture),
-                                    double.Parse(paramsBuf[3], culture),
+                                    double.Parse(paramsBuf[1]),
+                                    double.Parse(paramsBuf[2]),
+                                    double.Parse(paramsBuf[3]),
                                     Int32.Parse(paramsBuf[4]),
                                     Int32.Parse(paramsBuf[5]),
                                     Int32.Parse(paramsBuf[6]),
@@ -464,7 +461,7 @@ namespace OpenIII.GameFiles
                             paramsBuf[2],
                             paramsBuf[3],
                             Int32.Parse(paramsBuf[4]),
-                            double.Parse(paramsBuf[5], culture)
+                            double.Parse(paramsBuf[5])
                         ));
                         break;
 
@@ -474,7 +471,7 @@ namespace OpenIII.GameFiles
                             paramsBuf[1],
                             paramsBuf[2],
                             paramsBuf[3],
-                            double.Parse(paramsBuf[4], culture),
+                            double.Parse(paramsBuf[4]),
                             Int32.Parse(paramsBuf[5])
                         ));
                         break;
@@ -596,7 +593,7 @@ namespace OpenIII.GameFiles
                                         Int32.Parse(paramsBuf[8]),
                                         Convert.ToInt32(paramsBuf[9], 16),
                                         Int32.Parse(paramsBuf[10]),
-                                        double.Parse(paramsBuf[11], culture)
+                                        double.Parse(paramsBuf[11])
                                     ));
                                 }
                                 break;
@@ -614,7 +611,7 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[9]),
                                     Convert.ToInt32(paramsBuf[10], 16),
                                     Int32.Parse(paramsBuf[11]),
-                                    double.Parse(paramsBuf[12], culture)
+                                    double.Parse(paramsBuf[12])
                                 ));
 
                                 // TODO: Сделать проверку на соответствие CARSType7
@@ -632,7 +629,7 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[9]),
                                     Int32.Parse(paramsBuf[10]),
                                     Int32.Parse(paramsBuf[11]),
-                                    double.Parse(paramsBuf[12], culture)
+                                    double.Parse(paramsBuf[12])
                                 ));
                                 */
                                 break;
@@ -650,8 +647,8 @@ namespace OpenIII.GameFiles
                                     Int32.Parse(paramsBuf[9]),
                                     Convert.ToInt32(paramsBuf[10], 16),
                                     Int32.Parse(paramsBuf[11]),
-                                    double.Parse(paramsBuf[12], culture),
-                                    double.Parse(paramsBuf[13], culture),
+                                    double.Parse(paramsBuf[12]),
+                                    double.Parse(paramsBuf[13]),
                                     Int32.Parse(paramsBuf[14])
                                 ));
                                 break;
