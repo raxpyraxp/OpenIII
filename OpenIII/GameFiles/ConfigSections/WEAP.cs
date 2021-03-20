@@ -19,6 +19,8 @@
 
         private double DrawDistance { get; set; }
 
+        public WEAPType1() { }
+
 
         public WEAPType1(int id, string modelName, string txdName, string animationName, int meshCount, double drawDistance)
         {

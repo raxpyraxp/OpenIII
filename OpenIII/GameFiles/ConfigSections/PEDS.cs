@@ -21,6 +21,8 @@
 
         private int CarsCanDrive { get; set; }
 
+        public PEDSType1() { }
+
         public PEDSType1(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive)
         {
             this.Id = id;
@@ -54,6 +56,8 @@
         private int RadioStation1 { get; set; }
 
         private int RadioStation2 { get; set; }
+
+        public PEDSType2() { }
 
         public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive, string animFile, int radioStation1, int radioStation2)
         {
@@ -99,6 +103,8 @@
         private string Voice1 { get; set; }
 
         private string Voice2 { get; set; }
+
+        public PEDSType3() { }
 
         public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int carsCanDrive, int flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
         {

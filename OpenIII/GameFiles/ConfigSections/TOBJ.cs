@@ -23,7 +23,7 @@
 
         private int TimeOff { get; set; }
 
-
+        public TOBJType1() { }
         public TOBJType1(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
@@ -57,7 +57,7 @@
 
         private int TimeOff { get; set; }
 
-
+        public TOBJType2() { }
         public TOBJType2(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags, int timeOn, int timeOff)
         {
             this.Id = id;
@@ -94,6 +94,8 @@
 
         private int TimeOff { get; set; }
 
+        public TOBJType3() { }
+
 
         public TOBJType3(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags, int timeOn, int timeOff)
         {
@@ -126,6 +128,7 @@
 
         private int TimeOff { get; set; }
 
+        public TOBJType4() { }
 
         public TOBJType4(int id, string modelName, string txdName, double drawDistance, int flags, int timeOn, int timeOff)
         {

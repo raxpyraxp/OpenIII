@@ -11,6 +11,8 @@
 
         private string TxdParentName;
 
+        public TXDPType1() { }
+
         public TXDPType1(string txdName, string txdParentName)
         {
             this.TxdName = txdName;

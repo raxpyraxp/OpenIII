@@ -96,6 +96,26 @@ namespace OpenIII.GameFiles
     public class ConfigRow
     {
         /// <summary>
+        /// Создает объект типа, соответсвующего контексту из списка переданных ему параметров
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public ConfigRow Parse(List<string> parameters)
+        {
+            var props = this.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            for (int i = 0; i < props.Length; i++)
+            {
+                var prop = props[i];
+                var type = prop.PropertyType;
+                var val = Convert.ChangeType(parameters[i], type);
+                prop.SetValue(this, val, null);
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Создаёт строку из всех параметров, разделённых запятыми
         /// </summary>
         /// <returns></returns>

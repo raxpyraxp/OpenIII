@@ -19,6 +19,8 @@
 
         private int Flags { get; set; }
 
+        public ANIMType1() { }
+
         public ANIMType1(int id, string modelName, string txdName, string animationName, double drawDistance, int flags)
         {
             this.Id = id;

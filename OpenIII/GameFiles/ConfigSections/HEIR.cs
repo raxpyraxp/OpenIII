@@ -13,6 +13,8 @@
 
         private string TxdName { get; set; }
 
+        public HIERType1() { }
+
         public HIERType1(int id, string modelName, string txdName)
         {
             this.Id = id;

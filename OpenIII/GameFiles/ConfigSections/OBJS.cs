@@ -19,6 +19,7 @@
 
         private int Flags { get; set; }
 
+        public OBJSType1() { }
 
         public OBJSType1(int id, string modelName, string txdName, int meshCount, double drawDistance1, int flags)
         {
@@ -47,6 +48,7 @@
 
         private int Flags { get; set; }
 
+        public OBJSType2() { }
 
         public OBJSType2(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, int flags)
         {
@@ -78,6 +80,7 @@
 
         private int Flags { get; set; }
 
+        public OBJSType3() { }
 
         public OBJSType3(int id, string modelName, string txdName, int meshCount, double drawDistance1, double drawDistance2, double drawDistance3, int flags)
         {
@@ -104,7 +107,7 @@
 
         private int Flags { get; set; }
 
-
+        public OBJSType4() { }
         public OBJSType4(int id, string modelName, string txdName, double drawDistance, int flags)
         {
             this.Id = id;

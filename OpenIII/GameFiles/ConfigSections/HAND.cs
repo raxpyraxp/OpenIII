@@ -15,6 +15,8 @@
 
         private string Unknown { get; set; }
 
+        public HANDType1() { }
+
         public HANDType1(int id, string modelName, string txdName, string Unknown)
         {
             this.Id = id;

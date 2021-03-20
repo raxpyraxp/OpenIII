@@ -34,6 +34,8 @@
 
         private double WheelScale { get; set; }
 
+        public CARSType1() { }
+
         public CARSType1(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
@@ -76,6 +78,8 @@
 
         private int Comprules { get; set; }
 
+        public CARSType2() { }
+
         public CARSType2(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules)
         {
             this.Id = id;
@@ -117,6 +121,8 @@
         private int Comprules { get; set; }
 
         private int LODModelId { get; set; }
+
+        public CARSType3() { }
 
         public CARSType3(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
         {
@@ -162,6 +168,8 @@
         private int Comprules { get; set; }
 
         private int LODModelId { get; set; }
+
+        public CARSType4() { }
 
         public CARSType4(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int lodModelId)
         {
@@ -211,6 +219,8 @@
 
         private double WheelScale { get; set; }
 
+        public CARSType5() { }
+            
         public CARSType5(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int wheelModelId, double wheelScale)
         {
             this.Id = id;
@@ -255,6 +265,8 @@
         private int Level { get; set; }
 
         private int Comprules { get; set; }
+
+        public CARSType6() { }
 
         public CARSType6(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules)
         {
@@ -355,6 +367,8 @@
         private double WheelScaleRear { get; set; }
 
         private int WheelUpgradeClass { get; set; }
+
+        public CARSType8() { }
 
         public CARSType8(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int flags, int comprules, int wheelId, double wheelScaleFront, double wheelScaleRear, int wheelUpgradeClass)
         {

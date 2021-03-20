@@ -50,6 +50,8 @@
 
         private int Flags { get; set; }
 
+        public TwoDFXType1() { }
+
         public TwoDFXType1(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, string corona, string shadow, double distance, double outerRange, double size, double innerRange, int shadowIntensity, int flash, int wet, int flare, int flags)
         {
             this.Id = id;
@@ -108,6 +110,8 @@
 
         private double Scale { get; set; }
 
+        public TwoDFXType2() { }
+
         public TwoDFXType2(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType, int particle, double strengthX, double strengthY, double strengthZ, double scale)
         {
             this.Id = id;
@@ -159,6 +163,8 @@
         private double Unk3 { get; set; }
 
         private int Unknown3 { get; set; }
+
+        public TwoDFXType3() { }
 
         public TwoDFXType3(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int unknown2, double unk1, double unk2, double unk3, int unknown3)
         {
@@ -216,6 +222,8 @@
 
         private double RollZ { get; set; }
 
+        public TwoDFXType4() { }
+
         public TwoDFXType4(int id, double x, double y, double z, int r, int g, int b, int unknown1, int twoDFXType, int behavior, double unk1, double unk2, double unk3, double rollX, double rollY, double rollZ)
         {
             this.Id = id;
@@ -256,6 +264,8 @@
         private int Unknown { get; set; }
 
         private int TwoDFXType { get; set; }
+
+        public TwoDFXType5() { }
 
         public TwoDFXType5(int id, double x, double y, double z, int r, int g, int b, int unknown, int twoDFXType)
         {
