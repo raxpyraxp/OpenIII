@@ -315,6 +315,8 @@
 
         private double WheelScale { get; set; }
 
+        public CARSType7() { }
+
         public CARSType7(int id, string modelName, string txdName, string type, string handlingId, string gxtKey, string anims, string vehicleClass, int frequency, int level, int comprules, int steeringAngle, double wheelScale)
         {
             this.Id = id;
