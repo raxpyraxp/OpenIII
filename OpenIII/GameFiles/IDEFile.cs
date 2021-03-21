@@ -102,6 +102,7 @@ namespace OpenIII.GameFiles
                 if (paramsBuf.Count < 2) continue;
 
                 paramsBuf = CleanParams(paramsBuf);
+                var configRows = ConfigSections.Last().ConfigRows;
 
                 switch (ConfigSections.Last().Name)
                 {
@@ -178,19 +179,19 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 5:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType4().Parse(paramsBuf));
+                                configRows.Add(new OBJSType4().Parse(paramsBuf));
                                 break;
 
                             case 6:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType1().Parse(paramsBuf));
+                                configRows.Add(new OBJSType1().Parse(paramsBuf));
                                 break;
 
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType2().Parse(paramsBuf));
+                                configRows.Add(new OBJSType2().Parse(paramsBuf));
                                 break;
 
                             case 8:
-                                ConfigSections.Last().ConfigRows.Add(new OBJSType3().Parse(paramsBuf));
+                                configRows.Add(new OBJSType3().Parse(paramsBuf));
                                 break;
                             default:
                                 throw exception;
@@ -201,19 +202,19 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType4().Parse(paramsBuf));
+                                configRows.Add(new TOBJType4().Parse(paramsBuf));
                                 break;
 
                             case 8:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType1().Parse(paramsBuf));
+                                configRows.Add(new TOBJType1().Parse(paramsBuf));
                                 break;
 
                             case 9:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType2().Parse(paramsBuf));
+                                configRows.Add(new TOBJType2().Parse(paramsBuf));
                                 break;
 
                             case 10:
-                                ConfigSections.Last().ConfigRows.Add(new TOBJType3().Parse(paramsBuf));
+                                configRows.Add(new TOBJType3().Parse(paramsBuf));
                                 break;
                             default:
                                 throw exception;
@@ -224,25 +225,25 @@ namespace OpenIII.GameFiles
                         switch (paramsBuf.Count)
                         {
                             case 20:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType1().Parse(paramsBuf));
+                                configRows.Add(new TwoDFXType1().Parse(paramsBuf));
                                 break;
                             case 14:
                                 // Добавили проверку, так как у первого и второго типа одинаковое количество параметров.
                                 // У первого типа параметр 2DFXType всегда 1
                                 if (paramsBuf[8] == "1")
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new TwoDFXType2().Parse(paramsBuf));
+                                    configRows.Add(new TwoDFXType2().Parse(paramsBuf));
                                 }
                                 else
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new TwoDFXType3().Parse(paramsBuf));
+                                    configRows.Add(new TwoDFXType3().Parse(paramsBuf));
                                 }
                                 break;
                             case 16:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType4().Parse(paramsBuf));
+                                configRows.Add(new TwoDFXType4().Parse(paramsBuf));
                                 break;
                             case 9:
-                                ConfigSections.Last().ConfigRows.Add(new TwoDFXType5().Parse(paramsBuf));
+                                configRows.Add(new TwoDFXType5().Parse(paramsBuf));
                                 break;
                             default:
                                 throw exception;
@@ -250,20 +251,20 @@ namespace OpenIII.GameFiles
                     break;
 
                     case HIER.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new HIERType1().Parse(paramsBuf));
+                        configRows.Add(new HIERType1().Parse(paramsBuf));
                     break;
 
                     case PEDS.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 7:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType1().Parse(paramsBuf));
+                                configRows.Add(new PEDSType1().Parse(paramsBuf));
                                 break;
                             case 10:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType2().Parse(paramsBuf));
+                                configRows.Add(new PEDSType2().Parse(paramsBuf));
                                 break;
                             case 14:
-                                ConfigSections.Last().ConfigRows.Add(new PEDSType3().Parse(paramsBuf));
+                                configRows.Add(new PEDSType3().Parse(paramsBuf));
                                 break;
                             default:
                                 throw exception;
@@ -271,35 +272,35 @@ namespace OpenIII.GameFiles
                     break;
 
                     case WEAP.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new WEAPType1().Parse(paramsBuf));
+                        configRows.Add(new WEAPType1().Parse(paramsBuf));
                         break;
 
                     case ANIM.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new ANIMType1().Parse(paramsBuf));
+                        configRows.Add(new ANIMType1().Parse(paramsBuf));
                         break;
 
                     case TXDP.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new TXDPType1().Parse(paramsBuf));
+                        configRows.Add(new TXDPType1().Parse(paramsBuf));
                         break;
 
                     case HAND.SectionName:
-                        ConfigSections.Last().ConfigRows.Add(new HANDType1().Parse(paramsBuf));
+                        configRows.Add(new HANDType1().Parse(paramsBuf));
                         break;
 
                     case CARS.SectionName:
                         switch (paramsBuf.Count)
                         {
                             case 10:
-                                ConfigSections.Last().ConfigRows.Add(new CARSType2().Parse(paramsBuf));
+                                configRows.Add(new CARSType2().Parse(paramsBuf));
                                 break;
                             case 11:
                                 if (Int32.TryParse(paramsBuf[7], out int _))
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARSType3().Parse(paramsBuf));
+                                    configRows.Add(new CARSType3().Parse(paramsBuf));
                                 }
                                 else
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARSType6().Parse(paramsBuf));
+                                    configRows.Add(new CARSType6().Parse(paramsBuf));
                                 }
 
                                 // TODO: Сделать проверку на соответствие CARSType9
@@ -323,37 +324,27 @@ namespace OpenIII.GameFiles
                             case 12:
                                 if (Int32.TryParse(paramsBuf[11], out int _))
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARSType4().Parse(paramsBuf));
+                                    configRows.Add(new CARSType4().Parse(paramsBuf));
                                 }
                                 else
                                 {
-                                    ConfigSections.Last().ConfigRows.Add(new CARSType1().Parse(paramsBuf));
+                                    configRows.Add(new CARSType1().Parse(paramsBuf));
                                 }
+                                
                                 break;
                             case 13:
-                                ConfigSections.Last().ConfigRows.Add(new CARSType5().Parse(paramsBuf));
-
-                                // TODO: Сделать проверку на соответствие CARSType7
-                                /*
-                                ConfigSections.Last().ConfigRows.Add(new CARSType7(
-                                    Int32.Parse(paramsBuf[0]),
-                                    paramsBuf[1],
-                                    paramsBuf[2],
-                                    paramsBuf[3],
-                                    paramsBuf[4],
-                                    paramsBuf[5],
-                                    paramsBuf[6],
-                                    paramsBuf[7],
-                                    Int32.Parse(paramsBuf[8]),
-                                    Int32.Parse(paramsBuf[9]),
-                                    Int32.Parse(paramsBuf[10]),
-                                    Int32.Parse(paramsBuf[11]),
-                                    double.Parse(paramsBuf[12])
-                                ));
-                                */
+                                if (Int32.TryParse(paramsBuf[11], out int _))
+                                {
+                                    configRows.Add(new CARSType5().Parse(paramsBuf));
+                                }
+                                else
+                                {
+                                    configRows.Add(new CARSType7().Parse(paramsBuf));
+                                }
+                                
                                 break;
                             case 15:
-                                ConfigSections.Last().ConfigRows.Add(new CARSType8().Parse(paramsBuf));
+                                configRows.Add(new CARSType8().Parse(paramsBuf));
                                 break;
                             default:
                                 throw exception;
