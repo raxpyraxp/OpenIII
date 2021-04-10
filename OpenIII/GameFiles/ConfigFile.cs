@@ -78,7 +78,7 @@ namespace OpenIII.GameFiles
         }
 
         /// <summary>
-        /// Формирует строку из всех эелментов секции
+        /// Формирует строку из всех элементов секции
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -89,6 +89,47 @@ namespace OpenIII.GameFiles
         }
     }
 
+    public class ConfigParamType
+    {
+
+    }
+
+    public class Flag : ConfigParamType
+    {
+        private byte[] Value { get; set; }
+
+        public Flag() { }
+
+        public Flag(string hex)
+        {
+
+            this.Value = this.ToBytes(hex);
+        }
+
+        /// <summary>
+        /// Создает массив байтов из строки
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
+        public byte[] ToBytes(string hexString)
+        {
+            byte[] bytes = new byte[hexString.Length * sizeof(char)];
+            System.Buffer.BlockCopy(hexString.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        /// <summary>
+        /// Создает строку в шестнадцатиричном виде
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            char[] chars = new char[Value.Length / sizeof(char)];
+            System.Buffer.BlockCopy(Value, 0, chars, 0, Value.Length);
+            return new string(chars);
+        }
+    }
+
 
     /// <summary>
     /// Элемент секции файла настроек
@@ -96,7 +137,7 @@ namespace OpenIII.GameFiles
     public class ConfigRow
     {
         /// <summary>
-        /// Создает объект типа, соответсвующего контексту из списка переданных ему параметров
+        /// Разбирает строку параметров и преобразует каждый параметр в объект класса соответствующего типа
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns></returns>
@@ -108,8 +149,17 @@ namespace OpenIII.GameFiles
             {
                 var prop = props[i];
                 var type = prop.PropertyType;
-                var val = Convert.ChangeType(parameters[i], type);
-                prop.SetValue(this, val, null);
+
+                // обработаем исключение, которое появится при попытке преобразовать базовый тип в пользовательский
+                try
+                {
+                    var val = Convert.ChangeType(parameters[i], type);
+                    prop.SetValue(this, val, null);
+                }
+                catch
+                {
+                    prop.SetValue(this, new Flag(parameters[i]), null);
+                }
             }
 
             return this;

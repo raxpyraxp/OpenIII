@@ -108,6 +108,7 @@
         private int Flags { get; set; }
 
         public OBJSType4() { }
+
         public OBJSType4(int id, string modelName, string txdName, double drawDistance, int flags)
         {
             this.Id = id;

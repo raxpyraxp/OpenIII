@@ -19,19 +19,19 @@
 
         private string AnimGroup { get; set; }
 
-        private int CarsCanDrive { get; set; }
+        private Flag CarsCanDrive { get; set; }
 
         public PEDSType1() { }
 
-        public PEDSType1(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive)
+        public PEDSType1(int id, string modelName, string txdName, string defaultPedtype, string behavior, string animGroup, Flag carsCanDrive)
         {
             this.Id = id;
             this.ModelName = modelName;
             this.TxdName = txdName;
             this.DefaultPedtype = defaultPedtype;
             this.Behavior = behavior;
-            this.AnimGroup = AnimGroup;
-            this.CarsCanDrive = CarsCanDrive;
+            this.AnimGroup = animGroup;
+            this.CarsCanDrive = carsCanDrive;
         }
     }
 
@@ -49,7 +49,7 @@
 
         private string AnimGroup { get; set; }
 
-        private int CarsCanDrive { get; set; }
+        private Flag CarsCanDrive { get; set; }
 
         private string AnimFile { get; set; }
 
@@ -59,15 +59,15 @@
 
         public PEDSType2() { }
 
-        public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int CarsCanDrive, string animFile, int radioStation1, int radioStation2)
+        public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string animGroup, Flag carsCanDrive, string animFile, int radioStation1, int radioStation2)
         {
             this.Id = id;
             this.ModelName = modelName;
             this.TxdName = txdName;
             this.DefaultPedtype = defaultPedtype;
             this.Behavior = behavior;
-            this.AnimGroup = AnimGroup;
-            this.CarsCanDrive = CarsCanDrive;
+            this.AnimGroup = animGroup;
+            this.CarsCanDrive = carsCanDrive;
             this.AnimFile = animFile;
             this.RadioStation1 = radioStation1;
             this.RadioStation2 = radioStation2;
@@ -88,9 +88,9 @@
 
         private string AnimGroup { get; set; }
 
-        private int CarsCanDrive { get; set; }
+        private Flag CarsCanDrive { get; set; }
 
-        private int Flags { get; set; }
+        private Flag Flags { get; set; }
 
         private string AnimFile { get; set; }
 
@@ -106,7 +106,7 @@
 
         public PEDSType3() { }
 
-        public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, int carsCanDrive, int flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
+        public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, Flag carsCanDrive, Flag flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
         {
             this.Id = id;
             this.ModelName = modelName;
