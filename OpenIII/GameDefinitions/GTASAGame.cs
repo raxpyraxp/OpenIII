@@ -27,6 +27,33 @@ using System.IO;
 
 namespace OpenIII.GameDefinitions
 {
+    /// <summary>
+    /// Номера радиостанций для SA
+    /// </summary>
+    public enum RadioStationsSAEnum
+    {
+        PlaybackFM,
+        KRose,
+        WCTR,
+        KDST,
+        BounceFM,
+        SFUR,
+        RadioLosSantos,
+        RadioX,
+        CSR1039,
+        KJahWest,
+        MasterSounds983,
+        UserTrackPlayer,
+        Off
+    }
+
+    public class RadioStationSA : RadioStation
+    {
+        public RadioStationSA(RadioStationsSAEnum radioStation)
+        {
+            this.StationNumber = (int)radioStation;
+        }
+    }
     class GTASAGame : Game
     {
         /// <summary>

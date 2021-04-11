@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenIII.GameDefinitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -158,7 +159,16 @@ namespace OpenIII.GameFiles
                 }
                 catch
                 {
-                    prop.SetValue(this, new Flag(parameters[i]), null);
+                    // TODO: найти более элегантный способ определить тип параметра
+                    switch (type.Name)
+                    {
+                        case "Flag":
+                            prop.SetValue(this, new Flag(parameters[i]), null);
+                            break;
+                        case "RadioStationVC":
+                            prop.SetValue(this, new RadioStationVC((RadioStationVCEnum)Int32.Parse(parameters[i])), null);
+                            break;
+                    }
                 }
             }
 

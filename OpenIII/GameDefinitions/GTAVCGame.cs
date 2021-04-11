@@ -26,6 +26,32 @@ using System.IO;
 
 namespace OpenIII.GameDefinitions
 {
+    /// <summary>
+    /// Номера радиостанций для VC
+    /// </summary>
+    public enum RadioStationVCEnum
+    {
+        Wildstyle,
+        FlashFM,
+        KChat,
+        Fever105,
+        VRock,
+        VCPR,
+        Espantoso,
+        Emotion983,
+        Wave103,
+        Default,
+        Off
+    }
+
+    public class RadioStationVC : RadioStation
+    {
+        public RadioStationVC(RadioStationVCEnum radioStation)
+        {
+            this.StationNumber = (int)radioStation;
+        }
+    }
+
     class GTAVCGame : Game
     {
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace OpenIII.GameFiles
+﻿using OpenIII.GameDefinitions;
+
+namespace OpenIII.GameFiles
 {
     public class PEDS : ConfigRow
     {
@@ -53,13 +55,13 @@
 
         private string AnimFile { get; set; }
 
-        private int RadioStation1 { get; set; }
+        private RadioStationVC RadioStation1 { get; set; }
 
-        private int RadioStation2 { get; set; }
+        private RadioStationVC RadioStation2 { get; set; }
 
         public PEDSType2() { }
 
-        public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string animGroup, Flag carsCanDrive, string animFile, int radioStation1, int radioStation2)
+        public PEDSType2(int id, string modelName, string txdName, string defaultPedtype, string behavior, string animGroup, Flag carsCanDrive, string animFile, RadioStationVC radioStation1, RadioStationVC radioStation2)
         {
             this.Id = id;
             this.ModelName = modelName;
@@ -94,9 +96,9 @@
 
         private string AnimFile { get; set; }
 
-        private int RadioStation1 { get; set; }
+        private RadioStationSA RadioStation1 { get; set; }
 
-        private int RadioStation2 { get; set; }
+        private RadioStationSA RadioStation2 { get; set; }
 
         private string VoiceArchive { get; set; }
 
@@ -106,7 +108,7 @@
 
         public PEDSType3() { }
 
-        public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, Flag carsCanDrive, Flag flags, string animFile, int radioStation1, int radioStation2, string voiceArchive, string voice1, string voice2)
+        public PEDSType3(int id, string modelName, string txdName, string defaultPedtype, string behavior, string AnimGroup, Flag carsCanDrive, Flag flags, string animFile, RadioStationSA radioStation1, RadioStationSA radioStation2, string voiceArchive, string voice1, string voice2)
         {
             this.Id = id;
             this.ModelName = modelName;

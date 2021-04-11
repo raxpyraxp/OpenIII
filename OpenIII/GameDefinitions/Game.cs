@@ -29,6 +29,16 @@ using System.Reflection;
 
 namespace OpenIII.GameDefinitions
 {
+    public class RadioStation
+    {
+        protected int StationNumber { get; set; }
+
+        public override string ToString()
+        {
+            return this.StationNumber.ToString();
+        }
+    }
+
     class Game
     {
         /// <summary>
