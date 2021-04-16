@@ -25,6 +25,11 @@ namespace OpenIII.GameFiles
 {
     public class IPLFile : ConfigFile
     {
-    
+        public IPLFile(string filePath) : base(filePath) { }
+
+        public void ParseData()
+        {
+            
+        }
     }
 }
