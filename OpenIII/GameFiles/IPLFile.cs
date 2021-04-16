@@ -89,6 +89,91 @@ namespace OpenIII.GameFiles
                                 break;
                         }
                         break;
+                    case CARS.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 12:
+                                configRows.Add(new CARSType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case CULL.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 11:
+                                if (Int32.TryParse(paramsBuf[3], out int _))
+                                {
+                                    configRows.Add(new CULLType2().Parse(paramsBuf));
+                                }
+                                else
+                                {
+                                    configRows.Add(new CULLType1().Parse(paramsBuf));
+                                }
+                                break;
+                            case 13:
+                                configRows.Add(new CULLType3().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case ENEX.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 18:
+                                configRows.Add(new ENEXType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case GRGE.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 11:
+                                configRows.Add(new GRGEType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case JUMP.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 16:
+                                configRows.Add(new JUMPType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case OCCL.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 7:
+                                configRows.Add(new OCCLType1().Parse(paramsBuf));
+                                break;
+                            case 9:
+                                configRows.Add(new OCCLType2().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case PICK.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 4:
+                                configRows.Add(new PICKType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case TCYC.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 12:
+                                configRows.Add(new TCYCType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case ZONE.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 10:
+                                configRows.Add(new ZONEType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
                 }
             }
 

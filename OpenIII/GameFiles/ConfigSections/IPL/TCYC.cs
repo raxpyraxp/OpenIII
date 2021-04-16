@@ -5,7 +5,7 @@
         public const string SectionName = "tcyc";
     }
 
-    public class TCYCType1
+    public class TCYCType1 : TCYC
     {
         private int X1 { get; set; }
 
