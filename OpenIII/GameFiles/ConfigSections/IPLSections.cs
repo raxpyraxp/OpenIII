@@ -389,6 +389,52 @@
         public const string SectionName = "occl";
     }
 
+    public class PICK : ConfigRow
+    {
+        public const string SectionName = "pick";
+    }
+
+    public class PICKType1 : PICK
+    {
+        private int Id { get; set; }
+
+        private double MidX { get; set; }
+
+        private double MidY { get; set; }
+
+        private double BottomZ { get; set; }
+    }
+
+
+    public class ZONE : ConfigRow
+    {
+        public const string SectionName = "zone";
+    }
+
+    public class ZONEType1 : ZONE
+    {
+        private string Name { get; set; }
+
+        private int Type { get; set; }
+        
+        private double X1 { get; set; }
+        
+        private double Y1 { get; set; }
+        
+        private double Z1 { get; set; }
+        
+        private double X2 { get; set; }
+        
+        private double Y2 { get; set; }
+        
+        private double Z2 { get; set; }
+        
+        private int Level { get; set; }
+        
+        private string Text { get; set; }
+    }
+
+
     public class OCCLType1 : OCCL
     {
         private double MidX { get; set; }

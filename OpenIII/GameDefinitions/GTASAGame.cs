@@ -47,6 +47,58 @@ namespace OpenIII.GameDefinitions
         Off
     }
 
+    // TODO: проверить, действительно ли SPASShotgun и Minigun имеют 2 id
+    public enum PICKWeapon
+    {
+        BrassKnuckles = 4,
+        Nightstick,
+        Knife,
+        GolfClub = 9,
+        Bat,
+        Shovel,
+        PoolCue,
+        Katana,
+        Chainsaw,
+        Molotov,
+        Grenades,
+        Satchels,
+        Pistol9mm,
+        Silenced9mm,
+        DesertEagle,
+        Shotgun,
+        SPASShotgun,
+        Tec9,
+        MicroSMG,
+        MP5,
+        AK47,
+        M4,
+        CountryRifle,
+        SniperRifle,
+        Flamethrower = 31,
+        Minigun,
+        LargePurpleDildo,
+        SmallWhiteDildo,
+        SmallBlackVibrator,
+        Flowers,
+        Cane,
+        SmallGunbox,
+        BigGunbox,
+        Cellphone,
+        Teargas = 43,
+        Minigun2,
+        SPASShotgun2,
+        RocketLauncher,
+        HeatSeekingRocketLauncher,
+        Detonator,
+        Spraycan,
+        FireExtinguisher,
+        Camera,
+        NightvisionGoggles,
+        InfraredGoggles,
+        Jetpack,
+        Parachute,
+    }
+
     public class RadioStationSA : RadioStation
     {
         public RadioStationSA(RadioStationsSAEnum radioStation)
