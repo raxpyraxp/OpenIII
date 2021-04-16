@@ -21,6 +21,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+using OpenIII.GameFiles.ConfigSections.IPL;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 namespace OpenIII.GameFiles
 {
     public class IPLFile : ConfigFile
@@ -29,7 +35,64 @@ namespace OpenIII.GameFiles
 
         public void ParseData()
         {
-            
+            string lineIterator;
+            StreamReader Reader = new StreamReader(this.FullPath);
+            Exception exception = new Exception("Неизвестное количество параметров.");
+
+            while (!Reader.EndOfStream)
+            {
+                lineIterator = Reader.ReadLine();
+                List<string> paramsBuf;
+
+                if (ExcludedSynbols.IndexOf(lineIterator) >= 0 || lineIterator.IndexOf('#') > -1)
+                {
+                    continue;
+                }
+
+                if (SectionNames.IndexOf(lineIterator) >= 0)
+                {
+                    ConfigSections.Add(new ConfigSection(lineIterator));
+                    continue;
+                }
+
+                paramsBuf = new List<string>(lineIterator.Split(','));
+
+                if (paramsBuf.Count < 2) continue;
+
+                paramsBuf = CleanParams(paramsBuf);
+                var configRows = ConfigSections.Last().ConfigRows;
+
+                switch (ConfigSections.Last().Name)
+                {
+                    case INST.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 11:
+                                configRows.Add(new INSTType3().Parse(paramsBuf));
+                                break;
+                            case 12:
+                                configRows.Add(new INSTType1().Parse(paramsBuf));
+                                break;
+                            case 13:
+                                configRows.Add(new INSTType2().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                    case AUZO.SectionName:
+                        switch (paramsBuf.Count)
+                        {
+                            case 7:
+                                configRows.Add(new AUZOType2().Parse(paramsBuf));
+                                break;
+                            case 9:
+                                configRows.Add(new AUZOType1().Parse(paramsBuf));
+                                break;
+                        }
+                        break;
+                }
+            }
+
+            Reader.Close();
         }
     }
 }

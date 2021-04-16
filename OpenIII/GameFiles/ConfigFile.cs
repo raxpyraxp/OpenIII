@@ -9,7 +9,7 @@ namespace OpenIII.GameFiles
     public class ConfigFile : GameFile
     {
         public static List<string> SectionNames = new List<string> {
-            "objs", "tobj", "hier", "cars", "peds", "path", "2dfx", "weap", "anim", "txdp"
+            "objs", "tobj", "hier", "cars", "peds", "path", "2dfx", "weap", "anim", "txdp", "auzo", "inst"
         };
 
         public static List<string> ExcludedSynbols = new List<string>

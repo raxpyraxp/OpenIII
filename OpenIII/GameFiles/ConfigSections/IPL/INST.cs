@@ -31,6 +31,8 @@
 
         private double RotW { get; set; }
 
+        public INSTType1() { }
+
         public INSTType1(int id, string modelName, double posX, double posY, double posZ, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, double rotW)
         {
             this.Id = id;
@@ -76,6 +78,8 @@
 
         private double RotW { get; set; }
 
+        public INSTType2() { }
+
         public INSTType2(int id, string modelName, int interior, double posX, double posY, double posZ, double scaleX, double scaleY, double scaleZ, double rotX, double rotY, double rotZ, double rotW)
         {
             this.Id = id;
@@ -117,6 +121,8 @@
         private double RotW { get; set; }
 
         private int Lod { get; set; }
+
+        public INSTType3() { }
 
         public INSTType3(int id, string modelName, int interior, double posX, double posY, double posZ, double rotX, double rotY, double rotZ, double rotW, int lod)
         {
