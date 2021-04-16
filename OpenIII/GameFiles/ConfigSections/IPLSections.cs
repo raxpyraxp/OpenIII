@@ -1,4 +1,4 @@
-﻿namespace OpenIII.GameFiles
+﻿namespace OpenIII.GameFiles.ConfigSections.IPL
 {
     public class INST : ConfigRow
     {
@@ -311,6 +311,69 @@
         private int TimeOff { get; set; }
     }
 
+    public class CARS : ConfigRow
+    {
+        public const string SectionName = "cars";
+    }
+
+    public class CARSType1 : CARS
+    {
+        private double PosX { get; set; }
+
+        private double PosY { get; set; }
+
+        private double PosZ { get; set; }
+
+        private double Angle { get; set; }
+
+        private int CarID { get; set; }
+
+        private int PrimCol { get; set; }
+
+        private int SecCol { get; set; }
+
+        private int ForceSpawn { get; set; }
+
+        private int Alarm { get; set; }
+
+        private int DoorLock { get; set; }
+
+        private int Unknown1 { get; set; }
+
+        private int Unknown2 { get; set; }
+    }
+
+    public class TCYC : ConfigRow
+    {
+        public const string SectionName = "tcyc";
+    }
+
+    public class TCYCType1
+    {
+        private int X1 { get; set; }
+        
+        private int Y1 { get; set; }
+        
+        private int Z1 { get; set; }
+        
+        private int X2 { get; set; }
+        
+        private int Y2 { get; set; }
+        
+        private int Z2 { get; set; }
+        
+        private int farClip { get; set; }
+        
+        private int extraColor { get; set; }
+        
+        private int extraColorintensity { get; set; }
+        
+        private int falloffDist { get; set; }
+        
+        private int unused { get; set; }
+        
+        private int lodDistMult { get; set; }
+    }
 
     public class GRGE : ConfigRow
     {

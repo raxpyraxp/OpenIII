@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace OpenIII.GameFiles
+namespace OpenIII.GameFiles.ConfigSections.IDE
 {
     public class PATH : ConfigRow
     {

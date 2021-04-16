@@ -1,4 +1,4 @@
-﻿namespace OpenIII.GameFiles
+﻿namespace OpenIII.GameFiles.ConfigSections.IDE
 {
     public class TOBJ : ConfigRow
     {
