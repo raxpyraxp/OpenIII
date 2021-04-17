@@ -21,6 +21,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+using OpenIII.GameFiles.ConfigSections;
 using OpenIII.GameFiles.ConfigSections.IPL;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,74 @@ namespace OpenIII.GameFiles
 
                 switch (ConfigSections.Last().Name)
                 {
+                    case PATH.SectionName:
+                        lineIterator = Reader.ReadLine();
+
+                        List<PATHNode> parsedNodes = new List<PATHNode>();
+                        List<string> nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                        nodesParamsBuf = CleanParams(nodesParamsBuf);
+
+                        switch (paramsBuf.Count)
+                        {
+                            case 3:
+                                while (nodesParamsBuf.Count == 9)
+                                {
+                                    parsedNodes.Add(new PATHNode(
+                                        Int32.Parse(nodesParamsBuf[0]),
+                                        Int32.Parse(nodesParamsBuf[1]),
+                                        Int32.Parse(nodesParamsBuf[2]),
+                                        double.Parse(nodesParamsBuf[3]),
+                                        double.Parse(nodesParamsBuf[4]),
+                                        double.Parse(nodesParamsBuf[5]),
+                                        double.Parse(nodesParamsBuf[6]),
+                                        Int32.Parse(nodesParamsBuf[7]),
+                                        Int32.Parse(nodesParamsBuf[8])
+                                    ));
+
+                                    if (parsedNodes.Count == 12) break;
+
+                                    lineIterator = Reader.ReadLine();
+                                    nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                                }
+
+                                ConfigSections.Last().ConfigRows.Add(new PATHType1(
+                                    paramsBuf[0],
+                                    Int32.Parse(paramsBuf[1]),
+                                    paramsBuf[2],
+                                    parsedNodes.ToArray()
+                                ));
+                                break;
+                            case 2:
+                                while (nodesParamsBuf.Count == 12)
+                                {
+                                    parsedNodes.Add(new PATHNode(
+                                        Int32.Parse(nodesParamsBuf[0]),
+                                        Int32.Parse(nodesParamsBuf[1]),
+                                        Int32.Parse(nodesParamsBuf[2]),
+                                        double.Parse(nodesParamsBuf[3]),
+                                        double.Parse(nodesParamsBuf[4]),
+                                        double.Parse(nodesParamsBuf[5]),
+                                        Int32.Parse(nodesParamsBuf[7]),
+                                        Int32.Parse(nodesParamsBuf[8]),
+                                        double.Parse(nodesParamsBuf[6])
+                                    ));
+
+                                    if (parsedNodes.Count == 12) break;
+
+                                    lineIterator = Reader.ReadLine();
+                                    nodesParamsBuf = new List<string>(lineIterator.Split(','));
+                                }
+
+                                ConfigSections.Last().ConfigRows.Add(new PATHType2(
+                                    paramsBuf[0],
+                                    Int32.Parse(paramsBuf[1]),
+                                    parsedNodes.ToArray()
+                                ));
+                                break;
+                            default:
+                                throw exception;
+                        }
+                        break;
                     case INST.SectionName:
                         switch (paramsBuf.Count)
                         {

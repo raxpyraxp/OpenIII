@@ -143,7 +143,6 @@
     <Compile Include="GameFiles\ConfigSections\IDE\HAND.cs" />
     <Compile Include="GameFiles\ConfigSections\IDE\HEIR.cs" />
     <Compile Include="GameFiles\ConfigSections\IDE\OBJS.cs" />
-    <Compile Include="GameFiles\ConfigSections\IDE\PATH.cs" />
     <Compile Include="GameFiles\ConfigSections\IDE\PEDS.cs" />
     <Compile Include="GameFiles\ConfigSections\IDE\TOBJ.cs" />
     <Compile Include="GameFiles\ConfigSections\IDE\TwoDFX.cs" />
@@ -157,6 +156,7 @@
     <Compile Include="GameFiles\ConfigSections\IPL\INST.cs" />
     <Compile Include="GameFiles\ConfigSections\IPL\JUMP.cs" />
     <Compile Include="GameFiles\ConfigSections\IPL\OCCL.cs" />
+    <Compile Include="GameFiles\ConfigSections\PATH.cs" />
     <Compile Include="GameFiles\ConfigSections\IPL\PICK.cs" />
     <Compile Include="GameFiles\ConfigSections\IPL\TCYC.cs" />
     <Compile Include="GameFiles\ConfigSections\IPL\ZONE.cs" />
