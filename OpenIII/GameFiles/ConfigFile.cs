@@ -13,7 +13,7 @@ namespace OpenIII.GameFiles
             "objs", "tobj", "hier", "cars", "peds", "path",
             "2dfx", "weap", "anim", "txdp", "auzo", "inst",
             "jump", "occl", "pick", "tcyc", "zone", "grge",
-            "enex"
+            "enex", "cull", "mult"
         };
 
         public static List<string> ExcludedSynbols = new List<string>

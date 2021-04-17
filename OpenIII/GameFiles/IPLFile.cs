@@ -161,7 +161,7 @@ namespace OpenIII.GameFiles
                     case TCYC.SectionName:
                         switch (paramsBuf.Count)
                         {
-                            case 12:
+                            case 11:
                                 configRows.Add(new TCYCType1().Parse(paramsBuf));
                                 break;
                         }
